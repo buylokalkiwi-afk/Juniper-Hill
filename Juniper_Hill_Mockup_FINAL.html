@@ -1389,42 +1389,6 @@ footer { background: var(--color--kale-dark); padding: 60px 5% 36px; }
 
 <style>
 
-/* ─── CLOTHING TAG ──────────────────────────────────────────────── */
-.nav-tag {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform-origin: top center;
-  /* swing animation */
-  animation: tagSwing 4s ease-in-out infinite;
-}
-
-@keyframes tagSwing {
-  0%   { transform: translateX(-50%) rotate(-2deg); }
-  25%  { transform: translateX(-50%) rotate(0deg); }
-  50%  { transform: translateX(-50%) rotate(2deg); }
-  75%  { transform: translateX(-50%) rotate(0deg); }
-  100% { transform: translateX(-50%) rotate(-2deg); }
-}
-
-/* thread from nav top */
-.nav-tag-thread {
-  width: 1px;
-  height: 8px;
-  background: rgba(100,80,60,0.5);
-}
-
-/* white circular sticker around the hole */
-.nav-tag-sticker { display: none; }
-.nav-tag-hole {
-  display: none;
-}
-
 /* the tag card itself */
 .nav-tag-card {
   background: transparent;
