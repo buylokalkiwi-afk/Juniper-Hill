@@ -90,6 +90,12 @@ nav {
   font-weight: 500 !important; transition: background 0.2s !important;
 }
 .nav-cta:hover { background: var(--color--kale-mid) !important; }
+.cart-weight {
+  font-size: 10px;
+  opacity: 0.8;
+  display: block;
+  margin-top: 2px;
+}
 
 /* ─── PAGE HEADER ────────────────────────────────────────────── */
 .page-header {
@@ -103,6 +109,189 @@ nav {
 .page-header p {
   font-family: var(--font--body); font-size: 20px; margin-top: 12px;
   opacity: 0.85; font-style: italic;
+}
+
+/* ─── WEIGHT PROGRESS BAR ─────────────────────────────────────── */
+.weight-progress-container {
+  background: #fff;
+  border: 1px solid var(--color--border);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+}
+.weight-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.weight-progress-title {
+  font-family: var(--font--ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color--charcoal);
+}
+.weight-progress-amount {
+  font-family: var(--font--ui);
+  font-size: 14px;
+  color: var(--color--kale);
+  font-weight: 600;
+}
+.weight-progress-bar {
+  height: 12px;
+  background: var(--color--parchment);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.weight-progress-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+.weight-progress-fill.under {
+  background: linear-gradient(90deg, var(--color--terracotta), #e07850);
+}
+.weight-progress-fill.complete {
+  background: linear-gradient(90deg, var(--color--kale), var(--color--kale-mid));
+}
+.weight-progress-marker {
+  position: absolute;
+  top: -6px;
+  left: 100%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 24px;
+  background: var(--color--charcoal);
+}
+.weight-progress-marker::after {
+  content: '5kg min';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--color--stone);
+  white-space: nowrap;
+}
+.weight-progress-message {
+  margin-top: 12px;
+  font-family: var(--font--body);
+  font-size: 16px;
+  color: var(--color--charcoal);
+}
+.weight-progress-message.under {
+  color: var(--color--terracotta);
+}
+.weight-progress-message.complete {
+  color: var(--color--kale);
+}
+.weight-progress-message strong {
+  font-family: var(--font--ui);
+  font-weight: 600;
+}
+
+/* ─── QUICK ADD SUGGESTIONS ──────────────────────────────────── */
+.quick-add-section {
+  background: linear-gradient(135deg, #FFF8F0 0%, #FFF5EB 100%);
+  border: 2px solid var(--color--terracotta);
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+.quick-add-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.quick-add-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--color--terracotta);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+}
+.quick-add-title {
+  font-family: var(--font--ui);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color--charcoal);
+}
+.quick-add-title span {
+  color: var(--color--terracotta);
+  font-weight: 600;
+}
+.quick-add-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.quick-add-item {
+  background: #fff;
+  border: 1px solid var(--color--border);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quick-add-item:hover {
+  border-color: var(--color--kale);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.quick-add-item-img {
+  width: 50px;
+  height: 50px;
+  background: var(--color--parchment);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.quick-add-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.quick-add-item-info {
+  flex: 1;
+  min-width: 0;
+}
+.quick-add-item-name {
+  font-family: var(--font--ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color--charcoal);
+  margin-bottom: 2px;
+}
+.quick-add-item-weight {
+  font-family: var(--font--body);
+  font-size: 12px;
+  color: var(--color--stone);
+}
+.quick-add-item-price {
+  font-family: var(--font--ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color--kale);
+}
+.quick-add-btn {
+  background: var(--color--kale);
+  color: #fff;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.quick-add-btn:hover {
+  background: var(--color--kale-mid);
 }
 
 /* ─── CHECKOUT LAYOUT ────────────────────────────────────────── */
@@ -139,6 +328,15 @@ nav {
   font-family: var(--font--body); font-size: 16px;
   color: var(--color--stone); margin-bottom: 16px;
 }
+.cart-item-weight {
+  display: inline-block;
+  background: var(--color--parchment);
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color--kale);
+  margin-bottom: 12px;
+}
 .cart-item-qty { display: flex; align-items: center; gap: 12px; }
 .qty-btn {
   width: 36px; height: 36px; border: 1px solid var(--color--border);
@@ -161,16 +359,6 @@ nav {
   transition: opacity 0.2s;
 }
 .cart-item-price .remove:hover { opacity: 0.7; }
-
-/* ─── MINIMUM ORDER WARNING ──────────────────────────────────── */
-.min-order-warning {
-  background: #FFF3CD; border: 1px solid #FFEEBA; padding: 18px 24px;
-  margin-bottom: 28px; display: flex; align-items: center; gap: 14px;
-}
-.min-order-warning.success { background: var(--color--zest); border-color: var(--color--kale-mid); }
-.warning-icon { font-size: 26px; }
-.warning-text { font-size: 15px; font-family: var(--font--body); }
-.warning-text strong { color: var(--color--kale); font-family: var(--font--ui); }
 
 /* ─── ORDER SUMMARY ──────────────────────────────────────────── */
 .summary-section { width: 420px; }
@@ -212,24 +400,11 @@ nav {
 .delivery-input input:focus {
   outline: none; border-color: var(--color--kale);
 }
-.delivery-result {
+.delivery-blocked {
   margin-top: 14px; padding: 14px 18px;
-  background: var(--color--zest); font-size: 14px;
-  color: var(--color--kale); font-family: var(--font--body);
-}
-
-/* ─── PAYMENT METHODS ────────────────────────────────────────── */
-.payment-methods { margin: 28px 0; }
-.payment-methods h3 {
-  font-size: 12px; color: var(--color--stone); margin-bottom: 14px;
-  letter-spacing: 1.5px; text-transform: uppercase;
-}
-.payment-icons { display: flex; gap: 10px; }
-.payment-icon {
-  width: 54px; height: 36px; border: 1px solid var(--color--border);
-  background: #fff; display: flex; align-items: center;
-  justify-content: center; font-size: 11px; font-weight: 600;
-  color: var(--color--stone);
+  background: #FFF3CD; font-size: 14px;
+  color: #856404; font-family: var(--font--body);
+  border: 1px solid #FFEEBA;
 }
 
 /* ─── CHECKOUT BUTTON ────────────────────────────────────────── */
@@ -241,6 +416,10 @@ nav {
   cursor: pointer; margin-top: 20px; transition: background 0.3s;
 }
 .checkout-btn:hover { background: #a04d2d; }
+.checkout-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
 
 /* ─── TRUST BADGES ───────────────────────────────────────────── */
 .trust-badges {
@@ -270,11 +449,11 @@ footer {
 </head>
 <body>
 
-<div class="mockup-badge">MOCKUP — CART & CHECKOUT — STRIPE PAYMENTS (NO BANK TRANSFER!)</div>
+<div class="mockup-badge">MOCKUP — CART & CHECKOUT — WEIGHT PROGRESS BAR + SMART SUGGESTIONS</div>
 
 <div class="site-banner">
   <div class="banner-inner">
-    Free North Island delivery on orders over $150
+    Free North Island delivery on orders over $150 | Minimum 5kg order for delivery
   </div>
 </div>
 
@@ -285,7 +464,7 @@ footer {
     <li><a href="02_Storefront_Shop.html">Shop</a></li>
     <li><a href="#">Our Story</a></li>
     <li><a href="#">Recipes</a></li>
-    <li><a href="#" class="nav-cta">Cart (3)</a></li>
+    <li><a href="#" class="nav-cta">Cart (2)<span class="cart-weight">3.2kg</span></a></li>
   </ul>
 </nav>
 
@@ -296,68 +475,104 @@ footer {
 
 <div class="checkout-container">
   <div class="cart-section">
-    <h2>Cart Items (3)</h2>
+    <h2>Cart Items (2)</h2>
 
-    <!-- Minimum Order Success -->
-    <div class="min-order-warning success">
-      <span class="warning-icon">&#10003;</span>
-      <span class="warning-text"><strong>Excellent!</strong> Your order qualifies for home delivery (minimum 5kg met).</span>
+    <!-- WEIGHT PROGRESS BAR -->
+    <div class="weight-progress-container">
+      <div class="weight-progress-header">
+        <span class="weight-progress-title">Order Weight</span>
+        <span class="weight-progress-amount">3.2kg / 5kg minimum</span>
+      </div>
+      <div class="weight-progress-bar">
+        <div class="weight-progress-fill under" style="width: 64%;"></div>
+      </div>
+      <p class="weight-progress-message under">
+        <strong>1.8kg to go!</strong> Add a bit more to qualify for delivery.
+      </p>
+    </div>
+
+    <!-- QUICK ADD SUGGESTIONS -->
+    <div class="quick-add-section">
+      <div class="quick-add-header">
+        <div class="quick-add-icon">+</div>
+        <div class="quick-add-title">
+          You're <span>1.8kg away</span> from delivery! Quick adds:
+        </div>
+      </div>
+      <div class="quick-add-grid">
+        <div class="quick-add-item">
+          <div class="quick-add-item-img">
+            <img src="https://www.juniperhill.co.nz/wp-content/uploads/2024/05/Bavette-300x300.jpg" alt="Bavette">
+          </div>
+          <div class="quick-add-item-info">
+            <div class="quick-add-item-name">Bavette Steak</div>
+            <div class="quick-add-item-weight">1.8kg</div>
+            <div class="quick-add-item-price">$64.80</div>
+          </div>
+          <button class="quick-add-btn">+</button>
+        </div>
+        <div class="quick-add-item">
+          <div class="quick-add-item-img">
+            <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=100" alt="Mince">
+          </div>
+          <div class="quick-add-item-info">
+            <div class="quick-add-item-name">Premium Mince</div>
+            <div class="quick-add-item-weight">1kg</div>
+            <div class="quick-add-item-price">$15.00</div>
+          </div>
+          <button class="quick-add-btn">+</button>
+        </div>
+        <div class="quick-add-item">
+          <div class="quick-add-item-img">
+            <img src="https://www.juniperhill.co.nz/wp-content/uploads/2024/05/Rump-Stk-300x300.jpg" alt="Rump">
+          </div>
+          <div class="quick-add-item-info">
+            <div class="quick-add-item-name">Rump Steak</div>
+            <div class="quick-add-item-weight">1kg</div>
+            <div class="quick-add-item-price">$42.00</div>
+          </div>
+          <button class="quick-add-btn">+</button>
+        </div>
+      </div>
     </div>
 
     <!-- Cart Items -->
     <div class="cart-item">
       <div class="cart-item-img">
-        <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=200" alt="Ribeye">
+        <img src="https://www.juniperhill.co.nz/wp-content/uploads/2024/05/Ribeye-Steak-1-300x300.jpg" alt="Ribeye">
       </div>
       <div class="cart-item-info">
         <h3>Ribeye Steak</h3>
-        <p>300g | Dry-cured | $73.33/kg</p>
+        <span class="cart-item-weight">1.3kg per steak</span>
+        <p>Dry-aged 21 days | $70.00/kg</p>
         <div class="cart-item-qty">
           <button class="qty-btn">-</button>
-          <span class="qty-value">2</span>
+          <span class="qty-value">1</span>
           <button class="qty-btn">+</button>
         </div>
       </div>
       <div class="cart-item-price">
-        <p class="price">$44.00</p>
+        <p class="price">$91.00</p>
         <p class="remove">Remove</p>
       </div>
     </div>
 
     <div class="cart-item">
       <div class="cart-item-img">
-        <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=200" alt="Mince">
+        <img src="https://www.juniperhill.co.nz/wp-content/uploads/2024/05/Rump-Stk-300x300.jpg" alt="Rump">
       </div>
       <div class="cart-item-info">
-        <h3>Premium Mince 1kg</h3>
-        <p>1kg | Fresh | $15.00/kg</p>
+        <h3>Rump Steak</h3>
+        <span class="cart-item-weight">400g per steak</span>
+        <p>Dry-aged 21 days | $42.00/kg</p>
         <div class="cart-item-qty">
           <button class="qty-btn">-</button>
-          <span class="qty-value">3</span>
+          <span class="qty-value">5</span>
           <button class="qty-btn">+</button>
         </div>
       </div>
       <div class="cart-item-price">
-        <p class="price">$45.00</p>
-        <p class="remove">Remove</p>
-      </div>
-    </div>
-
-    <div class="cart-item">
-      <div class="cart-item-img">
-        <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=200" alt="Sausages">
-      </div>
-      <div class="cart-item-info">
-        <h3>Beef Sausages 800g</h3>
-        <p>800g | Traditional | $22.00/kg</p>
-        <div class="cart-item-qty">
-          <button class="qty-btn">-</button>
-          <span class="qty-value">2</span>
-          <button class="qty-btn">+</button>
-        </div>
-      </div>
-      <div class="cart-item-price">
-        <p class="price">$35.20</p>
+        <p class="price">$84.00</p>
         <p class="remove">Remove</p>
       </div>
     </div>
@@ -368,40 +583,28 @@ footer {
       <h2>Order Summary</h2>
       
       <div class="summary-row">
-        <span>Subtotal (5.2kg)</span>
-        <span>$124.20</span>
+        <span>Subtotal</span>
+        <span>$175.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Order weight</span>
+        <span><strong>3.2kg</strong></span>
       </div>
       
       <div class="delivery-input">
         <label>Delivery Postcode</label>
         <input type="text" value="6011" placeholder="Enter postcode">
-        <div class="delivery-result">
-          &#10003; Wellington - North Island delivery: <strong>$15.00</strong>
+        <div class="delivery-blocked">
+          ⚠ Add 1.8kg more to reach the 5kg delivery minimum
         </div>
-      </div>
-
-      <div class="summary-row">
-        <span>Delivery</span>
-        <span>$15.00</span>
       </div>
 
       <div class="summary-row total">
         <span>Total (NZD)</span>
-        <span>$139.20</span>
+        <span>$175.00</span>
       </div>
 
-      <div class="payment-methods">
-        <h3>We Accept</h3>
-        <div class="payment-icons">
-          <div class="payment-icon">VISA</div>
-          <div class="payment-icon">MC</div>
-          <div class="payment-icon">AMEX</div>
-          <div class="payment-icon">Apple</div>
-          <div class="payment-icon">G Pay</div>
-        </div>
-      </div>
-
-      <button class="checkout-btn">Proceed to Checkout</button>
+      <button class="checkout-btn" disabled>Add 1.8kg to Checkout</button>
 
       <div class="stripe-badge">
         Secure checkout powered by <strong>Stripe</strong>
