@@ -202,7 +202,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 .quick-add-icon {
   width: 40px;
@@ -225,6 +225,46 @@ nav {
   color: var(--color--terracotta);
   font-weight: 600;
 }
+
+/* Filter Tabs */
+.quick-add-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.filter-tab {
+  padding: 8px 16px;
+  border: 1px solid var(--color--border);
+  background: #fff;
+  font-family: var(--font--ui);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color--stone);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 20px;
+}
+.filter-tab:hover {
+  border-color: var(--color--kale);
+  color: var(--color--kale);
+}
+.filter-tab.active {
+  background: var(--color--kale);
+  color: #fff;
+  border-color: var(--color--kale);
+}
+.filter-tab.price-low {
+  background: #E8F5E9;
+  border-color: #4CAF50;
+  color: #2E7D32;
+}
+.filter-tab.price-low:hover,
+.filter-tab.price-low.active {
+  background: #4CAF50;
+  color: #fff;
+}
+
 .quick-add-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -499,18 +539,18 @@ footer {
           You're <span>1.8kg away</span> from delivery! Quick adds:
         </div>
       </div>
+      
+      <!-- FILTER TABS -->
+      <div class="quick-add-filters">
+        <button class="filter-tab price-low active">$ Cheapest First</button>
+        <button class="filter-tab">All Products</button>
+        <button class="filter-tab">Steaks</button>
+        <button class="filter-tab">Mince & Strips</button>
+        <button class="filter-tab">Slow Cooking</button>
+        <button class="filter-tab">Organs & Marrow</button>
+      </div>
+
       <div class="quick-add-grid">
-        <div class="quick-add-item">
-          <div class="quick-add-item-img">
-            <img src="https://www.juniperhill.co.nz/wp-content/uploads/2024/05/Bavette-300x300.jpg" alt="Bavette">
-          </div>
-          <div class="quick-add-item-info">
-            <div class="quick-add-item-name">Bavette Steak</div>
-            <div class="quick-add-item-weight">1.8kg</div>
-            <div class="quick-add-item-price">$64.80</div>
-          </div>
-          <button class="quick-add-btn">+</button>
-        </div>
         <div class="quick-add-item">
           <div class="quick-add-item-img">
             <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=100" alt="Mince">
@@ -518,7 +558,51 @@ footer {
           <div class="quick-add-item-info">
             <div class="quick-add-item-name">Premium Mince</div>
             <div class="quick-add-item-weight">1kg</div>
-            <div class="quick-add-item-price">$15.00</div>
+            <div class="quick-add-item-price">$15.00 <span style="font-size:10px;color:#666;">($15/kg)</span></div>
+          </div>
+          <button class="quick-add-btn">+</button>
+        </div>
+        <div class="quick-add-item">
+          <div class="quick-add-item-img">
+            <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=100" alt="Sausages">
+          </div>
+          <div class="quick-add-item-info">
+            <div class="quick-add-item-name">Beef Sausages</div>
+            <div class="quick-add-item-weight">800g</div>
+            <div class="quick-add-item-price">$17.60 <span style="font-size:10px;color:#666;">($22/kg)</span></div>
+          </div>
+          <button class="quick-add-btn">+</button>
+        </div>
+        <div class="quick-add-item">
+          <div class="quick-add-item-img">
+            <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=100" alt="Mince 500g">
+          </div>
+          <div class="quick-add-item-info">
+            <div class="quick-add-item-name">Premium Mince</div>
+            <div class="quick-add-item-weight">500g</div>
+            <div class="quick-add-item-price">$7.50 <span style="font-size:10px;color:#666;">($15/kg)</span></div>
+          </div>
+          <button class="quick-add-btn">+</button>
+        </div>
+        <div class="quick-add-item">
+          <div class="quick-add-item-img">
+            <img src="https://www.juniperhill.co.nz/wp-content/uploads/2024/05/Flat-Iron--300x300.jpg" alt="Flat Iron">
+          </div>
+          <div class="quick-add-item-info">
+            <div class="quick-add-item-name">Flat Iron Steak</div>
+            <div class="quick-add-item-weight">~300g</div>
+            <div class="quick-add-item-price">$9.50 <span style="font-size:10px;color:#666;">($31/kg)</span></div>
+          </div>
+          <button class="quick-add-btn">+</button>
+        </div>
+        <div class="quick-add-item">
+          <div class="quick-add-item-img">
+            <img src="https://www.juniperhill.co.nz/wp-content/uploads/2024/05/Onglet-Steak-300x300.png" alt="Onglet">
+          </div>
+          <div class="quick-add-item-info">
+            <div class="quick-add-item-name">Onglet Steak</div>
+            <div class="quick-add-item-weight">~350g</div>
+            <div class="quick-add-item-price">$13.20 <span style="font-size:10px;color:#666;">($37/kg)</span></div>
           </div>
           <button class="quick-add-btn">+</button>
         </div>
@@ -528,8 +612,8 @@ footer {
           </div>
           <div class="quick-add-item-info">
             <div class="quick-add-item-name">Rump Steak</div>
-            <div class="quick-add-item-weight">1kg</div>
-            <div class="quick-add-item-price">$42.00</div>
+            <div class="quick-add-item-weight">400g</div>
+            <div class="quick-add-item-price">$16.80 <span style="font-size:10px;color:#666;">($42/kg)</span></div>
           </div>
           <button class="quick-add-btn">+</button>
         </div>
