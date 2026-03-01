@@ -4,142 +4,286 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Juniper Hill Farm — Cart & Checkout</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ─── CSS VARIABLES ────────────────────────────────────────── */
 :root {
-  --kale: #2D4A2D;
-  --kale-dark: #1A2E1A;
-  --terracotta: #B85C38;
-  --parchment: #F5EFE0;
-  --feta: #FAF7F2;
-  --charcoal: #1E1E1E;
-  --stone: #7A7163;
-  --zest: #c8d9a0;
-  --border: #E2D9CC;
-}
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
+  --color--kale:       #2D4A2D;
+  --color--kale-dark:  #1A2E1A;
+  --color--kale-mid:   #3D6040;
+  --color--terracotta: #B85C38;
+  --color--terra-lt:   #d4714a;
+  --color--parchment:  #F5EFE0;
+  --color--feta:       #FAF7F2;
+  --color--charcoal:   #1E1E1E;
+  --color--stone:      #7A7163;
+  --color--stone-lt:   #A39B8F;
+  --color--zest:       #c8d9a0;
+  --color--border:     #E2D9CC;
 
+  --font--heading: 'Playfair Display', serif;
+  --font--body:    'Cormorant Garamond', serif;
+  --font--ui:      'Jost', sans-serif;
+}
+
+/* ─── RESET & BASE ──────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font--ui);
+  background: var(--color--feta);
+  color: var(--color--charcoal);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color--zest); }
+a { color: inherit; text-decoration: none; }
+
+/* ─── MOCKUP BADGE ───────────────────────────────────────────── */
 .mockup-badge {
   position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-  background: var(--terracotta); color: #fff; text-align: center;
-  font-size: 11px; letter-spacing: 2px; padding: 8px; font-weight: 500; text-transform: uppercase;
+  background: var(--color--terracotta); color: #fff;
+  text-align: center; font-family: var(--font--ui);
+  font-size: 10px; letter-spacing: 2px; padding: 7px;
+  font-weight: 500; text-transform: uppercase;
 }
 
+/* ─── SITE BANNER ───────────────────────────────────────────── */
+.site-banner {
+  background: #141E14; padding: 0 40px; height: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; justify-content: center;
+}
+.banner-inner {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font--ui); font-size: 12px;
+  color: var(--color--parchment); letter-spacing: 1px;
+}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
 nav {
-  background: var(--feta); border-bottom: 1px solid var(--border);
-  padding: 0 48px; height: 70px; display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 28px; z-index: 100;
+  background: var(--color--feta);
+  border-bottom: 1px solid var(--color--border);
+  padding: 0 48px; height: 66px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--kale); letter-spacing: 3px; font-weight: 700; }
-.nav-logo span { color: var(--terracotta); }
-.nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a { font-size: 12px; letter-spacing: 1.5px; color: var(--stone); text-transform: uppercase; text-decoration: none; }
-.nav-cta { background: var(--kale); color: #fff !important; padding: 12px 24px; font-weight: 500; }
+.nav-logo {
+  font-family: var(--font--heading); font-size: 25px;
+  color: var(--color--kale); letter-spacing: 4px; font-weight: 700;
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--color--terracotta); }
+.nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+.nav-links a {
+  font-family: var(--font--ui); font-size: 11.5px;
+  letter-spacing: 1.5px; color: var(--color--stone);
+  font-weight: 400; text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--color--kale); }
+.nav-cta {
+  background: var(--color--kale) !important; color: #fff !important;
+  padding: 10px 22px !important; letter-spacing: 1.5px !important;
+  font-weight: 500 !important; transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--color--kale-mid) !important; }
 
+/* ─── PAGE HEADER ────────────────────────────────────────────── */
 .page-header {
-  background: var(--kale); padding: 50px 80px; text-align: center; color: #fff;
+  background: linear-gradient(135deg, var(--color--kale) 0%, var(--color--kale-dark) 100%);
+  padding: 60px 80px; text-align: center; color: #fff;
 }
-.page-header h1 { font-family: 'Playfair Display', serif; font-size: 42px; }
+.page-header h1 {
+  font-family: var(--font--heading); font-size: 48px; font-weight: 400;
+  letter-spacing: 2px;
+}
+.page-header p {
+  font-family: var(--font--body); font-size: 20px; margin-top: 12px;
+  opacity: 0.85; font-style: italic;
+}
 
-/* Checkout Layout */
-.checkout-container { display: flex; gap: 50px; padding: 50px 80px; max-width: 1400px; margin: 0 auto; }
+/* ─── CHECKOUT LAYOUT ────────────────────────────────────────── */
+.checkout-container {
+  display: flex; gap: 60px; padding: 60px 80px;
+  max-width: 1400px; margin: 0 auto;
+}
 
-/* Cart Section */
+/* ─── CART SECTION ───────────────────────────────────────────── */
 .cart-section { flex: 1; }
-.cart-section h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--kale); margin-bottom: 24px; }
+.cart-section h2 {
+  font-family: var(--font--heading); font-size: 28px;
+  color: var(--color--kale); margin-bottom: 28px;
+  padding-bottom: 16px; border-bottom: 2px solid var(--color--border);
+}
 
 .cart-item {
-  display: flex; gap: 20px; padding: 24px; background: #fff;
-  border: 1px solid var(--border); margin-bottom: 16px;
+  display: flex; gap: 24px; padding: 28px;
+  background: #fff; border: 1px solid var(--color--border);
+  margin-bottom: 16px; transition: box-shadow 0.3s;
 }
-.cart-item-img { width: 100px; height: 100px; background: var(--parchment); }
+.cart-item:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.cart-item-img {
+  width: 120px; height: 120px; background: var(--color--parchment);
+  overflow: hidden;
+}
 .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
 .cart-item-info { flex: 1; }
-.cart-item-info h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 4px; }
-.cart-item-info p { font-size: 13px; color: var(--stone); margin-bottom: 12px; }
+.cart-item-info h3 {
+  font-family: var(--font--heading); font-size: 20px;
+  color: var(--color--kale); margin-bottom: 6px;
+}
+.cart-item-info p {
+  font-family: var(--font--body); font-size: 16px;
+  color: var(--color--stone); margin-bottom: 16px;
+}
 .cart-item-qty { display: flex; align-items: center; gap: 12px; }
 .qty-btn {
-  width: 32px; height: 32px; border: 1px solid var(--border); background: #fff;
-  font-size: 16px; cursor: pointer;
+  width: 36px; height: 36px; border: 1px solid var(--color--border);
+  background: #fff; font-size: 18px; cursor: pointer;
+  transition: all 0.2s; color: var(--color--kale);
 }
-.qty-value { font-size: 16px; min-width: 24px; text-align: center; }
+.qty-btn:hover { background: var(--color--parchment); }
+.qty-value {
+  font-size: 18px; min-width: 28px; text-align: center;
+  font-weight: 500; color: var(--color--kale);
+}
 .cart-item-price { text-align: right; }
-.cart-item-price .price { font-size: 18px; font-weight: 600; color: var(--kale); }
-.cart-item-price .remove { font-size: 12px; color: var(--terracotta); cursor: pointer; margin-top: 8px; }
+.cart-item-price .price {
+  font-family: var(--font--heading); font-size: 22px;
+  font-weight: 600; color: var(--color--kale);
+}
+.cart-item-price .remove {
+  font-size: 12px; color: var(--color--terracotta);
+  cursor: pointer; margin-top: 10px; letter-spacing: 0.5px;
+  transition: opacity 0.2s;
+}
+.cart-item-price .remove:hover { opacity: 0.7; }
 
-/* Minimum Order Warning */
+/* ─── MINIMUM ORDER WARNING ──────────────────────────────────── */
 .min-order-warning {
-  background: #FFF3CD; border: 1px solid #FFEEBA; padding: 16px 20px;
-  margin-bottom: 24px; display: flex; align-items: center; gap: 12px;
+  background: #FFF3CD; border: 1px solid #FFEEBA; padding: 18px 24px;
+  margin-bottom: 28px; display: flex; align-items: center; gap: 14px;
 }
-.min-order-warning.success { background: #D4EDDA; border-color: #C3E6CB; }
-.warning-icon { font-size: 24px; }
-.warning-text { font-size: 14px; }
-.warning-text strong { color: var(--kale); }
+.min-order-warning.success { background: var(--color--zest); border-color: var(--color--kale-mid); }
+.warning-icon { font-size: 26px; }
+.warning-text { font-size: 15px; font-family: var(--font--body); }
+.warning-text strong { color: var(--color--kale); font-family: var(--font--ui); }
 
-/* Order Summary */
-.summary-section { width: 400px; }
+/* ─── ORDER SUMMARY ──────────────────────────────────────────── */
+.summary-section { width: 420px; }
 .summary-card {
-  background: #fff; border: 1px solid var(--border); padding: 32px;
-  position: sticky; top: 120px;
+  background: #fff; border: 1px solid var(--color--border);
+  padding: 36px; position: sticky; top: 120px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
 }
-.summary-card h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--kale); margin-bottom: 24px; }
+.summary-card h2 {
+  font-family: var(--font--heading); font-size: 24px;
+  color: var(--color--kale); margin-bottom: 28px;
+  padding-bottom: 16px; border-bottom: 2px solid var(--color--border);
+}
 
-.summary-row { display: flex; justify-content: space-between; margin-bottom: 14px; font-size: 15px; }
-.summary-row.total { font-size: 20px; font-weight: 600; color: var(--kale); border-top: 2px solid var(--border); padding-top: 16px; margin-top: 16px; }
+.summary-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 16px; font-size: 16px;
+  font-family: var(--font--body);
+}
+.summary-row.total {
+  font-size: 22px; font-weight: 600; color: var(--color--kale);
+  border-top: 2px solid var(--color--border);
+  padding-top: 20px; margin-top: 20px;
+  font-family: var(--font--ui);
+}
 
-/* Postcode Input */
-.delivery-input { margin: 24px 0; }
-.delivery-input label { font-size: 13px; color: var(--stone); display: block; margin-bottom: 8px; }
+/* ─── DELIVERY INPUT ─────────────────────────────────────────── */
+.delivery-input { margin: 28px 0; }
+.delivery-input label {
+  font-size: 12px; color: var(--color--stone);
+  letter-spacing: 1px; display: block; margin-bottom: 10px;
+  text-transform: uppercase; font-weight: 500;
+}
 .delivery-input input {
-  width: 100%; padding: 14px; border: 1px solid var(--border);
-  font-family: 'Jost', sans-serif; font-size: 15px;
+  width: 100%; padding: 16px; border: 1px solid var(--color--border);
+  font-family: var(--font--ui); font-size: 16px;
+  transition: border-color 0.2s;
+}
+.delivery-input input:focus {
+  outline: none; border-color: var(--color--kale);
 }
 .delivery-result {
-  margin-top: 12px; padding: 12px; background: var(--parchment); font-size: 14px;
+  margin-top: 14px; padding: 14px 18px;
+  background: var(--color--zest); font-size: 14px;
+  color: var(--color--kale); font-family: var(--font--body);
 }
 
-/* Payment Methods */
-.payment-methods { margin: 24px 0; }
-.payment-methods h3 { font-size: 14px; color: var(--stone); margin-bottom: 12px; }
-.payment-icons { display: flex; gap: 12px; }
+/* ─── PAYMENT METHODS ────────────────────────────────────────── */
+.payment-methods { margin: 28px 0; }
+.payment-methods h3 {
+  font-size: 12px; color: var(--color--stone); margin-bottom: 14px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+}
+.payment-icons { display: flex; gap: 10px; }
 .payment-icon {
-  width: 50px; height: 32px; border: 1px solid var(--border); background: #fff;
-  display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600;
+  width: 54px; height: 36px; border: 1px solid var(--color--border);
+  background: #fff; display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 600;
+  color: var(--color--stone);
 }
 
-/* Checkout Button */
+/* ─── CHECKOUT BUTTON ────────────────────────────────────────── */
 .checkout-btn {
-  width: 100%; background: var(--terracotta); color: #fff; border: none;
-  padding: 18px; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
-  cursor: pointer; margin-top: 16px; transition: background 0.3s;
+  width: 100%; background: var(--color--terracotta); color: #fff;
+  border: none; padding: 20px; font-size: 14px;
+  letter-spacing: 2px; text-transform: uppercase;
+  font-family: var(--font--ui); font-weight: 500;
+  cursor: pointer; margin-top: 20px; transition: background 0.3s;
 }
 .checkout-btn:hover { background: #a04d2d; }
 
-/* Trust Badges */
-.trust-badges { display: flex; gap: 16px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
-.trust-badge { flex: 1; text-align: center; font-size: 11px; color: var(--stone); }
-.trust-badge-icon { font-size: 20px; margin-bottom: 4px; }
+/* ─── TRUST BADGES ───────────────────────────────────────────── */
+.trust-badges {
+  display: flex; gap: 16px; margin-top: 28px;
+  padding-top: 28px; border-top: 1px solid var(--color--border);
+}
+.trust-badge {
+  flex: 1; text-align: center; font-size: 11px;
+  color: var(--color--stone); font-family: var(--font--ui);
+}
+.trust-badge-icon { font-size: 22px; margin-bottom: 6px; }
 
-/* Stripe Powered */
+/* ─── STRIPE BADGE ───────────────────────────────────────────── */
 .stripe-badge {
-  text-align: center; margin-top: 20px; padding: 12px;
-  background: var(--parchment); font-size: 12px; color: var(--stone);
+  text-align: center; margin-top: 24px; padding: 14px;
+  background: var(--color--parchment); font-size: 13px;
+  color: var(--color--stone); font-family: var(--font--body);
 }
 
-footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-align: center; margin-top: 60px; }
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  background: #141E14; color: var(--color--parchment);
+  padding: 50px 80px; text-align: center; margin-top: 80px;
+  font-family: var(--font--body); font-size: 16px;
+}
 </style>
 </head>
 <body>
 
 <div class="mockup-badge">MOCKUP — CART & CHECKOUT — STRIPE PAYMENTS (NO BANK TRANSFER!)</div>
 
+<div class="site-banner">
+  <div class="banner-inner">
+    Free North Island delivery on orders over $150
+  </div>
+</div>
+
 <nav>
   <div class="nav-logo">JUNIPER <span>HILL</span></div>
   <ul class="nav-links">
     <li><a href="01_Storefront_Homepage.html">Home</a></li>
     <li><a href="02_Storefront_Shop.html">Shop</a></li>
+    <li><a href="#">Our Story</a></li>
     <li><a href="#">Recipes</a></li>
     <li><a href="#" class="nav-cta">Cart (3)</a></li>
   </ul>
@@ -147,6 +291,7 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
 
 <div class="page-header">
   <h1>Your Order</h1>
+  <p>Premium organic beef, direct from Raukawa Valley</p>
 </div>
 
 <div class="checkout-container">
@@ -155,8 +300,8 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
 
     <!-- Minimum Order Success -->
     <div class="min-order-warning success">
-      <span class="warning-icon">✓</span>
-      <span class="warning-text"><strong>Great!</strong> Your order qualifies for home delivery (minimum 5kg met).</span>
+      <span class="warning-icon">&#10003;</span>
+      <span class="warning-text"><strong>Excellent!</strong> Your order qualifies for home delivery (minimum 5kg met).</span>
     </div>
 
     <!-- Cart Items -->
@@ -168,7 +313,7 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
         <h3>Ribeye Steak</h3>
         <p>300g | Dry-cured | $73.33/kg</p>
         <div class="cart-item-qty">
-          <button class="qty-btn">−</button>
+          <button class="qty-btn">-</button>
           <span class="qty-value">2</span>
           <button class="qty-btn">+</button>
         </div>
@@ -187,7 +332,7 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
         <h3>Premium Mince 1kg</h3>
         <p>1kg | Fresh | $15.00/kg</p>
         <div class="cart-item-qty">
-          <button class="qty-btn">−</button>
+          <button class="qty-btn">-</button>
           <span class="qty-value">3</span>
           <button class="qty-btn">+</button>
         </div>
@@ -206,7 +351,7 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
         <h3>Beef Sausages 800g</h3>
         <p>800g | Traditional | $22.00/kg</p>
         <div class="cart-item-qty">
-          <button class="qty-btn">−</button>
+          <button class="qty-btn">-</button>
           <span class="qty-value">2</span>
           <button class="qty-btn">+</button>
         </div>
@@ -231,7 +376,7 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
         <label>Delivery Postcode</label>
         <input type="text" value="6011" placeholder="Enter postcode">
         <div class="delivery-result">
-          ✓ Wellington — North Island delivery: <strong>$15.00</strong>
+          &#10003; Wellington - North Island delivery: <strong>$15.00</strong>
         </div>
       </div>
 
@@ -246,12 +391,12 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
       </div>
 
       <div class="payment-methods">
-        <h3>WE ACCEPT</h3>
+        <h3>We Accept</h3>
         <div class="payment-icons">
           <div class="payment-icon">VISA</div>
           <div class="payment-icon">MC</div>
           <div class="payment-icon">AMEX</div>
-          <div class="payment-icon">🍎 Pay</div>
+          <div class="payment-icon">Apple</div>
           <div class="payment-icon">G Pay</div>
         </div>
       </div>
@@ -259,20 +404,20 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
       <button class="checkout-btn">Proceed to Checkout</button>
 
       <div class="stripe-badge">
-        🔒 Secure checkout powered by <strong>Stripe</strong>
+        Secure checkout powered by <strong>Stripe</strong>
       </div>
 
       <div class="trust-badges">
         <div class="trust-badge">
-          <div class="trust-badge-icon">🌿</div>
+          <div class="trust-badge-icon">&#127807;</div>
           BioGro Certified
         </div>
         <div class="trust-badge">
-          <div class="trust-badge-icon">🚚</div>
+          <div class="trust-badge-icon">&#128666;</div>
           2-Day Dispatch
         </div>
         <div class="trust-badge">
-          <div class="trust-badge-icon">❄️</div>
+          <div class="trust-badge-icon">&#10052;</div>
           Chilled Delivery
         </div>
       </div>
@@ -281,7 +426,7 @@ footer { background: #141E14; color: var(--parchment); padding: 40px 80px; text-
 </div>
 
 <footer>
-  <p>© 2026 Juniper Hill Farm. BioGro Certified Organic.</p>
+  <p>&copy; 2026 Juniper Hill Farm. BioGro Certified Organic. Raukawa Valley, New Zealand.</p>
 </footer>
 
 </body>
