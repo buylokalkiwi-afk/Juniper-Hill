@@ -111,6 +111,128 @@ nav {
   opacity: 0.85; font-style: italic;
 }
 
+/* ─── DISCOUNT TIERS ──────────────────────────────────────────── */
+.discount-tiers-container {
+  background: linear-gradient(135deg, #F0F7F0 0%, #E8F5E9 100%);
+  border: 2px solid var(--color--kale);
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.discount-tiers-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.discount-tiers-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--color--kale);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+.discount-tiers-title {
+  font-family: var(--font--ui);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color--kale);
+}
+.discount-tiers-subtitle {
+  font-family: var(--font--body);
+  font-size: 14px;
+  color: var(--color--stone);
+}
+.discount-progress-bar {
+  position: relative;
+  height: 8px;
+  background: #C8E6C9;
+  border-radius: 4px;
+  margin: 20px 0 12px;
+}
+.discount-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color--kale), #4CAF50);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+.discount-tier-markers {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: -4px;
+}
+.discount-tier-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.discount-tier-marker::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #C8E6C9;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 8px;
+}
+.discount-tier-marker.reached::before {
+  background: var(--color--kale);
+}
+.discount-tier-marker.current::before {
+  background: var(--color--terracotta);
+  animation: pulse-marker 1.5s infinite;
+}
+@keyframes pulse-marker {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+.tier-amount {
+  font-family: var(--font--ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color--charcoal);
+}
+.tier-discount {
+  font-family: var(--font--ui);
+  font-size: 11px;
+  color: var(--color--kale);
+  font-weight: 600;
+  background: #E8F5E9;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+.tier-discount.locked {
+  background: #eee;
+  color: var(--color--stone);
+}
+.discount-message {
+  text-align: center;
+  margin-top: 16px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 4px;
+  font-family: var(--font--body);
+  font-size: 15px;
+  color: var(--color--charcoal);
+}
+.discount-message strong {
+  color: var(--color--kale);
+  font-family: var(--font--ui);
+}
+.discount-message .amount-needed {
+  color: var(--color--terracotta);
+  font-weight: 600;
+}
+
 /* ─── WEIGHT PROGRESS BAR ─────────────────────────────────────── */
 .weight-progress-container {
   background: #fff;
