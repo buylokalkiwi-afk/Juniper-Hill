@@ -382,5 +382,58 @@ body {
   </nav>
 </div>
 
+<!-- SALE RECORD POPUP (Shown when "- SOLD" is tapped) -->
+<div class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Record Sale</div>
+      <div class="modal-subtitle">Ribeye Steak 300g</div>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Quantity Sold</label>
+        <div class="qty-display">
+          <button class="qty-btn">-</button>
+          <span class="qty-value">1</span>
+          <button class="qty-btn">+</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Sold Where?</label>
+        <select class="form-select">
+          <option value="">Select location...</option>
+          <option value="farmers-market" selected>Farmers Market</option>
+          <option value="farm-gate">Farm Gate</option>
+          <option value="phone-order">Phone Order</option>
+          <option value="restaurant">Restaurant / Wholesale</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Sale Date</label>
+        <select class="form-select">
+          <option value="today" selected>Today (1 Mar 2026)</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="2-days">2 days ago</option>
+          <option value="custom">Custom date...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Recorded By</label>
+        <select class="form-select">
+          <option value="">Select staff...</option>
+          <option value="1234" selected>Sarah (1234)</option>
+          <option value="1235">Mike (1235)</option>
+          <option value="1236">Tom (1236)</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-cancel">Cancel</button>
+      <button class="modal-btn modal-btn-confirm">Confirm Sale</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
