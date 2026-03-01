@@ -200,6 +200,73 @@ body {
   font-family: var(--font--ui);
 }
 
+/* ─── SALE POPUP MODAL ────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7); z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-content {
+  background: var(--color--feta); border-radius: 16px;
+  width: 100%; max-width: 380px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.modal-header {
+  background: var(--color--terracotta); color: #fff;
+  padding: 20px 24px; text-align: center;
+}
+.modal-title {
+  font-family: var(--font--heading); font-size: 22px; font-weight: 600;
+}
+.modal-subtitle {
+  font-size: 13px; opacity: 0.9; margin-top: 4px;
+}
+.modal-body { padding: 24px; }
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block; font-size: 12px; font-weight: 600;
+  letter-spacing: 1px; color: var(--color--stone);
+  margin-bottom: 8px; text-transform: uppercase;
+}
+.form-select {
+  width: 100%; padding: 14px 16px; border: 2px solid var(--color--border);
+  border-radius: 8px; font-family: var(--font--ui); font-size: 15px;
+  background: #fff; color: var(--color--charcoal); cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237A7163' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+.form-select:focus { outline: none; border-color: var(--color--kale); }
+.qty-display {
+  display: flex; align-items: center; justify-content: center;
+  gap: 20px; padding: 16px; background: var(--color--parchment);
+  border-radius: 8px;
+}
+.qty-display .qty-btn {
+  width: 48px; height: 48px; font-size: 24px;
+}
+.qty-display .qty-value {
+  font-size: 36px; min-width: 60px;
+}
+.modal-actions {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  padding: 0 24px 24px;
+}
+.modal-btn {
+  padding: 16px; border: none; border-radius: 8px;
+  font-family: var(--font--ui); font-size: 14px; font-weight: 600;
+  letter-spacing: 0.5px; cursor: pointer;
+}
+.modal-btn-cancel {
+  background: var(--color--parchment); color: var(--color--charcoal);
+  border: 2px solid var(--color--border);
+}
+.modal-btn-confirm {
+  background: var(--color--terracotta); color: #fff;
+}
+
 /* ─── BOTTOM NAVIGATION ──────────────────────────────────────── */
 .bottom-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
