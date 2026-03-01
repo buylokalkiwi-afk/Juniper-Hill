@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JH Abattoir Predictor — Accuracy Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff; text-align: center;
+  font-size: 10px; letter-spacing: 2px; padding: 6px; font-weight: 500; text-transform: uppercase;
+}
+
+.app-container { max-width: 420px; margin: 40px auto 0; min-height: calc(100vh - 40px); background: var(--feta); padding-bottom: 80px; }
+
+.app-header {
+  background: var(--kale); padding: 20px; color: #fff; text-align: center;
+}
+.app-logo { font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+.app-logo span { color: var(--zest); }
+.app-subtitle { font-size: 11px; opacity: 0.7; margin-top: 4px; letter-spacing: 1px; }
+
+/* Learning Status */
+.learning-status {
+  background: var(--zest); padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.learning-icon { font-size: 24px; }
+.learning-info { flex: 1; }
+.learning-title { font-size: 14px; font-weight: 600; color: var(--kale); }
+.learning-subtitle { font-size: 12px; color: var(--stone); }
+.learning-progress { text-align: right; }
+.progress-value { font-size: 24px; font-weight: 700; color: var(--kale); }
+.progress-label { font-size: 10px; color: var(--stone); }
+
+/* Stats Grid */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 12px; padding: 16px;
+}
+.stat-card {
+  background: #fff; border: 1px solid var(--parchment);
+  padding: 20px; text-align: center; border-radius: 8px;
+}
+.stat-value { font-size: 32px; font-weight: 700; color: var(--kale); }
+.stat-label { font-size: 11px; color: var(--stone); letter-spacing: 1px; margin-top: 4px; }
+.stat-trend { font-size: 12px; margin-top: 8px; }
+.trend-up { color: #4CAF50; }
+.trend-down { color: #f44336; }
+
+/* Accuracy Chart Placeholder */
+.chart-section {
+  margin: 16px; padding: 20px; background: #fff;
+  border: 1px solid var(--parchment); border-radius: 8px;
+}
+.chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.chart-title { font-size: 14px; font-weight: 600; color: var(--kale); }
+.chart-period {
+  padding: 6px 12px; border: 1px solid var(--parchment);
+  font-size: 12px; background: #fff;
+}
+
+/* Mock Chart */
+.chart-placeholder {
+  height: 180px; background: var(--parchment);
+  display: flex; align-items: flex-end; justify-content: space-around;
+  padding: 20px;
+}
+.chart-bar {
+  width: 30px; background: var(--kale); border-radius: 4px 4px 0 0;
+  position: relative;
+}
+.chart-bar::after {
+  content: attr(data-value);
+  position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: 600;
+}
+.chart-legend {
+  display: flex; justify-content: center; gap: 20px; margin-top: 12px;
+  font-size: 11px; color: var(--stone);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+.legend-dot.predicted { background: var(--kale); }
+.legend-dot.actual { background: var(--terracotta); }
+
+/* Recent Carcasses */
+.recent-section { padding: 16px; }
+.section-title {
+  font-size: 14px; font-weight: 600; color: var(--kale);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.carcass-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px; background: #fff; margin-bottom: 8px;
+  border: 1px solid var(--parchment); border-radius: 8px;
+}
+.carcass-icon { font-size: 24px; }
+.carcass-info { flex: 1; }
+.carcass-tag { font-weight: 600; font-size: 14px; }
+.carcass-date { font-size: 11px; color: var(--stone); }
+.carcass-accuracy { text-align: right; }
+.accuracy-value { font-size: 18px; font-weight: 700; }
+.accuracy-value.good { color: #4CAF50; }
+.accuracy-value.ok { color: #FF9800; }
+.accuracy-value.poor { color: #f44336; }
+.accuracy-diff { font-size: 11px; color: var(--stone); }
+
+/* Model Info */
+.model-info {
+  margin: 16px; padding: 16px; background: var(--parchment);
+  border-radius: 8px; font-size: 12px; color: var(--stone);
+}
+.model-info strong { color: var(--kale); }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 420px;
+  background: var(--kale-dark); padding: 12px 20px;
+  display: flex; justify-content: space-around;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1px;
+  text-decoration: none; padding: 8px 16px;
+}
+.nav-item.active { color: var(--zest); }
+.nav-icon { font-size: 24px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — ML ACCURACY DASHBOARD — MODEL LEARNING OVER TIME</div>
+
+<div class="app-container">
+  <header class="app-header">
+    <div class="app-logo">JH <span>ACCURACY</span></div>
+    <div class="app-subtitle">MODEL PERFORMANCE DASHBOARD</div>
+  </header>
+
+  <!-- Learning Status -->
+  <div class="learning-status">
+    <span class="learning-icon">🧠</span>
+    <div class="learning-info">
+      <div class="learning-title">Machine Learning Active</div>
+      <div class="learning-subtitle">Model improving with each carcass</div>
+    </div>
+    <div class="learning-progress">
+      <div class="progress-value">47</div>
+      <div class="progress-label">CARCASSES</div>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">±8%</div>
+      <div class="stat-label">CURRENT ACCURACY</div>
+      <div class="stat-trend trend-up">▲ 4% from start</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">±3%</div>
+      <div class="stat-label">TARGET ACCURACY</div>
+      <div class="stat-trend">~100 carcasses</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$847</div>
+      <div class="stat-label">AVG REVENUE / HEAD</div>
+      <div class="stat-trend trend-up">▲ $52 vs baseline</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">92%</div>
+      <div class="stat-label">CUT UTILISATION</div>
+      <div class="stat-trend trend-up">▲ 7% improvement</div>
+    </div>
+  </div>
+
+  <!-- Accuracy Chart -->
+  <div class="chart-section">
+    <div class="chart-header">
+      <span class="chart-title">📈 Prediction vs Actual</span>
+      <select class="chart-period">
+        <option>Last 10 carcasses</option>
+        <option>Last 30 days</option>
+        <option>All time</option>
+      </select>
+    </div>
+    <div class="chart-placeholder">
+      <div class="chart-bar" style="height: 120px; background: var(--kale);" data-value="180"></div>
+      <div class="chart-bar" style="height: 115px; background: var(--terracotta);" data-value="174"></div>
+      <div class="chart-bar" style="height: 130px; background: var(--kale);" data-value="195"></div>
+      <div class="chart-bar" style="height: 125px; background: var(--terracotta);" data-value="190"></div>
+      <div class="chart-bar" style="height: 100px; background: var(--kale);" data-value="158"></div>
+      <div class="chart-bar" style="height: 105px; background: var(--terracotta);" data-value="162"></div>
+      <div class="chart-bar" style="height: 140px; background: var(--kale);" data-value="210"></div>
+      <div class="chart-bar" style="height: 138px; background: var(--terracotta);" data-value="205"></div>
+    </div>
+    <div class="chart-legend">
+      <span class="legend-item"><span class="legend-dot predicted"></span> Predicted (kg)</span>
+      <span class="legend-item"><span class="legend-dot actual"></span> Actual (kg)</span>
+    </div>
+  </div>
+
+  <!-- Recent Carcasses -->
+  <div class="recent-section">
+    <div class="section-title">
+      <span>📋</span> Recent Carcasses
+    </div>
+
+    <div class="carcass-row">
+      <span class="carcass-icon">🐂</span>
+      <div class="carcass-info">
+        <div class="carcass-tag">JH-2024-A047</div>
+        <div class="carcass-date">Today, 9:34 AM</div>
+      </div>
+      <div class="carcass-accuracy">
+        <div class="accuracy-value ok">±5%</div>
+        <div class="accuracy-diff">184 → 175 kg</div>
+      </div>
+    </div>
+
+    <div class="carcass-row">
+      <span class="carcass-icon">🐂</span>
+      <div class="carcass-info">
+        <div class="carcass-tag">JH-2024-A046</div>
+        <div class="carcass-date">Yesterday, 2:15 PM</div>
+      </div>
+      <div class="carcass-accuracy">
+        <div class="accuracy-value good">±2%</div>
+        <div class="accuracy-diff">192 → 188 kg</div>
+      </div>
+    </div>
+
+    <div class="carcass-row">
+      <span class="carcass-icon">🐂</span>
+      <div class="carcass-info">
+        <div class="carcass-tag">JH-2024-A045</div>
+        <div class="carcass-date">Yesterday, 10:20 AM</div>
+      </div>
+      <div class="carcass-accuracy">
+        <div class="accuracy-value good">±1%</div>
+        <div class="accuracy-diff">168 → 166 kg</div>
+      </div>
+    </div>
+
+    <div class="carcass-row">
+      <span class="carcass-icon">🐂</span>
+      <div class="carcass-info">
+        <div class="carcass-tag">JH-2024-A044</div>
+        <div class="carcass-date">2 days ago</div>
+      </div>
+      <div class="carcass-accuracy">
+        <div class="accuracy-value poor">±14%</div>
+        <div class="accuracy-diff">205 → 178 kg</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model Info -->
+  <div class="model-info">
+    <strong>🧠 Model Info:</strong> Linear regression with breed/fat score/age features. 
+    Accuracy improves as more actual yields are recorded. Target: ±3% after 100+ carcasses.
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="07_Predictor_Intake.html" class="nav-item">
+      <span class="nav-icon">🐂</span>
+      INTAKE
+    </a>
+    <a href="08_Predictor_Optimiser.html" class="nav-item">
+      <span class="nav-icon">🔪</span>
+      OPTIMISE
+    </a>
+    <a href="#" class="nav-item active">
+      <span class="nav-icon">📊</span>
+      ACCURACY
+    </a>
+  </nav>
+</div>
+
+</body>
+</html>
