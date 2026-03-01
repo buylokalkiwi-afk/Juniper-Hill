@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Hill Farm — All Mockups Index</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
+
+.header {
+  background: var(--kale); padding: 60px 40px; text-align: center; color: #fff;
+}
+.header h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 12px; }
+.header p { font-size: 18px; opacity: 0.8; }
+
+.pitch-banner {
+  background: var(--terracotta); color: #fff; text-align: center;
+  padding: 16px; font-size: 14px; letter-spacing: 1px;
+}
+.pitch-banner a { color: #fff; font-weight: 600; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 60px 40px; }
+
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 32px;
+  color: var(--kale); margin-bottom: 32px;
+  padding-bottom: 16px; border-bottom: 2px solid var(--kale);
+}
+
+.mockup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
+
+.mockup-card {
+  background: #fff; border: 1px solid var(--parchment);
+  overflow: hidden; transition: all 0.3s;
+  text-decoration: none; color: inherit;
+}
+.mockup-card:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
+.mockup-preview {
+  height: 180px; background: var(--parchment);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+}
+.mockup-info { padding: 20px; }
+.mockup-info h3 { font-size: 18px; margin-bottom: 4px; color: var(--kale); }
+.mockup-info p { font-size: 13px; color: var(--stone); }
+.mockup-badge {
+  display: inline-block; margin-top: 12px;
+  padding: 4px 10px; font-size: 10px; letter-spacing: 1px;
+  background: var(--parchment); color: var(--stone);
+}
+.mockup-badge.customer { background: var(--zest); color: var(--kale); }
+.mockup-badge.staff { background: var(--terracotta); color: #fff; }
+
+.benefits-section { background: var(--kale); padding: 60px 40px; margin: 40px 0; }
+.benefits-section h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: #fff; text-align: center; margin-bottom: 40px; }
+.benefits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+.benefit-card { background: rgba(255,255,255,0.1); padding: 24px; text-align: center; color: #fff; }
+.benefit-icon { font-size: 36px; margin-bottom: 12px; }
+.benefit-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.benefit-value { font-size: 32px; font-weight: 700; color: var(--zest); }
+
+footer { background: var(--charcoal); color: var(--parchment); padding: 40px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="pitch-banner">
+  PITCH READY — <a href="10_Updated_Pitch_Deck.html">View the Updated Pitch Deck →</a>
+</div>
+
+<div class="header">
+  <h1>Juniper Hill Farm</h1>
+  <p>Complete System Mockups — Inventory to Sale Automation</p>
+</div>
+
+<div class="container">
+  <h2 class="section-title">📱 Customer-Facing Storefront</h2>
+  <div class="mockup-grid">
+    <a href="01_Storefront_Homepage.html" class="mockup-card">
+      <div class="mockup-preview">🏠</div>
+      <div class="mockup-info">
+        <h3>Homepage</h3>
+        <p>Hero, trust bar, featured products, email capture, subscription</p>
+        <span class="mockup-badge customer">CUSTOMER</span>
+      </div>
+    </a>
+    <a href="02_Storefront_Shop.html" class="mockup-card">
+      <div class="mockup-preview">🛒</div>
+      <div class="mockup-info">
+        <h3>Shop Page</h3>
+        <p>Smart filters, live stock counts, product grid</p>
+        <span class="mockup-badge customer">CUSTOMER</span>
+      </div>
+    </a>
+    <a href="03_Storefront_Cart.html" class="mockup-card">
+      <div class="mockup-preview">💳</div>
+      <div class="mockup-info">
+        <h3>Cart & Checkout</h3>
+        <p>Stripe payments, postcode checker, order summary</p>
+        <span class="mockup-badge customer">CUSTOMER</span>
+      </div>
+    </a>
+  </div>
+
+  <h2 class="section-title">📦 Staff Inventory Scanner (PWA)</h2>
+  <div class="mockup-grid">
+    <a href="04_Scanner_QRScan.html" class="mockup-card">
+      <div class="mockup-preview">📷</div>
+      <div class="mockup-info">
+        <h3>QR Scanner</h3>
+        <p>Phone camera QR scanning, instant stock updates</p>
+        <span class="mockup-badge staff">STAFF PWA</span>
+      </div>
+    </a>
+    <a href="05_Scanner_StockOverview.html" class="mockup-card">
+      <div class="mockup-preview">📊</div>
+      <div class="mockup-info">
+        <h3>Stock Overview</h3>
+        <p>Real-time inventory, low stock alerts, CSV export</p>
+        <span class="mockup-badge staff">STAFF PWA</span>
+      </div>
+    </a>
+    <a href="06_Scanner_PrintLabels.html" class="mockup-card">
+      <div class="mockup-preview">🏷️</div>
+      <div class="mockup-info">
+        <h3>Print Labels</h3>
+        <p>Thermal printer integration, QR label generation</p>
+        <span class="mockup-badge staff">STAFF PWA</span>
+      </div>
+    </a>
+  </div>
+
+  <h2 class="section-title">🧠 Abattoir Yield Predictor (AI)</h2>
+  <div class="mockup-grid">
+    <a href="07_Predictor_Intake.html" class="mockup-card">
+      <div class="mockup-preview">🐂</div>
+      <div class="mockup-info">
+        <h3>Carcass Intake</h3>
+        <p>Tag scanning, breed/weight entry, AI yield prediction</p>
+        <span class="mockup-badge staff">STAFF PWA</span>
+      </div>
+    </a>
+    <a href="08_Predictor_Optimiser.html" class="mockup-card">
+      <div class="mockup-preview">🔪</div>
+      <div class="mockup-info">
+        <h3>Butcher Optimiser</h3>
+        <p>AI cut recommendations based on demand & margins</p>
+        <span class="mockup-badge staff">STAFF PWA</span>
+      </div>
+    </a>
+    <a href="09_Predictor_Dashboard.html" class="mockup-card">
+      <div class="mockup-preview">📈</div>
+      <div class="mockup-info">
+        <h3>Accuracy Dashboard</h3>
+        <p>ML learning curve, prediction vs actual tracking</p>
+        <span class="mockup-badge staff">STAFF PWA</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="benefits-section">
+  <h2>Projected Business Impact</h2>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">💰</div>
+      <div class="benefit-title">Recovered Revenue</div>
+      <div class="benefit-value">$52K+</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">⏱️</div>
+      <div class="benefit-title">Hours Saved/Month</div>
+      <div class="benefit-value">20+</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📦</div>
+      <div class="benefit-title">Stock Accuracy</div>
+      <div class="benefit-value">100%</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🎯</div>
+      <div class="benefit-title">Yield Prediction</div>
+      <div class="benefit-value">±3%</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Juniper Hill Farm System Mockups — For Pitch Presentation Only</p>
+</footer>
+
+</body>
+</html>
