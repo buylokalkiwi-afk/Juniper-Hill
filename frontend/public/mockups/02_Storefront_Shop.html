@@ -20,6 +20,7 @@
   --color--stone-lt:   #A39B8F;
   --color--zest:       #c8d9a0;
   --color--border:     #E2D9CC;
+  --color--blush:      #F8E8DC;
   --font--heading: 'Playfair Display', serif;
   --font--body:    'Cormorant Garamond', serif;
   --font--ui:      'Jost', sans-serif;
@@ -43,102 +44,131 @@ a { color: inherit; text-decoration: none; }
   font-weight: 500; text-transform: uppercase;
 }
 
-/* NAV - matching homepage */
-nav {
-  position: sticky; top: 28px; z-index: 100;
-  background: var(--color--feta);
-  border-bottom: 1px solid var(--color--border);
-  padding: 0 48px; height: 66px;
-  display: flex; align-items: center; justify-content: space-between;
+/* Top bar */
+.top-bar {
+  background: var(--color--blush);
+  padding: 8px 48px;
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--color--stone);
+  margin-top: 28px;
 }
-.nav-logo {
-  font-family: var(--font--heading); font-size: 25px;
-  color: var(--color--kale); letter-spacing: 4px; font-weight: 700;
+.top-bar a { color: var(--color--kale); }
+
+/* Header */
+header {
+  background: #6B6B6B;
+  padding: 28px 48px;
+  text-align: center;
+}
+.header-logo {
+  font-family: var(--font--ui);
+  font-size: 28px;
+  letter-spacing: 12px;
+  color: #fff;
+  font-weight: 300;
   text-transform: uppercase;
 }
-.nav-logo span { color: var(--color--terracotta); }
-.nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+
+/* Nav */
+nav {
+  background: #fff;
+  border-bottom: 1px solid var(--color--border);
+  padding: 0 48px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 48px; height: 50px;
+}
+.nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
 .nav-links a {
-  font-family: var(--font--ui); font-size: 11.5px;
-  letter-spacing: 1.5px; color: var(--color--stone);
-  font-weight: 400; text-transform: uppercase; transition: color 0.2s;
+  font-family: var(--font--ui); font-size: 13px;
+  color: var(--color--charcoal);
+  font-weight: 400; transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--color--kale); }
-.nav-cta {
-  background: var(--color--kale) !important; color: #fff !important;
-  padding: 10px 22px !important; letter-spacing: 1.5px !important;
-  font-weight: 500 !important;
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid var(--color--border);
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  z-index: 100;
+  padding: 12px 0;
+}
+.nav-dropdown-content a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+.nav-dropdown-content a:hover {
+  background: var(--color--feta);
+}
+.nav-icons {
+  display: flex; gap: 20px;
+}
+.nav-icons svg {
+  width: 20px; height: 20px; stroke: var(--color--charcoal);
 }
 
-/* Page Header */
-.page-header {
-  background: var(--color--kale); padding: 50px 60px;
-  text-align: center; color: #fff;
+/* Breadcrumb */
+.breadcrumb {
+  padding: 20px 48px;
+  font-size: 13px;
+  color: var(--color--stone);
 }
-.page-header h1 {
-  font-family: var(--font--heading); font-size: 42px;
-  font-weight: 400; margin-bottom: 12px;
-}
-.page-header p {
-  font-family: var(--font--body); font-size: 20px;
-  opacity: 0.85; font-style: italic;
-}
+.breadcrumb a { color: var(--color--charcoal); }
+.breadcrumb a:hover { text-decoration: underline; }
 
 /* Shop Layout */
-.shop-container { display: flex; padding: 40px 48px; gap: 40px; }
+.shop-container { padding: 0 48px 60px; }
 
-/* Filters */
-.filters-sidebar { width: 260px; flex-shrink: 0; }
-.filter-section { margin-bottom: 28px; }
-.filter-title {
-  font-family: var(--font--ui); font-size: 11px;
-  letter-spacing: 2px; color: var(--color--kale);
-  margin-bottom: 14px; padding-bottom: 10px;
-  border-bottom: 1px solid var(--color--border);
+/* Category Grid */
+.category-section {
+  margin-bottom: 50px;
+}
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color--kale);
+}
+.category-header h2 {
+  font-family: var(--font--heading);
+  font-size: 28px;
+  color: var(--color--kale);
+  font-weight: 400;
+}
+.category-header .view-all {
+  font-size: 13px;
+  color: var(--color--terracotta);
+  letter-spacing: 1px;
   text-transform: uppercase;
+  font-weight: 500;
 }
-.filter-options { display: flex; flex-direction: column; gap: 8px; }
-.filter-btn {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 14px; background: #fff;
-  border: 1px solid var(--color--border);
-  font-family: var(--font--ui); font-size: 13px;
-  cursor: pointer; transition: all 0.2s;
-}
-.filter-btn:hover { border-color: var(--color--kale); }
-.filter-btn.active {
-  background: var(--color--kale); color: #fff;
-  border-color: var(--color--kale);
-}
-.filter-count { margin-left: auto; font-size: 11px; opacity: 0.6; }
-
-/* Products */
-.products-area { flex: 1; }
-.products-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 28px; padding-bottom: 18px;
-  border-bottom: 1px solid var(--color--border);
-}
-.products-header h2 {
-  font-family: var(--font--heading); font-size: 26px;
-  color: var(--color--kale); font-weight: 400;
-}
-.sort-select {
-  padding: 10px 16px; border: 1px solid var(--color--border);
-  background: #fff; font-family: var(--font--ui); font-size: 13px;
-}
+.category-header .view-all:hover { text-decoration: underline; }
 
 .products-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 .product-card {
-  background: #fff; border: 1px solid var(--color--border);
-  overflow: hidden; transition: box-shadow 0.3s;
+  background: #fff;
+  border: 1px solid var(--color--border);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
 }
 .product-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
 .product-img {
-  height: 200px; background: var(--color--parchment);
-  position: relative; overflow: hidden;
+  height: 220px;
+  background: var(--color--parchment);
+  position: relative;
+  overflow: hidden;
 }
 .product-img img { width: 100%; height: 100%; object-fit: cover; }
 .stock-badge {
@@ -146,6 +176,12 @@ nav {
   background: var(--color--terracotta); color: #fff;
   font-family: var(--font--ui); font-size: 9px;
   padding: 5px 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+.certified-badge {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--color--kale); color: #fff;
+  font-family: var(--font--ui); font-size: 8px;
+  padding: 4px 8px; letter-spacing: 1.5px; text-transform: uppercase;
 }
 .out-of-stock {
   position: absolute; inset: 0; background: rgba(0,0,0,0.5);
@@ -160,6 +196,13 @@ nav {
 .product-weight {
   font-family: var(--font--body); font-size: 14px;
   color: var(--color--stone); margin-bottom: 10px;
+}
+.product-desc {
+  font-family: var(--font--body);
+  font-size: 13px;
+  color: var(--color--stone);
+  margin-bottom: 12px;
+  line-height: 1.5;
 }
 .live-stock {
   display: flex; align-items: center; gap: 6px;
@@ -192,93 +235,72 @@ nav {
 /* Footer */
 footer {
   background: var(--color--kale-dark); color: var(--color--parchment);
-  padding: 40px 60px; text-align: center; margin-top: 60px;
+  padding: 40px 60px; text-align: center;
   font-family: var(--font--ui); font-size: 13px; letter-spacing: 1px;
 }
 </style>
 </head>
 <body>
 
-<div class="mockup-badge">DESIGN MOCKUP — SHOP PAGE — SMART FILTERS & LIVE STOCK COUNTS</div>
+<div class="mockup-badge">DESIGN MOCKUP — SHOP PAGE — PRODUCTS GROUPED BY CATEGORY</div>
+
+<div class="top-bar">
+  <span><a href="mailto:THEFARM@JUNIPERHILL.CO.NZ">THEFARM@JUNIPERHILL.CO.NZ</a></span>
+  <span>027 220 8857</span>
+</div>
+
+<header>
+  <div class="header-logo">JUNIPER HILL FARM</div>
+</header>
 
 <nav>
-  <a href="01_Storefront_Homepage.html" class="nav-logo">JUNIPER <span>HILL</span></a>
   <ul class="nav-links">
-    <li><a href="01_Storefront_Homepage.html">Our Farm</a></li>
-    <li><a href="#" style="color: var(--color--kale); font-weight: 500;">Butchery</a></li>
-    <li><a href="#">Recipes</a></li>
-    <li><a href="#">Delivery</a></li>
-    <li><a href="#">Login</a></li>
-    <li><a href="03_Storefront_Cart.html" class="nav-cta">Order Now</a></li>
+    <li><a href="01_Storefront_Homepage.html">Home</a></li>
+    <li class="nav-dropdown">
+      <a href="#" style="font-weight: 500;">Butchery ▾</a>
+      <div class="nav-dropdown-content">
+        <a href="#steaks">Steaks</a>
+        <a href="#prime-cuts">Prime Cuts</a>
+        <a href="#roasting">Roasting</a>
+        <a href="#slow-cooking">Slow Cooking</a>
+        <a href="#mince-strips">Mince & Strips</a>
+        <a href="#organs-marrow">Organs & Marrow</a>
+      </div>
+    </li>
+    <li><a href="#">Order Info</a></li>
   </ul>
+  <div class="nav-icons">
+    <a href="03_Storefront_Cart.html">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+    </a>
+    <a href="#">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+    </a>
+  </div>
 </nav>
 
-<div class="page-header">
-  <h1>Shop Our Cuts</h1>
-  <p>BioGro Certified Organic Angus Beef — Live stock counts, never oversold</p>
+<div class="breadcrumb">
+  <a href="01_Storefront_Homepage.html">Home</a> / <a href="#">Butchery</a> / All Products
 </div>
 
 <div class="shop-container">
-  <aside class="filters-sidebar">
-    <div class="filter-section">
-      <div class="filter-title">Category</div>
-      <div class="filter-options">
-        <button class="filter-btn active">All Products <span class="filter-count">36</span></button>
-        <button class="filter-btn">Steaks <span class="filter-count">12</span></button>
-        <button class="filter-btn">Roasts <span class="filter-count">6</span></button>
-        <button class="filter-btn">Mince <span class="filter-count">4</span></button>
-        <button class="filter-btn">Sausages <span class="filter-count">6</span></button>
-        <button class="filter-btn">Skin-on Packs <span class="filter-count">8</span></button>
-      </div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-title">Cook Method</div>
-      <div class="filter-options">
-        <button class="filter-btn">BBQ / Grill <span class="filter-count">18</span></button>
-        <button class="filter-btn">Pan Fry <span class="filter-count">14</span></button>
-        <button class="filter-btn">Slow Cook <span class="filter-count">8</span></button>
-        <button class="filter-btn">Roast <span class="filter-count">6</span></button>
-      </div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-title">Availability</div>
-      <div class="filter-options">
-        <button class="filter-btn active">In Stock <span class="filter-count">32</span></button>
-        <button class="filter-btn">Low Stock <span class="filter-count">6</span></button>
-        <button class="filter-btn">All <span class="filter-count">36</span></button>
-      </div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-title">Weight</div>
-      <div class="filter-options">
-        <button class="filter-btn">Under 300g <span class="filter-count">10</span></button>
-        <button class="filter-btn">300g - 500g <span class="filter-count">14</span></button>
-        <button class="filter-btn">500g - 1kg <span class="filter-count">8</span></button>
-        <button class="filter-btn">Over 1kg <span class="filter-count">4</span></button>
-      </div>
-    </div>
-  </aside>
 
-  <main class="products-area">
-    <div class="products-header">
-      <h2>All Products (36)</h2>
-      <select class="sort-select">
-        <option>Sort by: Featured</option>
-        <option>Price: Low to High</option>
-        <option>Price: High to Low</option>
-        <option>Availability</option>
-      </select>
+  <!-- STEAKS CATEGORY -->
+  <section class="category-section" id="steaks">
+    <div class="category-header">
+      <h2>Steaks</h2>
+      <a href="#" class="view-all">View All Steaks →</a>
     </div>
-
     <div class="products-grid">
       <div class="product-card">
         <div class="product-img">
           <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400" alt="Ribeye">
+          <span class="certified-badge">Organic Aged</span>
           <span class="stock-badge">Only 8 left!</span>
         </div>
         <div class="product-info">
           <h3>Ribeye Steak</h3>
-          <p class="product-weight">300g | Dry-cured</p>
+          <p class="product-weight">300g | Dry-aged 21 days</p>
           <div class="live-stock"><span class="live-dot low"></span> 8 in stock</div>
           <p class="product-price">$22.00 <span>($73.33/kg)</span></p>
           <button class="add-btn">Add to Order</button>
@@ -287,10 +309,11 @@ footer {
       <div class="product-card">
         <div class="product-img">
           <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400" alt="Sirloin">
+          <span class="certified-badge">Organic Aged</span>
         </div>
         <div class="product-info">
           <h3>Sirloin Steak</h3>
-          <p class="product-weight">250g | Dry-cured</p>
+          <p class="product-weight">250g | Dry-aged 21 days</p>
           <div class="live-stock"><span class="live-dot"></span> 24 in stock</div>
           <p class="product-price">$18.50 <span>($74.00/kg)</span></p>
           <button class="add-btn">Add to Order</button>
@@ -299,10 +322,11 @@ footer {
       <div class="product-card">
         <div class="product-img">
           <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="Rump">
+          <span class="certified-badge">Organic Aged</span>
         </div>
         <div class="product-info">
           <h3>Rump Steak</h3>
-          <p class="product-weight">300g | Dry-cured</p>
+          <p class="product-weight">300g | Dry-aged 21 days</p>
           <div class="live-stock"><span class="live-dot"></span> 18 in stock</div>
           <p class="product-price">$16.00 <span>($53.33/kg)</span></p>
           <button class="add-btn">Add to Order</button>
@@ -310,80 +334,333 @@ footer {
       </div>
       <div class="product-card">
         <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400" alt="Sausages">
-          <span class="stock-badge">Only 5 left!</span>
+          <img src="https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?w=400" alt="Bavette">
+          <span class="certified-badge">Organic Aged</span>
         </div>
         <div class="product-info">
-          <h3>Beef Sausages 400g</h3>
-          <p class="product-weight">400g | Traditional</p>
-          <div class="live-stock"><span class="live-dot low"></span> 5 in stock</div>
-          <p class="product-price">$8.80 <span>($22.00/kg)</span></p>
+          <h3>Bavette Steak</h3>
+          <p class="product-weight">Approx 1.8kg | Whole piece</p>
+          <div class="live-stock"><span class="live-dot"></span> 6 in stock</div>
+          <p class="product-price">$64.80 <span>($36.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIME CUTS CATEGORY -->
+  <section class="category-section" id="prime-cuts">
+    <div class="category-header">
+      <h2>Prime Cuts</h2>
+      <a href="#" class="view-all">View All Prime Cuts →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400" alt="Scotch Fillet">
+          <span class="certified-badge">Organic Aged</span>
+        </div>
+        <div class="product-info">
+          <h3>Scotch Fillet</h3>
+          <p class="product-weight">350g | Premium cut</p>
+          <div class="live-stock"><span class="live-dot"></span> 12 in stock</div>
+          <p class="product-price">$32.00 <span>($91.43/kg)</span></p>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
       <div class="product-card">
         <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=400" alt="Mince">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=400" alt="Eye Fillet">
+          <span class="certified-badge">Organic Aged</span>
+          <span class="stock-badge">Only 4 left!</span>
         </div>
         <div class="product-info">
-          <h3>Premium Mince 500g</h3>
-          <p class="product-weight">500g | Fresh</p>
+          <h3>Eye Fillet</h3>
+          <p class="product-weight">200g | Tenderloin</p>
+          <div class="live-stock"><span class="live-dot low"></span> 4 in stock</div>
+          <p class="product-price">$38.00 <span>($190.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" alt="T-Bone">
+          <span class="certified-badge">Organic Aged</span>
+        </div>
+        <div class="product-info">
+          <h3>T-Bone Steak</h3>
+          <p class="product-weight">450g | Bone-in</p>
+          <div class="live-stock"><span class="live-dot"></span> 10 in stock</div>
+          <p class="product-price">$42.00 <span>($93.33/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?w=400" alt="Porterhouse">
+          <span class="certified-badge">Organic Aged</span>
+        </div>
+        <div class="product-info">
+          <h3>Porterhouse</h3>
+          <p class="product-weight">400g | Classic cut</p>
+          <div class="live-stock"><span class="live-dot"></span> 15 in stock</div>
+          <p class="product-price">$36.00 <span>($90.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROASTING CATEGORY -->
+  <section class="category-section" id="roasting">
+    <div class="category-header">
+      <h2>Roasting</h2>
+      <a href="#" class="view-all">View All Roasts →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" alt="Rolled Roast">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Rolled Beef Roast</h3>
+          <p class="product-weight">1.2kg | Boneless</p>
+          <div class="live-stock"><span class="live-dot"></span> 8 in stock</div>
+          <p class="product-price">$42.00 <span>($35.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="Standing Rib">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Standing Rib Roast</h3>
+          <p class="product-weight">2kg | Bone-in</p>
+          <div class="live-stock"><span class="live-dot"></span> 5 in stock</div>
+          <p class="product-price">$89.00 <span>($44.50/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400" alt="Topside">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Topside Roast</h3>
+          <p class="product-weight">1.5kg | Lean</p>
+          <div class="live-stock"><span class="live-dot"></span> 12 in stock</div>
+          <p class="product-price">$38.00 <span>($25.33/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400" alt="Rump Roast">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Rump Cap Roast</h3>
+          <p class="product-weight">1kg | Picanha style</p>
+          <div class="live-stock"><span class="live-dot"></span> 7 in stock</div>
+          <p class="product-price">$45.00 <span>($45.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOW COOKING CATEGORY -->
+  <section class="category-section" id="slow-cooking">
+    <div class="category-header">
+      <h2>Slow Cooking</h2>
+      <a href="#" class="view-all">View All Slow Cook →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=400" alt="Short Ribs">
+          <span class="certified-badge">Organic</span>
+          <div class="out-of-stock">Out of Stock</div>
+        </div>
+        <div class="product-info">
+          <h3>Beef Short Ribs</h3>
+          <p class="product-weight">500g | Bone-in</p>
+          <div class="live-stock"><span class="live-dot out"></span> 0 in stock</div>
+          <p class="product-price">$18.50 <span>($37.00/kg)</span></p>
+          <button class="add-btn" disabled>Out of Stock</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400" alt="Osso Buco">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Osso Buco</h3>
+          <p class="product-weight">400g | Cross-cut shank</p>
+          <div class="live-stock"><span class="live-dot"></span> 14 in stock</div>
+          <p class="product-price">$14.00 <span>($35.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=400" alt="Brisket">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Beef Brisket</h3>
+          <p class="product-weight">1.8kg | Whole</p>
+          <div class="live-stock"><span class="live-dot"></span> 6 in stock</div>
+          <p class="product-price">$52.00 <span>($28.89/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" alt="Beef Cheeks">
+          <span class="certified-badge">Organic</span>
+          <span class="stock-badge">Only 3 left!</span>
+        </div>
+        <div class="product-info">
+          <h3>Beef Cheeks</h3>
+          <p class="product-weight">500g | Pair</p>
+          <div class="live-stock"><span class="live-dot low"></span> 3 in stock</div>
+          <p class="product-price">$22.00 <span>($44.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINCE & STRIPS CATEGORY -->
+  <section class="category-section" id="mince-strips">
+    <div class="category-header">
+      <h2>Mince & Strips</h2>
+      <a href="#" class="view-all">View All Mince →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=400" alt="Premium Mince">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Premium Beef Mince</h3>
+          <p class="product-weight">500g | Fresh ground</p>
           <div class="live-stock"><span class="live-dot"></span> 32 in stock</div>
-          <p class="product-price">$7.50 <span>($15.00/kg)</span></p>
+          <p class="product-price">$12.50 <span>($25.00/kg)</span></p>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
       <div class="product-card">
         <div class="product-img">
           <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" alt="Mince 1kg">
+          <span class="certified-badge">Organic</span>
         </div>
         <div class="product-info">
-          <h3>Premium Mince 1kg</h3>
-          <p class="product-weight">1kg | Fresh</p>
+          <h3>Premium Beef Mince</h3>
+          <p class="product-weight">1kg | Fresh ground</p>
           <div class="live-stock"><span class="live-dot"></span> 28 in stock</div>
-          <p class="product-price">$15.00 <span>($15.00/kg)</span></p>
+          <p class="product-price">$24.00 <span>($24.00/kg)</span></p>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
       <div class="product-card">
         <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=400" alt="Short Ribs">
-          <div class="out-of-stock">Out of Stock</div>
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="Stir Fry Strips">
+          <span class="certified-badge">Organic</span>
         </div>
         <div class="product-info">
-          <h3>Short Ribs 500g</h3>
-          <p class="product-weight">500g | Bone-in</p>
-          <div class="live-stock"><span class="live-dot out"></span> 0 in stock</div>
-          <p class="product-price">$12.50 <span>($25.00/kg)</span></p>
-          <button class="add-btn" disabled>Out of Stock</button>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" alt="Skin-on Pack">
-        </div>
-        <div class="product-info">
-          <h3>Skin-on Pack 525g</h3>
-          <p class="product-weight">525g | Mixed cuts</p>
-          <div class="live-stock"><span class="live-dot"></span> 15 in stock</div>
-          <p class="product-price">$14.50 <span>($27.62/kg)</span></p>
+          <h3>Stir Fry Strips</h3>
+          <p class="product-weight">400g | Sliced thin</p>
+          <div class="live-stock"><span class="live-dot"></span> 18 in stock</div>
+          <p class="product-price">$16.00 <span>($40.00/kg)</span></p>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
       <div class="product-card">
         <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400" alt="Skin-on 750g">
+          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400" alt="Sausages">
+          <span class="certified-badge">Organic</span>
         </div>
         <div class="product-info">
-          <h3>Skin-on Pack 750g</h3>
-          <p class="product-weight">750g | Mixed cuts</p>
-          <div class="live-stock"><span class="live-dot"></span> 12 in stock</div>
-          <p class="product-price">$20.75 <span>($27.67/kg)</span></p>
+          <h3>Beef Sausages</h3>
+          <p class="product-weight">400g | Traditional</p>
+          <div class="live-stock"><span class="live-dot"></span> 22 in stock</div>
+          <p class="product-price">$10.00 <span>($25.00/kg)</span></p>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
     </div>
-  </main>
+  </section>
+
+  <!-- ORGANS & MARROW CATEGORY -->
+  <section class="category-section" id="organs-marrow">
+    <div class="category-header">
+      <h2>Organs & Marrow</h2>
+      <a href="#" class="view-all">View All Organs →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=400" alt="Marrow Bones">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Marrow Bones</h3>
+          <p class="product-weight">1kg | Cut for roasting</p>
+          <div class="live-stock"><span class="live-dot"></span> 10 in stock</div>
+          <p class="product-price">$12.00 <span>($12.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" alt="Beef Liver">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Beef Liver</h3>
+          <p class="product-weight">500g | Sliced</p>
+          <div class="live-stock"><span class="live-dot"></span> 8 in stock</div>
+          <p class="product-price">$8.00 <span>($16.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=400" alt="Beef Heart">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Beef Heart</h3>
+          <p class="product-weight">Approx 1.5kg | Whole</p>
+          <div class="live-stock"><span class="live-dot"></span> 4 in stock</div>
+          <p class="product-price">$18.00 <span>($12.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?w=400" alt="Oxtail">
+          <span class="certified-badge">Organic</span>
+        </div>
+        <div class="product-info">
+          <h3>Oxtail</h3>
+          <p class="product-weight">1kg | Cut</p>
+          <div class="live-stock"><span class="live-dot"></span> 6 in stock</div>
+          <p class="product-price">$28.00 <span>($28.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <footer>
