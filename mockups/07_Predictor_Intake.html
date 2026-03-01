@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JH Abattoir Predictor — Carcass Intake</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff; text-align: center;
+  font-size: 10px; letter-spacing: 2px; padding: 6px; font-weight: 500; text-transform: uppercase;
+}
+
+.app-container { max-width: 420px; margin: 40px auto 0; min-height: calc(100vh - 40px); background: var(--feta); padding-bottom: 80px; }
+
+.app-header {
+  background: var(--kale); padding: 20px; color: #fff;
+  text-align: center;
+}
+.app-logo { font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+.app-logo span { color: var(--zest); }
+.app-subtitle { font-size: 11px; opacity: 0.7; margin-top: 4px; letter-spacing: 1px; }
+
+/* Form Section */
+.form-section { padding: 20px; }
+.section-title {
+  font-size: 14px; font-weight: 600; color: var(--kale);
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--kale);
+  display: flex; align-items: center; gap: 8px;
+}
+.section-icon { font-size: 20px; }
+
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block; font-size: 12px; color: var(--stone);
+  letter-spacing: 1px; margin-bottom: 8px;
+}
+.form-input, .form-select {
+  width: 100%; padding: 14px 16px;
+  border: 2px solid var(--parchment); background: #fff;
+  font-family: 'Jost', sans-serif; font-size: 16px;
+  border-radius: 8px; transition: border-color 0.2s;
+}
+.form-input:focus, .form-select:focus {
+  outline: none; border-color: var(--kale);
+}
+.form-input.large { font-size: 24px; font-weight: 600; text-align: center; }
+
+/* Breed Selection */
+.breed-options { display: flex; gap: 10px; }
+.breed-btn {
+  flex: 1; padding: 14px; border: 2px solid var(--parchment);
+  background: #fff; font-family: 'Jost', sans-serif;
+  font-size: 13px; cursor: pointer; border-radius: 8px;
+  transition: all 0.2s;
+}
+.breed-btn:hover { border-color: var(--kale); }
+.breed-btn.selected { background: var(--kale); color: #fff; border-color: var(--kale); }
+
+/* Fat Score Selector */
+.fat-score-selector { display: flex; gap: 8px; }
+.fat-score-btn {
+  flex: 1; padding: 16px 0; border: 2px solid var(--parchment);
+  background: #fff; font-family: 'Jost', sans-serif;
+  font-size: 18px; font-weight: 600; cursor: pointer;
+  border-radius: 8px; transition: all 0.2s;
+}
+.fat-score-btn:hover { border-color: var(--kale); }
+.fat-score-btn.selected { background: var(--kale); color: #fff; border-color: var(--kale); }
+
+/* Calculate Button */
+.calculate-btn {
+  width: 100%; padding: 18px; margin-top: 20px;
+  background: var(--terracotta); color: #fff; border: none;
+  font-family: 'Jost', sans-serif; font-size: 14px;
+  font-weight: 600; letter-spacing: 2px; cursor: pointer;
+  border-radius: 8px; transition: background 0.2s;
+}
+.calculate-btn:hover { background: #a04d2d; }
+
+/* Results Card */
+.results-card {
+  margin: 20px; padding: 24px; background: #fff;
+  border: 2px solid var(--kale); border-radius: 12px;
+}
+.results-header {
+  text-align: center; margin-bottom: 20px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--parchment);
+}
+.results-title { font-size: 14px; color: var(--stone); letter-spacing: 1px; }
+.results-tag { font-size: 22px; font-weight: 700; color: var(--kale); margin-top: 4px; }
+
+.results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.result-item { text-align: center; padding: 16px; background: var(--parchment); border-radius: 8px; }
+.result-value { font-size: 28px; font-weight: 700; color: var(--kale); }
+.result-label { font-size: 11px; color: var(--stone); letter-spacing: 1px; margin-top: 4px; }
+
+.result-item.highlight { background: var(--zest); }
+.result-item.highlight .result-value { color: var(--kale-dark); }
+
+/* Confidence Indicator */
+.confidence-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; margin-top: 20px; padding: 12px;
+  background: var(--parchment); border-radius: 8px;
+}
+.confidence-dot { width: 10px; height: 10px; background: var(--terracotta); border-radius: 50%; }
+.confidence-text { font-size: 13px; color: var(--stone); }
+
+/* Confirm Button */
+.confirm-btn {
+  width: 100%; padding: 18px; margin-top: 16px;
+  background: var(--kale); color: #fff; border: none;
+  font-family: 'Jost', sans-serif; font-size: 14px;
+  font-weight: 600; letter-spacing: 2px; cursor: pointer;
+  border-radius: 8px;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 420px;
+  background: var(--kale-dark); padding: 12px 20px;
+  display: flex; justify-content: space-around;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1px;
+  text-decoration: none; padding: 8px 16px;
+}
+.nav-item.active { color: var(--zest); }
+.nav-icon { font-size: 24px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — ABATTOIR PREDICTOR — AI YIELD PREDICTION</div>
+
+<div class="app-container">
+  <header class="app-header">
+    <div class="app-logo">JH <span>PREDICTOR</span></div>
+    <div class="app-subtitle">CARCASS INTAKE & YIELD PREDICTION</div>
+  </header>
+
+  <div class="form-section">
+    <div class="section-title">
+      <span class="section-icon">🐂</span>
+      NEW CARCASS INTAKE
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">ANIMAL TAG ID</label>
+      <input type="text" class="form-input" value="JH-2024-A047" placeholder="e.g. JH-2024-A047">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">BREED</label>
+      <div class="breed-options">
+        <button class="breed-btn selected">Angus</button>
+        <button class="breed-btn">Angus-cross</button>
+        <button class="breed-btn">Hereford</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">AGE (MONTHS)</label>
+      <input type="number" class="form-input" value="24" placeholder="18-36">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">FAT SCORE (NZ MSA SCALE)</label>
+      <div class="fat-score-selector">
+        <button class="fat-score-btn">1</button>
+        <button class="fat-score-btn">2</button>
+        <button class="fat-score-btn selected">3</button>
+        <button class="fat-score-btn">4</button>
+        <button class="fat-score-btn">5</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">LIVE WEIGHT (KG)</label>
+      <input type="number" class="form-input large" value="435" placeholder="Enter weight">
+    </div>
+
+    <button class="calculate-btn">CALCULATE YIELD →</button>
+  </div>
+
+  <!-- Results -->
+  <div class="results-card">
+    <div class="results-header">
+      <div class="results-title">PREDICTED YIELD FOR</div>
+      <div class="results-tag">JH-2024-A047</div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-item">
+        <div class="result-value">261</div>
+        <div class="result-label">HOT CARCASS (KG)</div>
+      </div>
+      <div class="result-item">
+        <div class="result-value">256</div>
+        <div class="result-label">POST-CHILL (KG)</div>
+      </div>
+      <div class="result-item highlight">
+        <div class="result-value">184</div>
+        <div class="result-label">SALEABLE (KG)</div>
+      </div>
+      <div class="result-item">
+        <div class="result-value">$5,520</div>
+        <div class="result-label">EST. REVENUE</div>
+      </div>
+    </div>
+
+    <div class="confidence-row">
+      <span class="confidence-dot"></span>
+      <span class="confidence-text">Confidence: ±12% (learning — 8 carcasses processed)</span>
+    </div>
+
+    <button class="confirm-btn">CONFIRM & PROCEED TO CUTTING →</button>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active">
+      <span class="nav-icon">🐂</span>
+      INTAKE
+    </a>
+    <a href="08_Predictor_Optimiser.html" class="nav-item">
+      <span class="nav-icon">🔪</span>
+      OPTIMISE
+    </a>
+    <a href="09_Predictor_Dashboard.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      ACCURACY
+    </a>
+  </nav>
+</div>
+
+</body>
+</html>
