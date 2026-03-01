@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JH Abattoir Predictor — Butcher Optimiser</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff; text-align: center;
+  font-size: 10px; letter-spacing: 2px; padding: 6px; font-weight: 500; text-transform: uppercase;
+}
+
+.app-container { max-width: 420px; margin: 40px auto 0; min-height: calc(100vh - 40px); background: var(--feta); padding-bottom: 80px; }
+
+.app-header {
+  background: var(--kale); padding: 20px; color: #fff;
+}
+.header-row { display: flex; justify-content: space-between; align-items: center; }
+.app-logo { font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+.app-logo span { color: var(--zest); }
+.carcass-badge {
+  background: var(--zest); color: var(--kale); padding: 6px 12px;
+  font-size: 12px; font-weight: 600;
+}
+
+/* Carcass Summary */
+.carcass-summary {
+  display: flex; background: var(--kale-dark); color: #fff;
+}
+.summary-item { flex: 1; padding: 14px; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+.summary-item:last-child { border-right: none; }
+.summary-value { font-size: 20px; font-weight: 700; }
+.summary-label { font-size: 9px; letter-spacing: 1px; opacity: 0.6; margin-top: 2px; }
+
+/* Section Header */
+.section-header {
+  padding: 16px 20px; background: #fff;
+  border-bottom: 1px solid var(--parchment);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.section-title { font-size: 14px; font-weight: 600; color: var(--kale); }
+.ai-badge {
+  background: var(--terracotta); color: #fff;
+  padding: 4px 8px; font-size: 10px; letter-spacing: 1px;
+}
+
+/* Cut Recommendations */
+.cuts-list { padding: 16px; }
+.cut-card {
+  background: #fff; border: 1px solid var(--parchment);
+  border-radius: 8px; margin-bottom: 12px; overflow: hidden;
+}
+.cut-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px; background: var(--parchment);
+}
+.cut-icon { font-size: 24px; }
+.cut-name { flex: 1; font-weight: 600; }
+.cut-qty { font-size: 20px; font-weight: 700; color: var(--kale); }
+.cut-body { padding: 14px; }
+.cut-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+.cut-row:last-child { margin-bottom: 0; }
+.cut-row span:first-child { color: var(--stone); }
+.cut-row span:last-child { font-weight: 500; }
+
+/* Priority Badges */
+.priority-badge {
+  display: inline-block; padding: 3px 8px; font-size: 10px;
+  letter-spacing: 1px; border-radius: 4px;
+}
+.priority-high { background: #FFEBEE; color: #C62828; }
+.priority-medium { background: #FFF3E0; color: #E65100; }
+.priority-low { background: #E8F5E9; color: #2E7D32; }
+
+/* Demand Indicator */
+.demand-bar { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.demand-bar-bg { flex: 1; height: 6px; background: var(--parchment); border-radius: 3px; }
+.demand-bar-fill { height: 100%; background: var(--terracotta); border-radius: 3px; }
+.demand-label { font-size: 11px; color: var(--stone); }
+
+/* Total Revenue */
+.revenue-card {
+  margin: 16px; padding: 20px; background: var(--kale);
+  border-radius: 8px; color: #fff; text-align: center;
+}
+.revenue-label { font-size: 12px; letter-spacing: 2px; opacity: 0.7; }
+.revenue-value { font-size: 36px; font-weight: 700; margin: 8px 0; }
+.revenue-compare { font-size: 13px; color: var(--zest); }
+
+/* Confirm Actions */
+.action-buttons { padding: 16px; display: flex; gap: 12px; }
+.action-btn {
+  flex: 1; padding: 16px; border: none;
+  font-family: 'Jost', sans-serif; font-size: 13px;
+  font-weight: 600; letter-spacing: 1px; cursor: pointer;
+  border-radius: 8px;
+}
+.btn-primary { background: var(--terracotta); color: #fff; }
+.btn-secondary { background: #fff; color: var(--kale); border: 2px solid var(--kale); }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 420px;
+  background: var(--kale-dark); padding: 12px 20px;
+  display: flex; justify-content: space-around;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1px;
+  text-decoration: none; padding: 8px 16px;
+}
+.nav-item.active { color: var(--zest); }
+.nav-icon { font-size: 24px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — BUTCHER CUT OPTIMISER — AI-DRIVEN RECOMMENDATIONS</div>
+
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-row">
+      <div class="app-logo">JH <span>OPTIMISER</span></div>
+      <div class="carcass-badge">JH-2024-A047</div>
+    </div>
+  </header>
+
+  <!-- Carcass Summary -->
+  <div class="carcass-summary">
+    <div class="summary-item">
+      <div class="summary-value">184kg</div>
+      <div class="summary-label">SALEABLE</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-value">Angus</div>
+      <div class="summary-label">BREED</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-value">FS 3</div>
+      <div class="summary-label">FAT SCORE</div>
+    </div>
+  </div>
+
+  <!-- AI Recommendations -->
+  <div class="section-header">
+    <span class="section-title">🔪 RECOMMENDED CUTS</span>
+    <span class="ai-badge">AI OPTIMISED</span>
+  </div>
+
+  <div class="cuts-list">
+    <!-- Cut 1 -->
+    <div class="cut-card">
+      <div class="cut-header">
+        <span class="cut-icon">🥩</span>
+        <span class="cut-name">Ribeye Steak 300g</span>
+        <span class="cut-qty">×18</span>
+      </div>
+      <div class="cut-body">
+        <div class="cut-row">
+          <span>Total weight</span>
+          <span>5.4 kg</span>
+        </div>
+        <div class="cut-row">
+          <span>Unit price</span>
+          <span>$22.00</span>
+        </div>
+        <div class="cut-row">
+          <span>Revenue</span>
+          <span style="color: var(--kale);">$396.00</span>
+        </div>
+        <div class="cut-row">
+          <span>Stock demand</span>
+          <span class="priority-badge priority-high">HIGH</span>
+        </div>
+        <div class="demand-bar">
+          <div class="demand-bar-bg"><div class="demand-bar-fill" style="width: 90%;"></div></div>
+          <span class="demand-label">8 in stock, 15 ordered</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cut 2 -->
+    <div class="cut-card">
+      <div class="cut-header">
+        <span class="cut-icon">🥩</span>
+        <span class="cut-name">Sirloin Steak 250g</span>
+        <span class="cut-qty">×24</span>
+      </div>
+      <div class="cut-body">
+        <div class="cut-row">
+          <span>Total weight</span>
+          <span>6.0 kg</span>
+        </div>
+        <div class="cut-row">
+          <span>Unit price</span>
+          <span>$18.50</span>
+        </div>
+        <div class="cut-row">
+          <span>Revenue</span>
+          <span style="color: var(--kale);">$444.00</span>
+        </div>
+        <div class="cut-row">
+          <span>Stock demand</span>
+          <span class="priority-badge priority-medium">MEDIUM</span>
+        </div>
+        <div class="demand-bar">
+          <div class="demand-bar-bg"><div class="demand-bar-fill" style="width: 60%;"></div></div>
+          <span class="demand-label">24 in stock, 8 ordered</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cut 3 -->
+    <div class="cut-card">
+      <div class="cut-header">
+        <span class="cut-icon">🌭</span>
+        <span class="cut-name">Beef Sausages 400g</span>
+        <span class="cut-qty">×32</span>
+      </div>
+      <div class="cut-body">
+        <div class="cut-row">
+          <span>Total weight</span>
+          <span>12.8 kg</span>
+        </div>
+        <div class="cut-row">
+          <span>Unit price</span>
+          <span>$8.80</span>
+        </div>
+        <div class="cut-row">
+          <span>Revenue</span>
+          <span style="color: var(--kale);">$281.60</span>
+        </div>
+        <div class="cut-row">
+          <span>Stock demand</span>
+          <span class="priority-badge priority-high">HIGH</span>
+        </div>
+        <div class="demand-bar">
+          <div class="demand-bar-bg"><div class="demand-bar-fill" style="width: 85%;"></div></div>
+          <span class="demand-label">5 in stock, 20 ordered</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cut 4 -->
+    <div class="cut-card">
+      <div class="cut-header">
+        <span class="cut-icon">🍖</span>
+        <span class="cut-name">Premium Mince 500g</span>
+        <span class="cut-qty">×40</span>
+      </div>
+      <div class="cut-body">
+        <div class="cut-row">
+          <span>Total weight</span>
+          <span>20.0 kg</span>
+        </div>
+        <div class="cut-row">
+          <span>Unit price</span>
+          <span>$7.50</span>
+        </div>
+        <div class="cut-row">
+          <span>Revenue</span>
+          <span style="color: var(--kale);">$300.00</span>
+        </div>
+        <div class="cut-row">
+          <span>Stock demand</span>
+          <span class="priority-badge priority-low">LOW</span>
+        </div>
+        <div class="demand-bar">
+          <div class="demand-bar-bg"><div class="demand-bar-fill" style="width: 30%;"></div></div>
+          <span class="demand-label">32 in stock, 5 ordered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Revenue -->
+  <div class="revenue-card">
+    <div class="revenue-label">ESTIMATED TOTAL REVENUE</div>
+    <div class="revenue-value">$5,521.60</div>
+    <div class="revenue-compare">▲ 8% above baseline ($5,100)</div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="action-btn btn-secondary">EDIT CUTS</button>
+    <button class="action-btn btn-primary">CONFIRM & PRINT →</button>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="07_Predictor_Intake.html" class="nav-item">
+      <span class="nav-icon">🐂</span>
+      INTAKE
+    </a>
+    <a href="#" class="nav-item active">
+      <span class="nav-icon">🔪</span>
+      OPTIMISE
+    </a>
+    <a href="09_Predictor_Dashboard.html" class="nav-item">
+      <span class="nav-icon">📊</span>
+      ACCURACY
+    </a>
+  </nav>
+</div>
+
+</body>
+</html>

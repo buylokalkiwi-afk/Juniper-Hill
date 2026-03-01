@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Hill Farm — Shop All Cuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color--kale:       #2D4A2D;
+  --color--kale-dark:  #1A2E1A;
+  --color--kale-mid:   #3D6040;
+  --color--terracotta: #B85C38;
+  --color--terra-lt:   #d4714a;
+  --color--parchment:  #F5EFE0;
+  --color--feta:       #FAF7F2;
+  --color--charcoal:   #1E1E1E;
+  --color--stone:      #7A7163;
+  --color--stone-lt:   #A39B8F;
+  --color--zest:       #c8d9a0;
+  --color--border:     #E2D9CC;
+  --font--heading: 'Playfair Display', serif;
+  --font--body:    'Cormorant Garamond', serif;
+  --font--ui:      'Jost', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font--ui);
+  background: var(--color--feta);
+  color: var(--color--charcoal);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--color--zest); }
+a { color: inherit; text-decoration: none; }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--color--terracotta); color: #fff;
+  text-align: center; font-family: var(--font--ui);
+  font-size: 10px; letter-spacing: 2px; padding: 7px;
+  font-weight: 500; text-transform: uppercase;
+}
+
+/* NAV - matching homepage */
+nav {
+  position: sticky; top: 28px; z-index: 100;
+  background: var(--color--feta);
+  border-bottom: 1px solid var(--color--border);
+  padding: 0 48px; height: 66px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font--heading); font-size: 25px;
+  color: var(--color--kale); letter-spacing: 4px; font-weight: 700;
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--color--terracotta); }
+.nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+.nav-links a {
+  font-family: var(--font--ui); font-size: 11.5px;
+  letter-spacing: 1.5px; color: var(--color--stone);
+  font-weight: 400; text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--color--kale); }
+.nav-cta {
+  background: var(--color--kale) !important; color: #fff !important;
+  padding: 10px 22px !important; letter-spacing: 1.5px !important;
+  font-weight: 500 !important;
+}
+
+/* Page Header */
+.page-header {
+  background: var(--color--kale); padding: 50px 60px;
+  text-align: center; color: #fff;
+}
+.page-header h1 {
+  font-family: var(--font--heading); font-size: 42px;
+  font-weight: 400; margin-bottom: 12px;
+}
+.page-header p {
+  font-family: var(--font--body); font-size: 20px;
+  opacity: 0.85; font-style: italic;
+}
+
+/* Shop Layout */
+.shop-container { display: flex; padding: 40px 48px; gap: 40px; }
+
+/* Filters */
+.filters-sidebar { width: 260px; flex-shrink: 0; }
+.filter-section { margin-bottom: 28px; }
+.filter-title {
+  font-family: var(--font--ui); font-size: 11px;
+  letter-spacing: 2px; color: var(--color--kale);
+  margin-bottom: 14px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--color--border);
+  text-transform: uppercase;
+}
+.filter-options { display: flex; flex-direction: column; gap: 8px; }
+.filter-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: #fff;
+  border: 1px solid var(--color--border);
+  font-family: var(--font--ui); font-size: 13px;
+  cursor: pointer; transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--color--kale); }
+.filter-btn.active {
+  background: var(--color--kale); color: #fff;
+  border-color: var(--color--kale);
+}
+.filter-count { margin-left: auto; font-size: 11px; opacity: 0.6; }
+
+/* Products */
+.products-area { flex: 1; }
+.products-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 28px; padding-bottom: 18px;
+  border-bottom: 1px solid var(--color--border);
+}
+.products-header h2 {
+  font-family: var(--font--heading); font-size: 26px;
+  color: var(--color--kale); font-weight: 400;
+}
+.sort-select {
+  padding: 10px 16px; border: 1px solid var(--color--border);
+  background: #fff; font-family: var(--font--ui); font-size: 13px;
+}
+
+.products-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.product-card {
+  background: #fff; border: 1px solid var(--color--border);
+  overflow: hidden; transition: box-shadow 0.3s;
+}
+.product-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+.product-img {
+  height: 200px; background: var(--color--parchment);
+  position: relative; overflow: hidden;
+}
+.product-img img { width: 100%; height: 100%; object-fit: cover; }
+.stock-badge {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--color--terracotta); color: #fff;
+  font-family: var(--font--ui); font-size: 9px;
+  padding: 5px 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+.out-of-stock {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+}
+.product-info { padding: 18px; }
+.product-info h3 {
+  font-family: var(--font--heading); font-size: 17px;
+  margin-bottom: 4px; font-weight: 400;
+}
+.product-weight {
+  font-family: var(--font--body); font-size: 14px;
+  color: var(--color--stone); margin-bottom: 10px;
+}
+.live-stock {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--color--stone); margin-bottom: 10px;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #4CAF50; animation: pulse 2s infinite;
+}
+.live-dot.low { background: var(--color--terracotta); }
+.live-dot.out { background: #999; animation: none; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.product-price {
+  font-family: var(--font--ui); font-size: 17px;
+  font-weight: 600; color: var(--color--kale); margin-bottom: 14px;
+}
+.product-price span {
+  font-size: 12px; color: var(--color--stone); font-weight: 400;
+}
+.add-btn {
+  display: block; width: 100%;
+  background: var(--color--kale); color: #fff; border: none;
+  padding: 12px; font-family: var(--font--ui);
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s;
+}
+.add-btn:hover { background: var(--color--kale-mid); }
+.add-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+/* Footer */
+footer {
+  background: var(--color--kale-dark); color: var(--color--parchment);
+  padding: 40px 60px; text-align: center; margin-top: 60px;
+  font-family: var(--font--ui); font-size: 13px; letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">DESIGN MOCKUP — SHOP PAGE — SMART FILTERS & LIVE STOCK COUNTS</div>
+
+<nav>
+  <a href="01_Storefront_Homepage.html" class="nav-logo">JUNIPER <span>HILL</span></a>
+  <ul class="nav-links">
+    <li><a href="01_Storefront_Homepage.html">Our Farm</a></li>
+    <li><a href="#" style="color: var(--color--kale); font-weight: 500;">Butchery</a></li>
+    <li><a href="#">Recipes</a></li>
+    <li><a href="#">Delivery</a></li>
+    <li><a href="#">Login</a></li>
+    <li><a href="03_Storefront_Cart.html" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <h1>Shop Our Cuts</h1>
+  <p>BioGro Certified Organic Angus Beef — Live stock counts, never oversold</p>
+</div>
+
+<div class="shop-container">
+  <aside class="filters-sidebar">
+    <div class="filter-section">
+      <div class="filter-title">Category</div>
+      <div class="filter-options">
+        <button class="filter-btn active">All Products <span class="filter-count">36</span></button>
+        <button class="filter-btn">Steaks <span class="filter-count">12</span></button>
+        <button class="filter-btn">Roasts <span class="filter-count">6</span></button>
+        <button class="filter-btn">Mince <span class="filter-count">4</span></button>
+        <button class="filter-btn">Sausages <span class="filter-count">6</span></button>
+        <button class="filter-btn">Skin-on Packs <span class="filter-count">8</span></button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-title">Cook Method</div>
+      <div class="filter-options">
+        <button class="filter-btn">BBQ / Grill <span class="filter-count">18</span></button>
+        <button class="filter-btn">Pan Fry <span class="filter-count">14</span></button>
+        <button class="filter-btn">Slow Cook <span class="filter-count">8</span></button>
+        <button class="filter-btn">Roast <span class="filter-count">6</span></button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-title">Availability</div>
+      <div class="filter-options">
+        <button class="filter-btn active">In Stock <span class="filter-count">32</span></button>
+        <button class="filter-btn">Low Stock <span class="filter-count">6</span></button>
+        <button class="filter-btn">All <span class="filter-count">36</span></button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-title">Weight</div>
+      <div class="filter-options">
+        <button class="filter-btn">Under 300g <span class="filter-count">10</span></button>
+        <button class="filter-btn">300g - 500g <span class="filter-count">14</span></button>
+        <button class="filter-btn">500g - 1kg <span class="filter-count">8</span></button>
+        <button class="filter-btn">Over 1kg <span class="filter-count">4</span></button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="products-area">
+    <div class="products-header">
+      <h2>All Products (36)</h2>
+      <select class="sort-select">
+        <option>Sort by: Featured</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Availability</option>
+      </select>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400" alt="Ribeye">
+          <span class="stock-badge">Only 8 left!</span>
+        </div>
+        <div class="product-info">
+          <h3>Ribeye Steak</h3>
+          <p class="product-weight">300g | Dry-cured</p>
+          <div class="live-stock"><span class="live-dot low"></span> 8 in stock</div>
+          <p class="product-price">$22.00 <span>($73.33/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400" alt="Sirloin">
+        </div>
+        <div class="product-info">
+          <h3>Sirloin Steak</h3>
+          <p class="product-weight">250g | Dry-cured</p>
+          <div class="live-stock"><span class="live-dot"></span> 24 in stock</div>
+          <p class="product-price">$18.50 <span>($74.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="Rump">
+        </div>
+        <div class="product-info">
+          <h3>Rump Steak</h3>
+          <p class="product-weight">300g | Dry-cured</p>
+          <div class="live-stock"><span class="live-dot"></span> 18 in stock</div>
+          <p class="product-price">$16.00 <span>($53.33/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400" alt="Sausages">
+          <span class="stock-badge">Only 5 left!</span>
+        </div>
+        <div class="product-info">
+          <h3>Beef Sausages 400g</h3>
+          <p class="product-weight">400g | Traditional</p>
+          <div class="live-stock"><span class="live-dot low"></span> 5 in stock</div>
+          <p class="product-price">$8.80 <span>($22.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=400" alt="Mince">
+        </div>
+        <div class="product-info">
+          <h3>Premium Mince 500g</h3>
+          <p class="product-weight">500g | Fresh</p>
+          <div class="live-stock"><span class="live-dot"></span> 32 in stock</div>
+          <p class="product-price">$7.50 <span>($15.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400" alt="Mince 1kg">
+        </div>
+        <div class="product-info">
+          <h3>Premium Mince 1kg</h3>
+          <p class="product-weight">1kg | Fresh</p>
+          <div class="live-stock"><span class="live-dot"></span> 28 in stock</div>
+          <p class="product-price">$15.00 <span>($15.00/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=400" alt="Short Ribs">
+          <div class="out-of-stock">Out of Stock</div>
+        </div>
+        <div class="product-info">
+          <h3>Short Ribs 500g</h3>
+          <p class="product-weight">500g | Bone-in</p>
+          <div class="live-stock"><span class="live-dot out"></span> 0 in stock</div>
+          <p class="product-price">$12.50 <span>($25.00/kg)</span></p>
+          <button class="add-btn" disabled>Out of Stock</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" alt="Skin-on Pack">
+        </div>
+        <div class="product-info">
+          <h3>Skin-on Pack 525g</h3>
+          <p class="product-weight">525g | Mixed cuts</p>
+          <div class="live-stock"><span class="live-dot"></span> 15 in stock</div>
+          <p class="product-price">$14.50 <span>($27.62/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400" alt="Skin-on 750g">
+        </div>
+        <div class="product-info">
+          <h3>Skin-on Pack 750g</h3>
+          <p class="product-weight">750g | Mixed cuts</p>
+          <div class="live-stock"><span class="live-dot"></span> 12 in stock</div>
+          <p class="product-price">$20.75 <span>($27.67/kg)</span></p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer>
+  &copy; 2026 Juniper Hill Farm. BioGro Certified Organic.
+</footer>
+
+</body>
+</html>
