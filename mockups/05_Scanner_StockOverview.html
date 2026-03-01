@@ -283,6 +283,71 @@ body {
     </div>
   </div>
 
+  <!-- DEMAND FORECAST SECTION -->
+  <div class="forecast-section">
+    <div class="forecast-header">
+      <div class="forecast-title">3-Week Demand Forecast</div>
+      <div class="forecast-badge">LIVE ORDERS</div>
+    </div>
+    <div class="forecast-tabs">
+      <button class="forecast-tab active">7 Days</button>
+      <button class="forecast-tab">14 Days</button>
+      <button class="forecast-tab">21 Days</button>
+    </div>
+    <table class="forecast-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Stock</th>
+          <th>Orders</th>
+          <th>Subs</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="forecast-product">Ribeye 300g</td>
+          <td class="forecast-stock low">8</td>
+          <td class="forecast-demand">5</td>
+          <td class="forecast-demand">7</td>
+          <td><span class="forecast-status status-critical">Need 4</span></td>
+        </tr>
+        <tr>
+          <td class="forecast-product">Short Ribs 500g</td>
+          <td class="forecast-stock low">0</td>
+          <td class="forecast-demand">3</td>
+          <td class="forecast-demand">4</td>
+          <td><span class="forecast-status status-critical">Need 7</span></td>
+        </tr>
+        <tr>
+          <td class="forecast-product">Premium Mince 500g</td>
+          <td class="forecast-stock">32</td>
+          <td class="forecast-demand">12</td>
+          <td class="forecast-demand">15</td>
+          <td><span class="forecast-status status-warning">Low</span></td>
+        </tr>
+        <tr>
+          <td class="forecast-product">Sirloin 250g</td>
+          <td class="forecast-stock">24</td>
+          <td class="forecast-demand">6</td>
+          <td class="forecast-demand">8</td>
+          <td><span class="forecast-status status-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td class="forecast-product">Scotch Fillet</td>
+          <td class="forecast-stock">18</td>
+          <td class="forecast-demand">4</td>
+          <td class="forecast-demand">5</td>
+          <td><span class="forecast-status status-ok">OK</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="forecast-note">
+      <span class="forecast-note-icon">💡</span>
+      <span><strong>Orders:</strong> Pending website orders &nbsp;|&nbsp; <strong>Subs:</strong> Active subscription commitments for this period</span>
+    </div>
+  </div>
+
   <!-- Stock List -->
   <div class="stock-list">
     <div class="stock-item critical">
