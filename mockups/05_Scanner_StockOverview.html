@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JH Stock Scanner — Stock Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff; text-align: center;
+  font-size: 10px; letter-spacing: 2px; padding: 6px; font-weight: 500; text-transform: uppercase;
+}
+
+.app-container { max-width: 420px; margin: 40px auto 0; min-height: calc(100vh - 40px); background: var(--feta); padding-bottom: 80px; }
+
+.app-header {
+  background: var(--kale); padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.app-logo { font-size: 18px; font-weight: 600; letter-spacing: 2px; color: #fff; }
+.app-logo span { color: var(--zest); }
+.export-btn {
+  background: var(--zest); color: var(--kale); border: none;
+  padding: 8px 14px; font-size: 11px; font-weight: 600; letter-spacing: 1px;
+  cursor: pointer;
+}
+
+/* Stats Summary */
+.stats-bar {
+  display: flex; background: var(--kale-dark); color: #fff;
+}
+.stat-item { flex: 1; padding: 16px; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+.stat-item:last-child { border-right: none; }
+.stat-number { font-size: 28px; font-weight: 700; }
+.stat-number.warning { color: var(--terracotta); }
+.stat-number.critical { color: #ff5252; }
+.stat-label { font-size: 10px; letter-spacing: 1px; opacity: 0.7; margin-top: 4px; }
+
+/* Search & Filter */
+.search-bar { padding: 16px; background: #fff; border-bottom: 1px solid var(--parchment); }
+.search-input {
+  width: 100%; padding: 12px 16px; border: 1px solid var(--parchment);
+  font-family: 'Jost', sans-serif; font-size: 14px; background: var(--feta);
+}
+.filter-tabs {
+  display: flex; gap: 8px; margin-top: 12px;
+}
+.filter-tab {
+  padding: 8px 14px; border: 1px solid var(--parchment); background: #fff;
+  font-size: 12px; cursor: pointer;
+}
+.filter-tab.active { background: var(--kale); color: #fff; border-color: var(--kale); }
+
+/* Stock List */
+.stock-list { padding: 8px 16px; }
+.stock-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px; background: #fff; margin-bottom: 8px;
+  border: 1px solid var(--parchment); border-radius: 8px;
+}
+.stock-item.low { border-left: 4px solid var(--terracotta); }
+.stock-item.critical { border-left: 4px solid #ff5252; background: #FFF5F5; }
+
+.item-icon { font-size: 28px; }
+.item-info { flex: 1; }
+.item-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+.item-sku { font-size: 11px; color: var(--stone); }
+.item-stock { text-align: right; }
+.stock-count { font-size: 24px; font-weight: 700; color: var(--kale); }
+.stock-count.low { color: var(--terracotta); }
+.stock-count.critical { color: #ff5252; }
+.last-scan { font-size: 10px; color: var(--stone); margin-top: 2px; }
+
+/* Live Indicator */
+.live-indicator {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 16px; background: var(--zest); font-size: 12px;
+  font-weight: 500; color: var(--kale);
+}
+.live-dot { width: 8px; height: 8px; background: var(--kale); border-radius: 50%; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 420px;
+  background: var(--kale-dark); padding: 12px 20px;
+  display: flex; justify-content: space-around;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1px;
+  text-decoration: none; padding: 8px 16px;
+}
+.nav-item.active { color: var(--zest); }
+.nav-icon { font-size: 24px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — STOCK OVERVIEW — REAL-TIME INVENTORY STATUS</div>
+
+<div class="app-container">
+  <header class="app-header">
+    <div class="app-logo">JH <span>STOCK</span></div>
+    <button class="export-btn">EXPORT CSV</button>
+  </header>
+
+  <!-- Live Indicator -->
+  <div class="live-indicator">
+    <span class="live-dot"></span>
+    <span>LIVE — Auto-syncing with Supabase</span>
+  </div>
+
+  <!-- Stats Summary -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number">36</div>
+      <div class="stat-label">PRODUCTS</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">412</div>
+      <div class="stat-label">TOTAL UNITS</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number warning">6</div>
+      <div class="stat-label">LOW STOCK</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number critical">2</div>
+      <div class="stat-label">OUT</div>
+    </div>
+  </div>
+
+  <!-- Search & Filter -->
+  <div class="search-bar">
+    <input type="text" class="search-input" placeholder="Search products...">
+    <div class="filter-tabs">
+      <div class="filter-tab active">All</div>
+      <div class="filter-tab">Low Stock</div>
+      <div class="filter-tab">Steaks</div>
+      <div class="filter-tab">Mince</div>
+    </div>
+  </div>
+
+  <!-- Stock List -->
+  <div class="stock-list">
+    <div class="stock-item critical">
+      <span class="item-icon">🥩</span>
+      <div class="item-info">
+        <div class="item-name">Short Ribs 500g</div>
+        <div class="item-sku">Juniper-Ribs-Shortrib-500g</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count critical">0</div>
+        <div class="last-scan">OUT OF STOCK</div>
+      </div>
+    </div>
+
+    <div class="stock-item critical">
+      <span class="item-icon">🥩</span>
+      <div class="item-info">
+        <div class="item-name">T-Bone Steak 400g</div>
+        <div class="item-sku">Juniper-Steak-Tbone-400g</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count critical">0</div>
+        <div class="last-scan">OUT OF STOCK</div>
+      </div>
+    </div>
+
+    <div class="stock-item low">
+      <span class="item-icon">🥩</span>
+      <div class="item-info">
+        <div class="item-name">Ribeye Steak 300g</div>
+        <div class="item-sku">Juniper-Steak-Ribeye-300g</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count low">8</div>
+        <div class="last-scan">Scanned 2m ago</div>
+      </div>
+    </div>
+
+    <div class="stock-item low">
+      <span class="item-icon">🌭</span>
+      <div class="item-info">
+        <div class="item-name">Beef Sausages 400g</div>
+        <div class="item-sku">Juniper-Sausage-400g</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count low">5</div>
+        <div class="last-scan">Scanned 15m ago</div>
+      </div>
+    </div>
+
+    <div class="stock-item">
+      <span class="item-icon">🥩</span>
+      <div class="item-info">
+        <div class="item-name">Sirloin Steak 250g</div>
+        <div class="item-sku">Juniper-Steak-Sirloin-250g</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count">24</div>
+        <div class="last-scan">Scanned 1h ago</div>
+      </div>
+    </div>
+
+    <div class="stock-item">
+      <span class="item-icon">🍖</span>
+      <div class="item-info">
+        <div class="item-name">Premium Mince 500g</div>
+        <div class="item-sku">Juniper-Mince-500g</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count">32</div>
+        <div class="last-scan">Scanned 30m ago</div>
+      </div>
+    </div>
+
+    <div class="stock-item">
+      <span class="item-icon">🍖</span>
+      <div class="item-info">
+        <div class="item-name">Premium Mince 1kg</div>
+        <div class="item-sku">Juniper-Mince-1kg</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count">28</div>
+        <div class="last-scan">Scanned 45m ago</div>
+      </div>
+    </div>
+
+    <div class="stock-item">
+      <span class="item-icon">📦</span>
+      <div class="item-info">
+        <div class="item-name">Skin-on Pack 525g</div>
+        <div class="item-sku">Juniper-Beef-Skinon-525g</div>
+      </div>
+      <div class="item-stock">
+        <div class="stock-count">15</div>
+        <div class="last-scan">Scanned 2h ago</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="04_Scanner_QRScan.html" class="nav-item">
+      <span class="nav-icon">📷</span>
+      SCAN
+    </a>
+    <a href="#" class="nav-item active">
+      <span class="nav-icon">📦</span>
+      STOCK
+    </a>
+    <a href="06_Scanner_PrintLabels.html" class="nav-item">
+      <span class="nav-icon">🏷️</span>
+      PRINT
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon">⚙️</span>
+      SETTINGS
+    </a>
+  </nav>
+</div>
+
+</body>
+</html>
