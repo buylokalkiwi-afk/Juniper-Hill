@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Hill Farm — Subscribe & Save</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color--kale:       #2D4A2D;
+  --color--kale-dark:  #1A2E1A;
+  --color--kale-mid:   #3D6040;
+  --color--terracotta: #B85C38;
+  --color--terra-lt:   #d4714a;
+  --color--parchment:  #F5EFE0;
+  --color--feta:       #FAF7F2;
+  --color--charcoal:   #1E1E1E;
+  --color--stone:      #7A7163;
+  --color--stone-lt:   #A39B8F;
+  --color--zest:       #c8d9a0;
+  --color--border:     #E2D9CC;
+  --font--heading: 'Playfair Display', serif;
+  --font--body:    'Cormorant Garamond', serif;
+  --font--ui:      'Jost', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font--ui);
+  background: var(--color--feta);
+  color: var(--color--charcoal);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--color--terracotta); color: #fff;
+  text-align: center; font-family: var(--font--ui);
+  font-size: 10px; letter-spacing: 2px; padding: 7px;
+  font-weight: 500; text-transform: uppercase;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 28px; z-index: 100;
+  background: var(--color--feta);
+  border-bottom: 1px solid var(--color--border);
+  padding: 0 48px; height: 66px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font--heading); font-size: 25px;
+  color: var(--color--kale); letter-spacing: 4px; font-weight: 700;
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--color--terracotta); }
+.nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+.nav-links a {
+  font-family: var(--font--ui); font-size: 11.5px;
+  letter-spacing: 1.5px; color: var(--color--stone);
+  font-weight: 400; text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--color--kale); }
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--color--kale) 0%, var(--color--kale-dark) 100%);
+  padding: 80px 60px;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+.hero-content { flex: 1; color: #fff; }
+.hero-badge {
+  display: inline-block;
+  background: var(--color--terracotta);
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: var(--font--heading);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.hero h1 em { font-style: italic; color: var(--color--zest); }
+.hero-subtitle {
+  font-family: var(--font--body);
+  font-size: 22px;
+  opacity: 0.9;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.hero-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+}
+.hero-feature-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--color--zest);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color--kale);
+  font-size: 14px;
+}
+.hero-cta {
+  display: inline-block;
+  background: var(--color--terracotta);
+  color: #fff;
+  padding: 18px 36px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.hero-cta:hover { background: #a04d2d; }
+.hero-image {
+  flex: 1;
+  max-width: 500px;
+}
+.hero-image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* How It Works */
+.how-it-works {
+  padding: 80px 60px;
+  text-align: center;
+}
+.section-title {
+  font-family: var(--font--heading);
+  font-size: 36px;
+  color: var(--color--kale);
+  margin-bottom: 16px;
+}
+.section-subtitle {
+  font-family: var(--font--body);
+  font-size: 20px;
+  color: var(--color--stone);
+  margin-bottom: 60px;
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.step-card {
+  text-align: center;
+}
+.step-number {
+  width: 60px;
+  height: 60px;
+  background: var(--color--kale);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font--heading);
+  font-size: 28px;
+  margin: 0 auto 20px;
+}
+.step-title {
+  font-family: var(--font--ui);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color--charcoal);
+  margin-bottom: 12px;
+}
+.step-desc {
+  font-family: var(--font--body);
+  font-size: 16px;
+  color: var(--color--stone);
+  line-height: 1.6;
+}
+
+/* Product Selection */
+.product-selection {
+  background: var(--color--parchment);
+  padding: 80px 60px;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.product-card {
+  background: #fff;
+  border: 1px solid var(--color--border);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.product-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+.product-card.featured {
+  border: 3px solid var(--color--kale);
+  position: relative;
+}
+.product-card.featured::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--color--kale);
+  color: #fff;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 8px;
+}
+.product-img {
+  height: 200px;
+  background: var(--color--feta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.product-img img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+.product-info {
+  padding: 24px;
+}
+.product-name {
+  font-family: var(--font--heading);
+  font-size: 20px;
+  color: var(--color--kale);
+  margin-bottom: 8px;
+}
+.product-desc {
+  font-family: var(--font--body);
+  font-size: 15px;
+  color: var(--color--stone);
+  margin-bottom: 16px;
+}
+.product-contents {
+  font-size: 13px;
+  color: var(--color--stone);
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--color--feta);
+}
+
+/* Purchase Options */
+.purchase-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.purchase-option {
+  border: 2px solid var(--color--border);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.purchase-option:hover {
+  border-color: var(--color--kale);
+}
+.purchase-option.selected {
+  border-color: var(--color--kale);
+  background: #F0F7F0;
+}
+.purchase-option.subscribe {
+  border-color: var(--color--kale);
+  background: linear-gradient(135deg, #F0F7F0 0%, #E8F5E9 100%);
+}
+.option-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.purchase-option.selected .option-radio {
+  border-color: var(--color--kale);
+}
+.purchase-option.selected .option-radio::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: var(--color--kale);
+  border-radius: 50%;
+}
+.option-details { flex: 1; }
+.option-title {
+  font-family: var(--font--ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color--charcoal);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.option-badge {
+  background: var(--color--kale);
+  color: #fff;
+  font-size: 10px;
+  padding: 3px 8px;
+  letter-spacing: 1px;
+}
+.option-perks {
+  font-family: var(--font--body);
+  font-size: 13px;
+  color: var(--color--stone);
+  margin-top: 4px;
+}
+.option-price {
+  text-align: right;
+}
+.option-price .current {
+  font-family: var(--font--ui);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color--kale);
+}
+.option-price .original {
+  font-family: var(--font--body);
+  font-size: 14px;
+  color: var(--color--stone);
+  text-decoration: line-through;
+}
+
+.frequency-select {
+  padding: 12px;
+  border: 1px solid var(--color--border);
+  font-family: var(--font--ui);
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.add-btn {
+  width: 100%;
+  background: var(--color--kale);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  font-family: var(--font--ui);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-btn:hover { background: var(--color--kale-mid); }
+
+/* Benefits Section */
+.benefits {
+  padding: 80px 60px;
+  text-align: center;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.benefit-item {
+  text-align: center;
+}
+.benefit-icon {
+  width: 70px;
+  height: 70px;
+  background: var(--color--zest);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 16px;
+}
+.benefit-title {
+  font-family: var(--font--ui);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color--charcoal);
+  margin-bottom: 8px;
+}
+.benefit-desc {
+  font-family: var(--font--body);
+  font-size: 15px;
+  color: var(--color--stone);
+}
+
+/* First Order Banner */
+.first-order-banner {
+  background: var(--color--terracotta);
+  color: #fff;
+  padding: 60px;
+  text-align: center;
+}
+.first-order-banner h2 {
+  font-family: var(--font--heading);
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+.first-order-banner p {
+  font-family: var(--font--body);
+  font-size: 20px;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+.first-order-code {
+  display: inline-block;
+  background: #fff;
+  color: var(--color--terracotta);
+  padding: 14px 32px;
+  font-family: var(--font--ui);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+
+/* Manage Subscription Preview */
+.manage-preview {
+  padding: 80px 60px;
+  background: var(--color--parchment);
+}
+.manage-card {
+  background: #fff;
+  border: 1px solid var(--color--border);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+}
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color--border);
+  margin-bottom: 32px;
+}
+.manage-title {
+  font-family: var(--font--heading);
+  font-size: 28px;
+  color: var(--color--kale);
+}
+.manage-status {
+  background: var(--color--zest);
+  color: var(--color--kale);
+  padding: 8px 16px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+.manage-next-delivery {
+  background: var(--color--feta);
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.delivery-info h4 {
+  font-family: var(--font--ui);
+  font-size: 14px;
+  color: var(--color--stone);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.delivery-info p {
+  font-family: var(--font--heading);
+  font-size: 22px;
+  color: var(--color--kale);
+}
+.manage-actions {
+  display: flex;
+  gap: 12px;
+}
+.manage-btn {
+  padding: 12px 20px;
+  font-family: var(--font--ui);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid var(--color--border);
+  background: #fff;
+}
+.manage-btn:hover {
+  background: var(--color--parchment);
+}
+.manage-btn.primary {
+  background: var(--color--kale);
+  color: #fff;
+  border-color: var(--color--kale);
+}
+.manage-btn.primary:hover {
+  background: var(--color--kale-mid);
+}
+
+.manage-items h4 {
+  font-family: var(--font--ui);
+  font-size: 14px;
+  color: var(--color--stone);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.manage-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color--border);
+}
+.manage-item:last-child { border-bottom: none; }
+.manage-item-img {
+  width: 60px;
+  height: 60px;
+  background: var(--color--feta);
+}
+.manage-item-info { flex: 1; }
+.manage-item-name {
+  font-family: var(--font--ui);
+  font-size: 15px;
+  font-weight: 500;
+}
+.manage-item-details {
+  font-family: var(--font--body);
+  font-size: 14px;
+  color: var(--color--stone);
+}
+.manage-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qty-adjust {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color--border);
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Footer */
+footer {
+  background: var(--color--kale-dark);
+  color: var(--color--parchment);
+  padding: 50px 60px;
+  text-align: center;
+  font-family: var(--font--body);
+  font-size: 16px;
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — SUBSCRIBE & SAVE — FLEXIBLE MONTHLY BEEF SUBSCRIPTION</div>
+
+<nav>
+  <a href="01_Storefront_Homepage.html" class="nav-logo">JUNIPER <span>HILL</span></a>
+  <ul class="nav-links">
+    <li><a href="01_Storefront_Homepage.html">Home</a></li>
+    <li><a href="02_Storefront_Shop.html">Shop</a></li>
+    <li><a href="#" style="color: var(--color--kale); font-weight: 500;">Subscribe</a></li>
+    <li><a href="#">Our Farm</a></li>
+    <li><a href="03_Storefront_Cart.html">Cart</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">New: Subscribe & Save</div>
+    <h1>Never Run Out of <em>Premium Beef</em> Again</h1>
+    <p class="hero-subtitle">
+      Get BioGro certified organic beef delivered monthly. Save 15% on every order, 
+      change or cancel anytime — no commitment, no hassle.
+    </p>
+    <div class="hero-features">
+      <div class="hero-feature">
+        <span class="hero-feature-icon">✓</span>
+        <span><strong>Save 15%</strong> on every subscription order</span>
+      </div>
+      <div class="hero-feature">
+        <span class="hero-feature-icon">✓</span>
+        <span><strong>Free delivery</strong> on all subscription orders</span>
+      </div>
+      <div class="hero-feature">
+        <span class="hero-feature-icon">✓</span>
+        <span><strong>Pause, skip or cancel</strong> anytime — no obligation</span>
+      </div>
+      <div class="hero-feature">
+        <span class="hero-feature-icon">✓</span>
+        <span><strong>Change your order</strong> before each delivery</span>
+      </div>
+    </div>
+    <a href="#products" class="hero-cta">Build Your Box</a>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=600" alt="Premium Beef Box">
+  </div>
+</section>
+
+<!-- First Order Banner -->
+<section class="first-order-banner">
+  <h2>First Subscription Order: Get 20% Off</h2>
+  <p>Use code at checkout for an extra 5% off your first subscription delivery</p>
+  <div class="first-order-code">FIRSTBOX20</div>
+</section>
+
+<!-- How It Works -->
+<section class="how-it-works">
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-subtitle">Premium organic beef delivered on your schedule</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">1</div>
+      <h3 class="step-title">Choose Your Box</h3>
+      <p class="step-desc">Select a curated box or build your own with your favourite cuts</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">2</div>
+      <h3 class="step-title">Set Your Frequency</h3>
+      <p class="step-desc">Every 2 weeks, monthly, or every 6 weeks — whatever suits you</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">3</div>
+      <h3 class="step-title">We Deliver Fresh</h3>
+      <p class="step-desc">Dry-aged 21 days, vacuum sealed, delivered chilled to your door</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">4</div>
+      <h3 class="step-title">Change Anytime</h3>
+      <p class="step-desc">Swap products, skip a delivery, or cancel — total flexibility</p>
+    </div>
+  </div>
+</section>
+
+<!-- Product Selection -->
+<section class="product-selection" id="products">
+  <h2 class="section-title" style="text-align: center; margin-bottom: 60px;">Choose Your Subscription</h2>
+  <div class="product-grid">
+    
+    <!-- Essentials Box -->
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=300" alt="Essentials Box">
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">The Essentials Box</h3>
+        <p class="product-desc">Perfect for everyday meals. A balanced mix of steaks, mince, and sausages.</p>
+        <div class="product-contents">
+          <strong>Includes:</strong> 2x Rump Steaks, 2x Sirloin Steaks, 1kg Mince, 500g Sausages (~4kg total)
+        </div>
+        
+        <div class="purchase-options">
+          <div class="purchase-option subscribe selected">
+            <div class="option-radio"></div>
+            <div class="option-details">
+              <div class="option-title">Subscribe & Save <span class="option-badge">SAVE 15%</span></div>
+              <div class="option-perks">Free delivery + pause anytime</div>
+            </div>
+            <div class="option-price">
+              <div class="current">$119.00</div>
+              <div class="original">$140.00</div>
+            </div>
+          </div>
+          <div class="purchase-option">
+            <div class="option-radio"></div>
+            <div class="option-details">
+              <div class="option-title">One-Time Purchase</div>
+              <div class="option-perks">Standard delivery rates apply</div>
+            </div>
+            <div class="option-price">
+              <div class="current">$140.00</div>
+            </div>
+          </div>
+        </div>
+        
+        <select class="frequency-select">
+          <option>Deliver every 2 weeks</option>
+          <option selected>Deliver every month</option>
+          <option>Deliver every 6 weeks</option>
+        </select>
+        
+        <button class="add-btn">Subscribe — $119.00/delivery</button>
+      </div>
+    </div>
+    
+    <!-- Family Box -->
+    <div class="product-card featured">
+      <div class="product-img" style="margin-top: 30px;">
+        <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=300" alt="Family Box">
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">The Family Box</h3>
+        <p class="product-desc">Feed the whole family. Our most popular subscription with variety for everyone.</p>
+        <div class="product-contents">
+          <strong>Includes:</strong> 2x Ribeye, 4x Rump Steaks, 2kg Mince, 1kg Sausages, 500g Stir Fry Strips (~7kg total)
+        </div>
+        
+        <div class="purchase-options">
+          <div class="purchase-option subscribe selected">
+            <div class="option-radio"></div>
+            <div class="option-details">
+              <div class="option-title">Subscribe & Save <span class="option-badge">SAVE 15%</span></div>
+              <div class="option-perks">Free delivery + pause anytime</div>
+            </div>
+            <div class="option-price">
+              <div class="current">$199.00</div>
+              <div class="original">$235.00</div>
+            </div>
+          </div>
+          <div class="purchase-option">
+            <div class="option-radio"></div>
+            <div class="option-details">
+              <div class="option-title">One-Time Purchase</div>
+              <div class="option-perks">Standard delivery rates apply</div>
+            </div>
+            <div class="option-price">
+              <div class="current">$235.00</div>
+            </div>
+          </div>
+        </div>
+        
+        <select class="frequency-select">
+          <option>Deliver every 2 weeks</option>
+          <option selected>Deliver every month</option>
+          <option>Deliver every 6 weeks</option>
+        </select>
+        
+        <button class="add-btn">Subscribe — $199.00/delivery</button>
+      </div>
+    </div>
+    
+    <!-- BBQ Box -->
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300" alt="BBQ Box">
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">The BBQ Box</h3>
+        <p class="product-desc">Premium cuts for the grill master. All steaks, dry-aged 21 days for maximum flavour.</p>
+        <div class="product-contents">
+          <strong>Includes:</strong> 2x Ribeye, 2x Scotch Fillet, 2x Sirloin, 2x Bavette (~5kg total)
+        </div>
+        
+        <div class="purchase-options">
+          <div class="purchase-option subscribe selected">
+            <div class="option-radio"></div>
+            <div class="option-details">
+              <div class="option-title">Subscribe & Save <span class="option-badge">SAVE 15%</span></div>
+              <div class="option-perks">Free delivery + pause anytime</div>
+            </div>
+            <div class="option-price">
+              <div class="current">$255.00</div>
+              <div class="original">$300.00</div>
+            </div>
+          </div>
+          <div class="purchase-option">
+            <div class="option-radio"></div>
+            <div class="option-details">
+              <div class="option-title">One-Time Purchase</div>
+              <div class="option-perks">Standard delivery rates apply</div>
+            </div>
+            <div class="option-price">
+              <div class="current">$300.00</div>
+            </div>
+          </div>
+        </div>
+        
+        <select class="frequency-select">
+          <option>Deliver every 2 weeks</option>
+          <option selected>Deliver every month</option>
+          <option>Deliver every 6 weeks</option>
+        </select>
+        
+        <button class="add-btn">Subscribe — $255.00/delivery</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits -->
+<section class="benefits">
+  <h2 class="section-title">Why Subscribe?</h2>
+  <p class="section-subtitle">Join hundreds of Kiwi families enjoying premium organic beef</p>
+  <div class="benefits-grid">
+    <div class="benefit-item">
+      <div class="benefit-icon">💰</div>
+      <h3 class="benefit-title">Save 15% Always</h3>
+      <p class="benefit-desc">Every subscription order is 15% off regular prices</p>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">🚚</div>
+      <h3 class="benefit-title">Free Delivery</h3>
+      <p class="benefit-desc">No minimum, no delivery fees on subscriptions</p>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">🔄</div>
+      <h3 class="benefit-title">Total Flexibility</h3>
+      <p class="benefit-desc">Change, pause, or cancel anytime — no lock-in</p>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">✨</div>
+      <h3 class="benefit-title">Subscriber Perks</h3>
+      <p class="benefit-desc">Early access to new products & exclusive offers</p>
+    </div>
+  </div>
+</section>
+
+<!-- Manage Subscription Preview -->
+<section class="manage-preview">
+  <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Manage Your Subscription Easily</h2>
+  <p class="section-subtitle" style="text-align: center;">Full control from your account dashboard</p>
+  
+  <div class="manage-card">
+    <div class="manage-header">
+      <h3 class="manage-title">My Subscription</h3>
+      <span class="manage-status">ACTIVE</span>
+    </div>
+    
+    <div class="manage-next-delivery">
+      <div class="delivery-info">
+        <h4>Next Delivery</h4>
+        <p>Wednesday, 15 January 2026</p>
+      </div>
+      <div class="manage-actions">
+        <button class="manage-btn">Skip This Delivery</button>
+        <button class="manage-btn">Reschedule</button>
+        <button class="manage-btn primary">Edit Order</button>
+      </div>
+    </div>
+    
+    <div class="manage-items">
+      <h4>Items in Next Delivery</h4>
+      <div class="manage-item">
+        <div class="manage-item-img"></div>
+        <div class="manage-item-info">
+          <div class="manage-item-name">Ribeye Steak</div>
+          <div class="manage-item-details">~1.3kg | Dry-aged 21 days</div>
+        </div>
+        <div class="manage-item-qty">
+          <button class="qty-adjust">-</button>
+          <span>2</span>
+          <button class="qty-adjust">+</button>
+        </div>
+        <div style="width: 80px; text-align: right; font-weight: 600;">$182.00</div>
+      </div>
+      <div class="manage-item">
+        <div class="manage-item-img"></div>
+        <div class="manage-item-info">
+          <div class="manage-item-name">Premium Mince</div>
+          <div class="manage-item-details">1kg | Fresh ground</div>
+        </div>
+        <div class="manage-item-qty">
+          <button class="qty-adjust">-</button>
+          <span>2</span>
+          <button class="qty-adjust">+</button>
+        </div>
+        <div style="width: 80px; text-align: right; font-weight: 600;">$30.00</div>
+      </div>
+      <div class="manage-item">
+        <div class="manage-item-img"></div>
+        <div class="manage-item-info">
+          <div class="manage-item-name">Beef Sausages</div>
+          <div class="manage-item-details">500g | Traditional</div>
+        </div>
+        <div class="manage-item-qty">
+          <button class="qty-adjust">-</button>
+          <span>1</span>
+          <button class="qty-adjust">+</button>
+        </div>
+        <div style="width: 80px; text-align: right; font-weight: 600;">$12.50</div>
+      </div>
+    </div>
+    
+    <div style="margin-top: 24px; padding-top: 24px; border-top: 2px solid var(--color--border); display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span style="font-size: 14px; color: var(--color--stone);">Subtotal: $264.00</span><br>
+        <span style="font-size: 14px; color: var(--color--kale); font-weight: 600;">Subscriber discount (15%): -$39.60</span>
+      </div>
+      <div style="text-align: right;">
+        <span style="font-size: 14px; color: var(--color--stone);">Total</span><br>
+        <span style="font-family: var(--font--heading); font-size: 28px; color: var(--color--kale);">$224.40</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Juniper Hill Farm. BioGro Certified Organic. Raukawa Valley, New Zealand.</p>
+</footer>
+
+</body>
+</html>
