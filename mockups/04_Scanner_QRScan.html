@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JH Stock Scanner — Staff PWA</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--charcoal); color: #fff; min-height: 100vh; }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff; text-align: center;
+  font-size: 10px; letter-spacing: 2px; padding: 6px; font-weight: 500; text-transform: uppercase;
+}
+
+/* Mobile App Container */
+.app-container {
+  max-width: 420px; margin: 40px auto 0; min-height: calc(100vh - 40px);
+  background: var(--charcoal); position: relative;
+}
+
+/* App Header */
+.app-header {
+  background: var(--kale); padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.app-logo { font-size: 18px; font-weight: 600; letter-spacing: 2px; }
+.app-logo span { color: var(--zest); }
+.staff-pin { font-size: 12px; opacity: 0.7; }
+
+/* Camera Viewfinder */
+.camera-viewfinder {
+  height: 320px; background: #000; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.qr-target {
+  width: 200px; height: 200px; border: 3px solid var(--zest);
+  position: relative;
+}
+.qr-target::before, .qr-target::after {
+  content: ''; position: absolute; width: 30px; height: 30px;
+  border: 4px solid var(--zest);
+}
+.qr-target::before { top: -4px; left: -4px; border-right: none; border-bottom: none; }
+.qr-target::after { bottom: -4px; right: -4px; border-left: none; border-top: none; }
+.scan-line {
+  position: absolute; width: 180px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--zest), transparent);
+  animation: scan 2s infinite;
+}
+@keyframes scan { 0%, 100% { top: 20px; } 50% { top: 170px; } }
+.camera-label {
+  position: absolute; bottom: 20px; left: 0; right: 0;
+  text-align: center; font-size: 12px; letter-spacing: 1px; opacity: 0.6;
+}
+
+/* Scanned Result Card */
+.result-card {
+  background: var(--feta); color: var(--charcoal);
+  margin: -40px 16px 0; border-radius: 12px;
+  padding: 24px; position: relative; z-index: 10;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.result-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.product-name { font-size: 22px; font-weight: 600; color: var(--kale); }
+.product-sku { font-size: 12px; color: var(--stone); margin-top: 4px; }
+
+/* Stock Display */
+.stock-display {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; margin: 24px 0;
+}
+.stock-number {
+  font-size: 72px; font-weight: 700; color: var(--kale);
+  line-height: 1;
+}
+.stock-number.low { color: var(--terracotta); }
+.stock-number.critical { color: #d32f2f; }
+.stock-label { font-size: 14px; color: var(--stone); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Stock Status Bar */
+.stock-bar {
+  height: 8px; background: #E2D9CC; border-radius: 4px;
+  margin: 16px 0; overflow: hidden;
+}
+.stock-bar-fill { height: 100%; background: var(--kale); border-radius: 4px; }
+.stock-bar-fill.low { background: var(--terracotta); }
+.stock-bar-fill.critical { background: #d32f2f; }
+
+.price-info {
+  display: flex; justify-content: space-between; padding: 12px 0;
+  border-top: 1px solid var(--parchment); font-size: 14px;
+}
+.last-updated { font-size: 12px; color: var(--stone); text-align: center; margin-top: 12px; }
+
+/* Action Buttons */
+.action-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.action-btn {
+  padding: 18px 16px; border: none; font-family: 'Jost', sans-serif;
+  font-size: 14px; font-weight: 600; letter-spacing: 1px; cursor: pointer;
+  border-radius: 8px; transition: transform 0.1s;
+}
+.action-btn:active { transform: scale(0.98); }
+.btn-in { background: var(--kale); color: #fff; }
+.btn-out { background: var(--terracotta); color: #fff; }
+.btn-set { background: var(--parchment); color: var(--kale); border: 2px solid var(--kale); }
+.btn-alert { background: #FFF3CD; color: #856404; border: 2px solid #FFEEBA; }
+
+/* Number Input Modal */
+.qty-input-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-top: 20px; padding: 16px;
+  background: var(--parchment); border-radius: 8px;
+}
+.qty-btn {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 2px solid var(--kale); background: #fff;
+  font-size: 24px; cursor: pointer; color: var(--kale);
+}
+.qty-value { font-size: 36px; font-weight: 700; min-width: 60px; text-align: center; }
+.confirm-btn {
+  display: block; width: 100%; margin-top: 12px;
+  background: var(--kale); color: #fff; border: none;
+  padding: 16px; font-size: 14px; font-weight: 600; letter-spacing: 1px;
+  border-radius: 8px; cursor: pointer;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 420px;
+  background: var(--kale-dark); padding: 12px 20px;
+  display: flex; justify-content: space-around;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1px;
+  text-decoration: none; padding: 8px 16px;
+}
+.nav-item.active { color: var(--zest); }
+.nav-icon { font-size: 24px; margin-bottom: 4px; }
+
+/* Low Stock Alert Banner */
+.low-stock-alert {
+  background: #d32f2f; color: #fff; padding: 12px 20px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; font-weight: 500;
+}
+.alert-icon { font-size: 20px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — STAFF INVENTORY SCANNER PWA — PHONE-BASED QR SCANNING</div>
+
+<div class="app-container">
+  <header class="app-header">
+    <div class="app-logo">JH <span>SCANNER</span></div>
+    <div class="staff-pin">Staff: 1234</div>
+  </header>
+
+  <!-- Low Stock Alert Banner -->
+  <div class="low-stock-alert">
+    <span class="alert-icon">⚠️</span>
+    <span>3 products below threshold — tap to view</span>
+  </div>
+
+  <!-- Camera Viewfinder -->
+  <div class="camera-viewfinder">
+    <div class="qr-target">
+      <div class="scan-line"></div>
+    </div>
+    <div class="camera-label">POINT CAMERA AT QR CODE</div>
+  </div>
+
+  <!-- Scanned Result Card -->
+  <div class="result-card">
+    <div class="result-header">
+      <div>
+        <div class="product-name">Ribeye Steak 300g</div>
+        <div class="product-sku">SKU: Juniper-Steak-Ribeye-300g</div>
+      </div>
+      <span style="font-size: 24px;">🥩</span>
+    </div>
+
+    <div class="stock-display">
+      <div>
+        <div class="stock-number low">8</div>
+        <div class="stock-label">In Stock</div>
+      </div>
+    </div>
+
+    <div class="stock-bar">
+      <div class="stock-bar-fill low" style="width: 20%;"></div>
+    </div>
+
+    <div class="price-info">
+      <span>Price: <strong>$22.00</strong></span>
+      <span>Per kg: <strong>$73.33</strong></span>
+    </div>
+
+    <div class="last-updated">Last updated: 2 minutes ago</div>
+
+    <div class="action-buttons">
+      <button class="action-btn btn-in">+ STOCK IN</button>
+      <button class="action-btn btn-out">− SOLD</button>
+      <button class="action-btn btn-set">SET COUNT</button>
+      <button class="action-btn btn-alert">⚠ LOW ALERT</button>
+    </div>
+
+    <!-- Quantity Input (shown when + STOCK IN is tapped) -->
+    <div class="qty-input-row">
+      <button class="qty-btn">−</button>
+      <span class="qty-value">5</span>
+      <button class="qty-btn">+</button>
+    </div>
+    <button class="confirm-btn">CONFIRM: ADD 5 TO STOCK</button>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item active">
+      <span class="nav-icon">📷</span>
+      SCAN
+    </a>
+    <a href="05_Scanner_StockOverview.html" class="nav-item">
+      <span class="nav-icon">📦</span>
+      STOCK
+    </a>
+    <a href="06_Scanner_PrintLabels.html" class="nav-item">
+      <span class="nav-icon">🏷️</span>
+      PRINT
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon">⚙️</span>
+      SETTINGS
+    </a>
+  </nav>
+</div>
+
+</body>
+</html>
