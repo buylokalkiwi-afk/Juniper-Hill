@@ -200,13 +200,12 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   transition: all 0.15s ease;
 }
 .section-overlay:hover {
-  background: rgba(139, 38, 53, 0.3);
-  border-color: var(--beef-red);
+  background: rgba(255, 255, 255, 0.85);
+  border: 3px solid var(--charcoal);
 }
 .section-overlay.selected {
-  background: rgba(139, 38, 53, 0.15);
-  border-color: var(--beef-red);
-  border-width: 3px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 3px solid var(--beef-red);
 }
 .section-overlay.selected::after {
   content: '✓';
