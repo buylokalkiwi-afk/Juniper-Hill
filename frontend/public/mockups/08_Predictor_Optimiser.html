@@ -200,13 +200,12 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   transition: all 0.15s ease;
 }
 .section-overlay:hover {
-  background: rgba(139, 38, 53, 0.3);
-  border-color: var(--beef-red);
+  background: rgba(255, 255, 255, 0.85);
+  border: 3px solid var(--charcoal);
 }
 .section-overlay.selected {
-  background: rgba(139, 38, 53, 0.15);
-  border-color: var(--beef-red);
-  border-width: 3px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 3px solid var(--beef-red);
 }
 .section-overlay.selected::after {
   content: '✓';
@@ -226,6 +225,31 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   font-weight: bold;
 }
 
+/* Hover label */
+.section-overlay::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--charcoal);
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+  pointer-events: none;
+}
+.section-overlay:hover::before {
+  opacity: 1;
+}
+.section-overlay.selected::before {
+  opacity: 0;
+}
+
 /* Section positions - approximate based on typical beef diagram */
 .overlay-chuck { top: 15%; left: 8%; width: 22%; height: 45%; }
 .overlay-rib { top: 10%; left: 30%; width: 12%; height: 35%; }
@@ -235,6 +259,7 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
 .overlay-flank { top: 50%; left: 42%; width: 25%; height: 25%; }
 .overlay-plate { top: 50%; left: 22%; width: 20%; height: 22%; }
 .overlay-brisket { top: 55%; left: 8%; width: 18%; height: 28%; }
+.overlay-shank { top: 75%; left: 64%; width: 12%; height: 18%; }
 
 /* Cut Selection Popup */
 .cut-popup {
@@ -353,8 +378,8 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   border: 2px solid;
 }
 .legend-dot.unallocated { background: transparent; border-color: rgba(255,255,255,0.3); }
-.legend-dot.hover { background: rgba(139, 38, 53, 0.4); border-color: var(--beef-red); }
-.legend-dot.selected { background: var(--beef-red); border-color: var(--beef-red); }
+.legend-dot.hover { background: #fff; border-color: var(--charcoal); }
+.legend-dot.selected { background: #fff; border-color: var(--beef-red); }
 
 /* Right Panel */
 .cut-plan-panel {
@@ -547,15 +572,16 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
         <div class="cow-diagram-wrapper">
           <img src="https://static.prod-images.emergentagent.com/jobs/da888e2e-b5f0-4d04-b52c-50903be3ddd1/images/0090c75228f7aa1a729104d5b0e9003dc5df04786edf8809ea216b1787d3a144.png" alt="Beef Cuts Diagram" class="cow-image">
           
-          <!-- Clickable overlay areas -->
-          <div class="section-overlay overlay-chuck selected" data-section="chuck"></div>
-          <div class="section-overlay overlay-rib selected" data-section="rib"></div>
-          <div class="section-overlay overlay-shortloin selected" data-section="shortloin"></div>
-          <div class="section-overlay overlay-sirloin selected" data-section="sirloin"></div>
-          <div class="section-overlay overlay-round" data-section="round"></div>
-          <div class="section-overlay overlay-flank selected" data-section="flank"></div>
-          <div class="section-overlay overlay-plate" data-section="plate"></div>
-          <div class="section-overlay overlay-brisket selected" data-section="brisket"></div>
+          <!-- Clickable overlay areas with labels -->
+          <div class="section-overlay overlay-chuck selected" data-section="chuck" data-label="Chuck"></div>
+          <div class="section-overlay overlay-rib selected" data-section="rib" data-label="Rib"></div>
+          <div class="section-overlay overlay-shortloin selected" data-section="shortloin" data-label="Short Loin"></div>
+          <div class="section-overlay overlay-sirloin selected" data-section="sirloin" data-label="Sirloin"></div>
+          <div class="section-overlay overlay-round" data-section="round" data-label="Round"></div>
+          <div class="section-overlay overlay-flank selected" data-section="flank" data-label="Flank"></div>
+          <div class="section-overlay overlay-plate" data-section="plate" data-label="Plate"></div>
+          <div class="section-overlay overlay-brisket selected" data-section="brisket" data-label="Brisket"></div>
+          <div class="section-overlay overlay-shank" data-section="shank" data-label="Shank"></div>
         </div>
 
         <!-- Popup for Round section (example) -->
@@ -571,7 +597,7 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
             <div class="cut-option best">
               <div class="cut-option-info">
                 <div class="cut-option-name">Topside Roasts<span class="best-tag">BEST</span></div>
-                <div class="cut-option-details">~24 roasts (2.2kg avg) • 5% trim</div>
+                <div class="cut-option-details">~24 roasts @ $32/kg</div>
               </div>
               <div class="cut-option-profit">
                 <div class="cut-profit-amount">$1,782</div>
@@ -580,8 +606,8 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
             </div>
             <div class="cut-option">
               <div class="cut-option-info">
-                <div class="cut-option-name">Schnitzel Steaks</div>
-                <div class="cut-option-details">~140 steaks (400g) • 6% trim</div>
+                <div class="cut-option-name">Boneless Shin</div>
+                <div class="cut-option-details">~40 packs @ $30/kg</div>
               </div>
               <div class="cut-option-profit">
                 <div class="cut-profit-amount">$1,680</div>
@@ -590,8 +616,8 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
             </div>
             <div class="cut-option">
               <div class="cut-option-info">
-                <div class="cut-option-name">Corned Silverside</div>
-                <div class="cut-option-details">~20 pieces (2.8kg avg) • 4% trim</div>
+                <div class="cut-option-name">Premium Mince</div>
+                <div class="cut-option-details">~118 packs (500g) @ $25/kg</div>
               </div>
               <div class="cut-option-profit">
                 <div class="cut-profit-amount">$1,426</div>
@@ -623,67 +649,81 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   <aside class="cut-plan-panel">
     <div class="panel-header">
       <div class="panel-title">Selected Cut Plan</div>
-      <div class="panel-progress-text">6 of 8 sections allocated</div>
+      <div class="panel-progress-text">7 of 10 sections allocated</div>
       <div class="panel-progress-bar">
-        <div class="panel-progress-fill" style="width: 75%;"></div>
+        <div class="panel-progress-fill" style="width: 70%;"></div>
       </div>
     </div>
 
     <div class="cuts-list">
       <div class="cut-card">
         <div class="cut-card-section">Chuck (26%)</div>
-        <div class="cut-card-name">Slow Cook Chunks</div>
-        <div class="cut-card-details">57.2kg • ~108 packs (500g)</div>
+        <div class="cut-card-name">Blade Steaks & Slow Cook</div>
+        <div class="cut-card-details">57.2kg • Blade, Chuck Roast, Casserole</div>
         <div class="cut-card-price">$1,944</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Rib (9.5%)</div>
-        <div class="cut-card-name">Ribeye Steaks</div>
-        <div class="cut-card-details">20.9kg • ~65 steaks (300g)</div>
+        <div class="cut-card-name">Ribeye & Scotch Fillet</div>
+        <div class="cut-card-details">20.9kg • Steaks + Short Ribs</div>
         <div class="cut-card-price">$1,526</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Short Loin (8%)</div>
-        <div class="cut-card-name">T-Bone Steaks</div>
-        <div class="cut-card-details">17.6kg • ~35 steaks</div>
-        <div class="cut-card-price">$1,232</div>
+        <div class="cut-card-name">Eye Fillet & Chateaubriand</div>
+        <div class="cut-card-details">17.6kg • Premium steaks</div>
+        <div class="cut-card-price">$1,408</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Sirloin (9%)</div>
-        <div class="cut-card-name">Sirloin Steaks</div>
-        <div class="cut-card-details">19.8kg • ~66 steaks (280g)</div>
+        <div class="cut-card-name">Sirloin & Rump Steaks</div>
+        <div class="cut-card-details">19.8kg • Boneless steaks</div>
         <div class="cut-card-price">$1,188</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Flank (4%)</div>
-        <div class="cut-card-name">Flank Steak</div>
-        <div class="cut-card-details">8.8kg • ~8 whole pieces</div>
+        <div class="cut-card-name">Bavette & Onglet</div>
+        <div class="cut-card-details">8.8kg • Flat Iron, Flank Steak</div>
         <div class="cut-card-price">$352</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Brisket (6%)</div>
         <div class="cut-card-name">Whole Brisket</div>
-        <div class="cut-card-details">13.2kg • ~5 pieces</div>
+        <div class="cut-card-details">13.2kg • Slow cook / smoke</div>
         <div class="cut-card-price">$462</div>
       </div>
 
       <div class="cut-card pending">
         <div class="cut-card-section">Round (27%)</div>
         <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-details">59.4kg estimated</div>
+        <div class="cut-card-details">59.4kg • Topside, Silverside, Shin</div>
         <div class="cut-card-price">Pending</div>
       </div>
       
       <div class="cut-card pending">
         <div class="cut-card-section">Short Plate (5.5%)</div>
         <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-details">12.1kg estimated</div>
+        <div class="cut-card-details">12.1kg • Short Ribs, Mince trim</div>
         <div class="cut-card-price">Pending</div>
+      </div>
+
+      <div class="cut-card pending">
+        <div class="cut-card-section">Shank (3%)</div>
+        <div class="cut-card-name">Click to select</div>
+        <div class="cut-card-details">6.6kg • Osso Buco, Boneless Shin</div>
+        <div class="cut-card-price">Pending</div>
+      </div>
+
+      <div class="cut-card" style="border-left-color: var(--warning); background: #FFF9E6;">
+        <div class="cut-card-section">Offal & Organs</div>
+        <div class="cut-card-name">Tongue, Cheeks, Heart, Kidney</div>
+        <div class="cut-card-details">~8kg • Specialty items</div>
+        <div class="cut-card-price">$280</div>
       </div>
     </div>
 
@@ -693,7 +733,7 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
         <span class="total-amount">$6,704</span>
       </div>
       <button class="confirm-btn" disabled>
-        Allocate 2 remaining sections
+        Allocate 3 remaining sections
       </button>
     </div>
   </aside>
