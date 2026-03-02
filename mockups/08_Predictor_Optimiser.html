@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yield IQ — Visual Cut Selector</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --kale: #2D4A2D;
@@ -13,15 +13,16 @@
   --terracotta: #B85C38;
   --terra-light: #D4714A;
   --parchment: #F5EFE0;
-  --feta: #FAF7F2;
+  --cream: #FAF7F2;
   --charcoal: #1E1E1E;
   --stone: #7A7163;
-  --stone-light: #A39B8B;
   --zest: #c8d9a0;
   --success: #2E7D32;
   --success-light: #E8F5E9;
   --warning: #F57C00;
   --warning-light: #FFF3E0;
+  --beef-red: #8B2635;
+  --beef-dark: #5C1A23;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charcoal); min-height: 100vh; }
@@ -34,7 +35,7 @@ body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charco
 
 .desktop-container {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 220px 1fr 340px;
   min-height: 100vh;
   margin-top: 32px;
 }
@@ -42,23 +43,23 @@ body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charco
 /* Sidebar */
 .sidebar {
   background: var(--kale-dark);
-  padding: 32px 0;
+  padding: 28px 0;
   color: #fff;
 }
 .sidebar-logo {
-  padding: 0 24px 32px;
+  padding: 0 20px 28px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .logo-text {
   font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   letter-spacing: 2px;
 }
 .logo-text span { color: var(--zest); }
 .logo-subtitle {
-  font-size: 11px;
+  font-size: 10px;
   opacity: 0.6;
   letter-spacing: 1px;
   margin-top: 4px;
@@ -67,11 +68,11 @@ body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charco
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px 24px;
+  gap: 12px;
+  padding: 14px 20px;
   color: rgba(255,255,255,0.6);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   border-left: 3px solid transparent;
   transition: all 0.2s;
@@ -82,350 +83,318 @@ body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charco
   color: var(--zest);
   border-left-color: var(--zest);
 }
-.nav-icon { font-size: 20px; width: 24px; text-align: center; }
+.nav-icon { font-size: 18px; width: 22px; text-align: center; }
 
-/* Main Content */
+/* Main Content - Butcher Chart Area */
 .main-content {
-  padding: 32px 40px;
-  background: var(--feta);
-  overflow-y: auto;
+  background: var(--cream);
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
 }
+
 .page-header {
-  margin-bottom: 24px;
+  text-align: center;
+  margin-bottom: 16px;
 }
 .page-title {
   font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--kale);
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--beef-red);
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 .page-subtitle {
   font-size: 14px;
   color: var(--stone);
   margin-top: 4px;
+  letter-spacing: 2px;
 }
 
-/* Carcass Summary Bar */
-.carcass-bar {
-  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+/* Carcass Info Bar */
+.carcass-info-bar {
+  background: var(--charcoal);
   color: #fff;
-  padding: 16px 24px;
-  border-radius: 12px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.carcass-info { display: flex; align-items: center; gap: 16px; }
-.carcass-tag {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 600;
-}
-.carcass-meta { font-size: 13px; opacity: 0.8; }
-.carcass-stats { display: flex; gap: 28px; }
-.carcass-stat { text-align: center; }
-.stat-value { font-size: 22px; font-weight: 700; }
-.stat-label { font-size: 10px; opacity: 0.7; letter-spacing: 0.5px; }
-
-/* Main Grid */
-.main-grid {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 24px;
-}
-
-/* Carcass Visual Section */
-.carcass-visual-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  padding: 24px;
-}
-.visual-header {
+  padding: 12px 20px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
-.visual-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--kale);
-}
-.progress-badge {
-  background: var(--zest);
-  color: var(--kale-dark);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-.progress-badge.complete {
-  background: var(--success-light);
-  color: var(--success);
-}
-
-/* Carcass Diagram */
-.carcass-diagram {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.carcass-svg {
-  width: 100%;
-  height: auto;
-}
-.primal-section {
-  fill: var(--parchment);
-  stroke: var(--stone-light);
-  stroke-width: 2;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.primal-section:hover {
-  fill: var(--zest);
-  stroke: var(--kale);
-  stroke-width: 3;
-}
-.primal-section.selected {
-  fill: var(--success-light);
-  stroke: var(--success);
-  stroke-width: 3;
-}
-.primal-section.active {
-  fill: var(--zest);
-  stroke: var(--kale);
-  stroke-width: 3;
-}
-.primal-label {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  fill: var(--charcoal);
-  pointer-events: none;
-  text-anchor: middle;
-}
-.primal-weight {
-  font-family: 'Jost', sans-serif;
-  font-size: 9px;
-  fill: var(--stone);
-  pointer-events: none;
-  text-anchor: middle;
-}
-
-/* Section Tooltip/Popup */
-.section-popup {
-  position: absolute;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-  padding: 20px;
-  width: 280px;
-  z-index: 100;
-  border: 2px solid var(--kale);
-}
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--parchment);
-}
-.popup-title {
+.carcass-tag {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
   font-weight: 600;
+}
+.carcass-meta { font-size: 12px; opacity: 0.7; margin-left: 12px; }
+.carcass-weights {
+  display: flex;
+  gap: 24px;
+}
+.weight-item { text-align: center; }
+.weight-value { font-size: 20px; font-weight: 700; }
+.weight-label { font-size: 9px; opacity: 0.7; letter-spacing: 1px; }
+
+/* Butcher Chart Container */
+.butcher-chart {
+  flex: 1;
+  background: var(--parchment);
+  border: 3px solid var(--charcoal);
+  border-radius: 4px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The Cow SVG */
+.cow-diagram {
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+}
+
+.cow-svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Primal sections styling */
+.primal-section {
+  fill: var(--charcoal);
+  stroke: var(--parchment);
+  stroke-width: 2;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.primal-section:hover {
+  fill: var(--beef-red);
+}
+.primal-section.selected {
+  fill: var(--kale);
+}
+.primal-section.active {
+  fill: var(--beef-red);
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+/* Section labels */
+.section-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  fill: #fff;
+  text-anchor: middle;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.section-percent {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  fill: rgba(255,255,255,0.7);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+/* Hover Tooltip */
+.section-tooltip {
+  position: absolute;
+  background: #fff;
+  border: 2px solid var(--charcoal);
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 260px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 100;
+  display: none;
+}
+.section-tooltip.visible { display: block; }
+.tooltip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--parchment);
+  margin-bottom: 12px;
+}
+.tooltip-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--beef-red);
+}
+.tooltip-weight {
+  font-size: 14px;
+  font-weight: 600;
   color: var(--kale);
 }
-.popup-weight {
-  font-size: 13px;
-  color: var(--stone);
-  font-weight: 500;
-}
-.popup-close {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: var(--stone);
-  padding: 4px;
-}
-.cut-option {
+.tooltip-cuts { list-style: none; }
+.tooltip-cut {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 12px;
-  border: 2px solid var(--parchment);
-  border-radius: 8px;
-  margin-bottom: 8px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  background: var(--cream);
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
+  border: 2px solid transparent;
+  transition: all 0.15s;
 }
-.cut-option:hover {
+.tooltip-cut:hover {
   border-color: var(--kale);
-  background: var(--feta);
+  background: var(--zest);
 }
-.cut-option.selected {
-  border-color: var(--success);
-  background: var(--success-light);
+.tooltip-cut.best {
+  border-color: var(--kale);
 }
-.cut-radio {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--stone-light);
-  border-radius: 50%;
-  margin-right: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.cut-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
 }
-.cut-option.selected .cut-radio {
-  border-color: var(--success);
-}
-.cut-option.selected .cut-radio::after {
-  content: '';
-  width: 10px;
-  height: 10px;
-  background: var(--success);
-  border-radius: 50%;
-}
-.cut-info { flex: 1; }
-.cut-name { font-size: 13px; font-weight: 600; color: var(--charcoal); }
-.cut-yield { font-size: 11px; color: var(--stone); margin-top: 2px; }
-.cut-profit {
-  text-align: right;
-}
-.profit-amount { font-size: 15px; font-weight: 700; color: var(--success); }
-.profit-per-kg { font-size: 10px; color: var(--stone); }
-.best-badge {
-  background: var(--success);
+.cut-name .best-tag {
+  background: var(--beef-red);
   color: #fff;
-  font-size: 8px;
+  font-size: 9px;
   padding: 2px 6px;
   border-radius: 3px;
   margin-left: 6px;
   font-weight: 600;
 }
+.cut-details {
+  font-size: 11px;
+  color: var(--stone);
+  margin-top: 2px;
+}
+.cut-profit {
+  text-align: right;
+}
+.cut-amount {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--kale);
+}
+.cut-rate {
+  font-size: 10px;
+  color: var(--stone);
+}
 
-/* Legend */
-.diagram-legend {
+/* Chart Legend */
+.chart-legend {
   display: flex;
   justify-content: center;
-  gap: 24px;
-  margin-top: 20px;
+  gap: 32px;
+  margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid var(--parchment);
+  border-top: 1px solid var(--stone);
 }
 .legend-item {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  color: var(--stone);
+  color: var(--charcoal);
 }
-.legend-color {
-  width: 16px;
-  height: 16px;
+.legend-swatch {
+  width: 20px;
+  height: 20px;
   border-radius: 4px;
-  border: 2px solid;
 }
-.legend-color.unselected { background: var(--parchment); border-color: var(--stone-light); }
-.legend-color.hover { background: var(--zest); border-color: var(--kale); }
-.legend-color.selected { background: var(--success-light); border-color: var(--success); }
+.legend-swatch.default { background: var(--charcoal); }
+.legend-swatch.hover { background: var(--beef-red); }
+.legend-swatch.selected { background: var(--kale); }
 
-/* Selected Cuts Panel */
-.cuts-panel {
+/* Right Panel - Cut Plan */
+.cut-plan-panel {
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-left: 1px solid var(--parchment);
   display: flex;
   flex-direction: column;
 }
 .panel-header {
   padding: 20px;
-  border-bottom: 1px solid var(--parchment);
+  background: var(--kale-dark);
+  color: #fff;
 }
 .panel-title {
-  font-size: 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
   font-weight: 600;
-  color: var(--kale);
-  margin-bottom: 4px;
 }
-.panel-subtitle {
+.panel-progress {
   font-size: 12px;
-  color: var(--stone);
+  opacity: 0.7;
+  margin-top: 4px;
 }
+.progress-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--zest);
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
 .cuts-list {
   flex: 1;
-  padding: 16px 20px;
   overflow-y: auto;
+  padding: 16px;
 }
-.cut-item {
-  display: flex;
-  align-items: center;
+.cut-card {
+  background: var(--cream);
+  border-radius: 8px;
   padding: 14px;
-  background: var(--feta);
-  border-radius: 8px;
   margin-bottom: 10px;
+  border-left: 4px solid var(--kale);
 }
-.cut-item.pending {
-  background: var(--warning-light);
-  border: 1px dashed var(--warning);
-}
-.cut-item-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--success-light);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 12px;
-  font-size: 18px;
-}
-.cut-item.pending .cut-item-icon {
+.cut-card.pending {
+  border-left-color: var(--warning);
   background: var(--warning-light);
 }
-.cut-item-info { flex: 1; }
-.cut-item-section {
-  font-size: 11px;
+.cut-card-section {
+  font-size: 10px;
   color: var(--stone);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
-.cut-item-name {
+.cut-card-name {
   font-size: 14px;
   font-weight: 600;
   color: var(--charcoal);
-  margin-top: 2px;
+  margin-top: 4px;
 }
-.cut-item-details {
+.cut-card-details {
   font-size: 11px;
   color: var(--stone);
   margin-top: 2px;
 }
-.cut-item-price {
-  text-align: right;
-}
-.cut-item-amount {
+.cut-card-price {
   font-size: 16px;
   font-weight: 700;
-  color: var(--success);
+  color: var(--kale);
+  margin-top: 8px;
 }
-.cut-item.pending .cut-item-amount {
+.cut-card.pending .cut-card-price {
   color: var(--warning);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
 }
 
-/* Panel Footer */
 .panel-footer {
   padding: 20px;
-  border-top: 2px solid var(--parchment);
-  background: var(--feta);
+  background: var(--parchment);
+  border-top: 2px solid var(--kale);
 }
 .total-row {
   display: flex;
@@ -434,9 +403,10 @@ body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charco
   margin-bottom: 16px;
 }
 .total-label {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--stone);
-  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 .total-amount {
   font-family: 'Playfair Display', serif;
@@ -450,51 +420,33 @@ body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charco
   background: var(--kale);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   font-family: 'Jost', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.2s;
+  text-transform: uppercase;
 }
-.confirm-btn:hover { background: var(--kale-light); }
 .confirm-btn:disabled {
-  background: var(--stone-light);
+  background: var(--stone);
   cursor: not-allowed;
 }
 .confirm-btn.ready {
-  background: var(--success);
+  background: var(--beef-red);
 }
-.confirm-btn.ready:hover {
-  background: #256d29;
-}
-
-/* Instruction Note */
-.instruction-note {
-  background: var(--zest);
-  color: var(--kale-dark);
-  padding: 14px 18px;
-  border-radius: 8px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.instruction-icon { font-size: 20px; }
 </style>
 </head>
 <body>
 
-<div class="mockup-badge">MOCKUP — YIELD IQ — VISUAL CUT SELECTOR — CLICK SECTIONS TO ASSIGN CUTS</div>
+<div class="mockup-badge">MOCKUP — YIELD IQ — BUTCHER'S CUT SELECTOR — CLICK SECTIONS TO ASSIGN CUTS</div>
 
 <div class="desktop-container">
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="logo-text">YIELD <span>IQ</span></div>
-      <div class="logo-subtitle">AI-Powered Yield Optimization</div>
+      <div class="logo-subtitle">AI-Powered Optimization</div>
     </div>
     <nav>
       <ul class="sidebar-nav">
@@ -517,271 +469,310 @@ body { font-family: 'Jost', sans-serif; background: #E8E4DC; color: var(--charco
     </nav>
   </aside>
 
-  <!-- Main Content -->
+  <!-- Main Content - Butcher Chart -->
   <main class="main-content">
     <div class="page-header">
-      <h1 class="page-title">Visual Cut Selector</h1>
-      <p class="page-subtitle">Click each section to choose your cuts and maximize profit</p>
+      <h1 class="page-title">Cuts of Beef</h1>
+      <p class="page-subtitle">Click each section to select your cuts</p>
     </div>
 
-    <!-- Carcass Summary -->
-    <div class="carcass-bar">
-      <div class="carcass-info">
-        <div>
-          <div class="carcass-tag">JH-2024-A045</div>
-          <div class="carcass-meta">Angus • Steer • Fat Score 3 • 21 days aged</div>
-        </div>
+    <div class="carcass-info-bar">
+      <div>
+        <span class="carcass-tag">JH-2024-A045</span>
+        <span class="carcass-meta">Angus • Steer • Fat Score 3 • 21 days aged</span>
       </div>
-      <div class="carcass-stats">
-        <div class="carcass-stat">
-          <div class="stat-value">220kg</div>
-          <div class="stat-label">AGED WEIGHT</div>
+      <div class="carcass-weights">
+        <div class="weight-item">
+          <div class="weight-value">220kg</div>
+          <div class="weight-label">AGED WEIGHT</div>
         </div>
-        <div class="carcass-stat">
-          <div class="stat-value">176kg</div>
-          <div class="stat-label">EST. SALEABLE</div>
+        <div class="weight-item">
+          <div class="weight-value">176kg</div>
+          <div class="weight-label">SALEABLE</div>
         </div>
       </div>
     </div>
 
-    <div class="main-grid">
-      <!-- Left: Carcass Visual -->
-      <div class="carcass-visual-card">
-        <div class="visual-header">
-          <span class="visual-title">Select cuts for each primal section</span>
-          <span class="progress-badge">6 of 8 allocated</span>
-        </div>
+    <div class="butcher-chart">
+      <div class="cow-diagram">
+        <!-- Classic Butcher's Cow Silhouette SVG -->
+        <svg viewBox="0 0 800 400" class="cow-svg">
+          <!-- Cow outline -->
+          <defs>
+            <clipPath id="cowClip">
+              <path d="M80 320 
+                       Q60 310 50 280 
+                       L45 240 
+                       Q40 200 50 160 
+                       Q55 130 70 110 
+                       L85 95 
+                       Q95 85 110 80 
+                       L130 75 
+                       Q145 72 160 75 
+                       L175 80 
+                       Q185 70 195 60 
+                       L210 50 
+                       Q225 42 245 40 
+                       L280 38 
+                       Q320 36 360 38 
+                       L420 42 
+                       Q480 48 540 58 
+                       L600 72 
+                       Q650 85 690 105 
+                       Q720 120 740 145 
+                       Q755 165 760 190 
+                       L762 220 
+                       Q760 250 750 275 
+                       Q740 295 720 310 
+                       L700 320 
+                       Q680 328 655 330 
+                       L620 330 
+                       Q600 330 590 340 
+                       L585 360 
+                       L575 360 
+                       L572 340 
+                       Q565 330 545 328 
+                       L480 325 
+                       Q420 322 360 320 
+                       L300 318 
+                       Q260 318 230 320 
+                       L200 322 
+                       Q180 324 165 330 
+                       L160 345 
+                       L150 345 
+                       L148 330 
+                       Q140 322 120 320 
+                       Z"/>
+            </clipPath>
+          </defs>
+          
+          <!-- Background cow shape -->
+          <path d="M80 320 Q60 310 50 280 L45 240 Q40 200 50 160 Q55 130 70 110 L85 95 Q95 85 110 80 L130 75 Q145 72 160 75 L175 80 Q185 70 195 60 L210 50 Q225 42 245 40 L280 38 Q320 36 360 38 L420 42 Q480 48 540 58 L600 72 Q650 85 690 105 Q720 120 740 145 Q755 165 760 190 L762 220 Q760 250 750 275 Q740 295 720 310 L700 320 Q680 328 655 330 L620 330 Q600 330 590 340 L585 360 L575 360 L572 340 Q565 330 545 328 L480 325 Q420 322 360 320 L300 318 Q260 318 230 320 L200 322 Q180 324 165 330 L160 345 L150 345 L148 330 Q140 322 120 320 Z" 
+                fill="var(--charcoal)" stroke="var(--parchment)" stroke-width="3"/>
+          
+          <!-- Head section -->
+          <path class="primal-section selected" d="M80 320 Q60 310 50 280 L45 240 Q40 200 50 160 Q55 130 70 110 L85 95 Q95 85 110 80 L130 130 L120 200 L100 280 Z"/>
+          <text class="section-label" x="85" y="195">HEAD</text>
+          <text class="section-percent" x="85" y="212">2%</text>
+          
+          <!-- Chuck Section - 26% -->
+          <path class="primal-section" d="M110 80 L130 75 Q145 72 160 75 L175 80 Q185 70 195 60 L210 50 L240 120 L235 200 L200 280 L130 290 L130 130 Z"/>
+          <text class="section-label" x="175" y="175">CHUCK</text>
+          <text class="section-percent" x="175" y="195">26%</text>
+          
+          <!-- Rib Section - 9.5% -->
+          <path class="primal-section selected" d="M210 50 Q225 42 245 40 L280 38 Q300 37 320 38 L350 100 L340 180 L300 260 L235 270 L235 200 L240 120 Z"/>
+          <text class="section-label" x="285" y="150">RIB</text>
+          <text class="section-percent" x="285" y="170">9.5%</text>
+          
+          <!-- Short Loin - 8% -->
+          <path class="primal-section selected" d="M320 38 Q340 37 360 38 L400 40 L440 100 L425 170 L380 240 L340 250 L340 180 L350 100 Z"/>
+          <text class="section-label" x="385" y="130">SHORT</text>
+          <text class="section-label" x="385" y="148">LOIN</text>
+          <text class="section-percent" x="385" y="168">8%</text>
+          
+          <!-- Sirloin - 9% -->
+          <path class="primal-section selected" d="M400 40 L420 42 Q460 45 500 52 L540 62 L540 130 L510 200 L450 230 L425 170 L440 100 Z"/>
+          <text class="section-label" x="475" y="125">SIRLOIN</text>
+          <text class="section-percent" x="475" y="145">9%</text>
+          
+          <!-- Round - 27% -->
+          <path class="primal-section" d="M540 62 L600 72 Q650 85 690 105 Q720 120 740 145 Q755 165 760 190 L762 220 Q760 250 750 275 Q740 295 720 310 L700 320 Q680 328 655 330 L620 330 L580 270 L560 200 L540 130 Z"/>
+          <text class="section-label" x="660" y="190">ROUND</text>
+          <text class="section-percent" x="660" y="210">27%</text>
+          
+          <!-- Flank - 4% -->
+          <path class="primal-section selected" d="M450 230 L510 200 L560 200 L580 270 L620 330 Q600 330 590 340 L585 360 L575 360 L572 340 Q565 330 545 328 L480 325 Q450 323 420 320 Z"/>
+          <text class="section-label" x="520" y="290">FLANK</text>
+          <text class="section-percent" x="520" y="308">4%</text>
+          
+          <!-- Short Plate - 5.5% -->
+          <path class="primal-section" d="M340 250 L380 240 L450 230 L420 320 Q380 318 340 317 L300 318 Z"/>
+          <text class="section-label" x="375" y="275">SHORT</text>
+          <text class="section-label" x="375" y="293">PLATE</text>
+          <text class="section-percent" x="375" y="313">5.5%</text>
+          
+          <!-- Brisket - 6% -->
+          <path class="primal-section selected" d="M200 280 L235 270 L300 260 L340 250 L300 318 Q260 318 230 320 L200 322 Q180 324 165 330 L160 345 L150 345 L148 330 Q140 322 120 320 L130 290 Z"/>
+          <text class="section-label" x="230" y="300">BRISKET</text>
+          <text class="section-percent" x="230" y="318">6%</text>
+          
+          <!-- Fore Shank - 4% -->
+          <path class="primal-section" d="M130 290 L120 320 L148 330 L160 345 L150 345 L165 330 Q140 322 120 320 Z" fill="var(--charcoal)"/>
+          
+          <!-- Hind Shank -->
+          <path d="M585 360 L575 360 L572 340 Q565 330 590 340 Z" fill="var(--charcoal)"/>
+          
+          <!-- Section divider lines for clarity -->
+          <line x1="130" y1="75" x2="130" y2="290" stroke="var(--parchment)" stroke-width="2" stroke-dasharray="5,3"/>
+          <line x1="235" y1="50" x2="235" y2="270" stroke="var(--parchment)" stroke-width="2" stroke-dasharray="5,3"/>
+          <line x1="340" y1="38" x2="340" y2="250" stroke="var(--parchment)" stroke-width="2" stroke-dasharray="5,3"/>
+          <line x1="440" y1="40" x2="425" y2="230" stroke="var(--parchment)" stroke-width="2" stroke-dasharray="5,3"/>
+          <line x1="540" y1="62" x2="540" y2="200" stroke="var(--parchment)" stroke-width="2" stroke-dasharray="5,3"/>
+          
+          <!-- Checkmarks for selected sections -->
+          <circle cx="85" cy="230" r="12" fill="var(--kale)"/>
+          <text x="85" y="235" fill="#fff" font-size="14" text-anchor="middle">✓</text>
+          
+          <circle cx="285" cy="200" r="12" fill="var(--kale)"/>
+          <text x="285" y="205" fill="#fff" font-size="14" text-anchor="middle">✓</text>
+          
+          <circle cx="385" cy="190" r="12" fill="var(--kale)"/>
+          <text x="385" y="195" fill="#fff" font-size="14" text-anchor="middle">✓</text>
+          
+          <circle cx="475" cy="165" r="12" fill="var(--kale)"/>
+          <text x="475" y="170" fill="#fff" font-size="14" text-anchor="middle">✓</text>
+          
+          <circle cx="520" cy="260" r="12" fill="var(--kale)"/>
+          <text x="520" y="265" fill="#fff" font-size="14" text-anchor="middle">✓</text>
+          
+          <circle cx="230" cy="275" r="12" fill="var(--kale)"/>
+          <text x="230" y="280" fill="#fff" font-size="14" text-anchor="middle">✓</text>
+        </svg>
 
-        <div class="instruction-note">
-          <span class="instruction-icon">👆</span>
-          <span>Click on any section of the carcass to view available cuts and select your preference</span>
-        </div>
-
-        <!-- Carcass SVG Diagram -->
-        <div class="carcass-diagram">
-          <svg viewBox="0 0 500 320" class="carcass-svg">
-            <!-- Outline of beef side -->
-            <path d="M60 280 Q30 260 25 220 Q20 180 30 140 Q35 100 60 70 Q90 40 140 30 Q200 20 280 25 Q350 30 400 50 Q440 70 460 100 Q475 130 480 170 Q485 210 475 250 Q465 280 440 295 Q400 310 340 310 Q280 305 220 300 Q160 295 100 290 Q75 288 60 280 Z" 
-                  fill="none" stroke="#2D4A2D" stroke-width="3"/>
-            
-            <!-- Chuck/Blade Section -->
-            <path class="primal-section selected" d="M60 280 Q30 260 25 220 Q20 180 30 140 Q35 100 60 70 Q70 58 85 50 L120 90 L115 160 L100 220 L85 270 Z"/>
-            <text class="primal-label" x="70" y="160">CHUCK</text>
-            <text class="primal-weight" x="70" y="175">24.8kg</text>
-            <text x="55" y="145" font-size="14">✓</text>
-            
-            <!-- Ribeye Section -->
-            <path class="primal-section selected" d="M85 50 Q100 42 120 35 Q150 28 180 26 L190 70 L175 130 L150 180 L120 90 Z"/>
-            <text class="primal-label" x="145" y="95">RIBEYE</text>
-            <text class="primal-weight" x="145" y="110">14.2kg</text>
-            <text x="130" y="80" font-size="14">✓</text>
-            
-            <!-- Striploin Section -->
-            <path class="primal-section selected" d="M180 26 Q220 24 260 25 Q290 26 310 30 L300 85 L270 140 L220 160 L190 70 Z"/>
-            <text class="primal-label" x="245" y="85">STRIPLOIN</text>
-            <text class="primal-weight" x="245" y="100">12.5kg</text>
-            <text x="230" y="70" font-size="14">✓</text>
-            
-            <!-- Tenderloin (Fillet) -->
-            <path class="primal-section selected" d="M220 160 L270 140 L300 85 L320 95 L310 150 L280 190 L240 195 Z"/>
-            <text class="primal-label" x="270" y="155">FILLET</text>
-            <text class="primal-weight" x="270" y="170">4.8kg</text>
-            <text x="255" y="140" font-size="14">✓</text>
-            
-            <!-- Rump Section -->
-            <path class="primal-section selected" d="M310 30 Q350 35 390 55 Q420 70 440 90 L400 130 L360 160 L320 95 Z"/>
-            <text class="primal-label" x="370" y="95">RUMP</text>
-            <text class="primal-weight" x="370" y="110">18.5kg</text>
-            <text x="355" y="80" font-size="14">✓</text>
-            
-            <!-- Round/Topside Section -->
-            <path class="primal-section" d="M440 90 Q460 110 470 140 Q480 175 480 210 Q478 240 465 265 L420 250 L380 200 L400 130 Z"/>
-            <text class="primal-label" x="435" y="175">ROUND</text>
-            <text class="primal-weight" x="435" y="190">22.3kg</text>
-            
-            <!-- Flank Section -->
-            <path class="primal-section" d="M150 180 L175 130 L190 70 L220 160 L240 195 L280 190 L310 150 L360 160 L380 200 L420 250 L465 265 Q450 285 420 295 L340 300 L260 295 L180 285 L130 275 L115 250 L115 220 Z"/>
-            <text class="primal-label" x="270" y="245">FLANK & TRIM</text>
-            <text class="primal-weight" x="270" y="260">32.6kg</text>
-            
-            <!-- Brisket Section -->
-            <path class="primal-section selected" d="M100 220 L115 160 L120 90 L150 180 L115 250 L115 220 Z"/>
-            <text class="primal-label" x="125" y="195">BRISKET</text>
-            <text class="primal-weight" x="125" y="210">11.2kg</text>
-            <text x="108" y="180" font-size="14">✓</text>
-          </svg>
-
-          <!-- Popup for selected section (showing Ribeye as example) -->
-          <div class="section-popup" style="top: 40px; left: 200px; display: none;">
-            <div class="popup-header">
+        <!-- Tooltip for Chuck (example - shown on hover) -->
+        <div class="section-tooltip" style="top: 80px; left: 100px; display: block;">
+          <div class="tooltip-header">
+            <span class="tooltip-title">CHUCK</span>
+            <span class="tooltip-weight">57.2kg (26%)</span>
+          </div>
+          <ul class="tooltip-cuts">
+            <li class="tooltip-cut best">
               <div>
-                <div class="popup-title">Ribeye / Cube Roll</div>
-                <div class="popup-weight">Estimated: 14.2kg</div>
-              </div>
-              <button class="popup-close">×</button>
-            </div>
-            <div class="cut-option selected">
-              <div class="cut-radio"></div>
-              <div class="cut-info">
-                <div class="cut-name">Ribeye Steaks (300g)<span class="best-badge">BEST</span></div>
-                <div class="cut-yield">~47 steaks • 5% trim</div>
+                <div class="cut-name">Slow Cook Chunks<span class="best-tag">BEST</span></div>
+                <div class="cut-details">~108 packs (500g) • 6% trim</div>
               </div>
               <div class="cut-profit">
-                <div class="profit-amount">$1,034</div>
-                <div class="profit-per-kg">$73/kg</div>
+                <div class="cut-amount">$1,944</div>
+                <div class="cut-rate">$36/kg</div>
               </div>
-            </div>
-            <div class="cut-option">
-              <div class="cut-radio"></div>
-              <div class="cut-info">
-                <div class="cut-name">Whole Ribeye Roasts</div>
-                <div class="cut-yield">~11 roasts • 3% trim</div>
+            </li>
+            <li class="tooltip-cut">
+              <div>
+                <div class="cut-name">Blade Steaks</div>
+                <div class="cut-details">~134 steaks (400g) • 8% trim</div>
               </div>
               <div class="cut-profit">
-                <div class="profit-amount">$924</div>
-                <div class="profit-per-kg">$65/kg</div>
+                <div class="cut-amount">$1,848</div>
+                <div class="cut-rate">$35/kg</div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Legend -->
-        <div class="diagram-legend">
-          <div class="legend-item">
-            <div class="legend-color unselected"></div>
-            <span>Not allocated</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color hover"></div>
-            <span>Hover / Active</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-color selected"></div>
-            <span>Cut selected</span>
-          </div>
+            </li>
+            <li class="tooltip-cut">
+              <div>
+                <div class="cut-name">Chuck Roasts</div>
+                <div class="cut-details">~22 roasts (2.5kg) • 4% trim</div>
+              </div>
+              <div class="cut-profit">
+                <div class="cut-amount">$1,716</div>
+                <div class="cut-rate">$32/kg</div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <!-- Right: Selected Cuts Panel -->
-      <div class="cuts-panel">
-        <div class="panel-header">
-          <div class="panel-title">Selected Cut Plan</div>
-          <div class="panel-subtitle">6 of 8 sections allocated</div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-swatch default"></div>
+          <span>Not allocated</span>
         </div>
-
-        <div class="cuts-list">
-          <div class="cut-item">
-            <div class="cut-item-icon">✓</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Chuck / Blade</div>
-              <div class="cut-item-name">Slow Cook Chunks (500g)</div>
-              <div class="cut-item-details">~46 packs • 24.8kg section</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">$854</div>
-            </div>
-          </div>
-
-          <div class="cut-item">
-            <div class="cut-item-icon">✓</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Ribeye</div>
-              <div class="cut-item-name">Ribeye Steaks (300g)</div>
-              <div class="cut-item-details">~47 steaks • 14.2kg section</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">$1,034</div>
-            </div>
-          </div>
-
-          <div class="cut-item">
-            <div class="cut-item-icon">✓</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Striploin</div>
-              <div class="cut-item-name">Sirloin Steaks (280g)</div>
-              <div class="cut-item-details">~42 steaks • 12.5kg section</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">$875</div>
-            </div>
-          </div>
-
-          <div class="cut-item">
-            <div class="cut-item-icon">✓</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Fillet</div>
-              <div class="cut-item-name">Eye Fillet Steaks (200g)</div>
-              <div class="cut-item-details">~22 steaks • 4.8kg section</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">$528</div>
-            </div>
-          </div>
-
-          <div class="cut-item">
-            <div class="cut-item-icon">✓</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Rump</div>
-              <div class="cut-item-name">Rump Steaks (350g)</div>
-              <div class="cut-item-details">~52 steaks • 18.5kg section</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">$888</div>
-            </div>
-          </div>
-
-          <div class="cut-item">
-            <div class="cut-item-icon">✓</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Brisket</div>
-              <div class="cut-item-name">Whole Brisket (2.5kg)</div>
-              <div class="cut-item-details">~4 pieces • 11.2kg section</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">$336</div>
-            </div>
-          </div>
-
-          <!-- Pending sections -->
-          <div class="cut-item pending">
-            <div class="cut-item-icon">?</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Round / Topside</div>
-              <div class="cut-item-name">Click section to select</div>
-              <div class="cut-item-details">22.3kg estimated</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">Pending</div>
-            </div>
-          </div>
-
-          <div class="cut-item pending">
-            <div class="cut-item-icon">?</div>
-            <div class="cut-item-info">
-              <div class="cut-item-section">Flank & Trim</div>
-              <div class="cut-item-name">Click section to select</div>
-              <div class="cut-item-details">32.6kg estimated</div>
-            </div>
-            <div class="cut-item-price">
-              <div class="cut-item-amount">Pending</div>
-            </div>
-          </div>
+        <div class="legend-item">
+          <div class="legend-swatch hover"></div>
+          <span>Hover</span>
         </div>
-
-        <div class="panel-footer">
-          <div class="total-row">
-            <span class="total-label">Estimated Total Revenue</span>
-            <span class="total-amount">$4,515</span>
-          </div>
-          <button class="confirm-btn" disabled>
-            ALLOCATE REMAINING 2 SECTIONS TO CONFIRM
-          </button>
-          <!-- When complete: -->
-          <!-- <button class="confirm-btn ready">CONFIRM CUT PLAN → $5,280</button> -->
+        <div class="legend-item">
+          <div class="legend-swatch selected"></div>
+          <span>Cut selected</span>
         </div>
       </div>
     </div>
   </main>
+
+  <!-- Right Panel - Selected Cuts -->
+  <aside class="cut-plan-panel">
+    <div class="panel-header">
+      <div class="panel-title">Selected Cut Plan</div>
+      <div class="panel-progress">6 of 9 sections allocated</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 67%;"></div>
+      </div>
+    </div>
+
+    <div class="cuts-list">
+      <div class="cut-card">
+        <div class="cut-card-section">Head</div>
+        <div class="cut-card-name">Cheeks & Tongue</div>
+        <div class="cut-card-details">4.4kg section • Specialty cuts</div>
+        <div class="cut-card-price">$88</div>
+      </div>
+      
+      <div class="cut-card">
+        <div class="cut-card-section">Rib</div>
+        <div class="cut-card-name">Ribeye Steaks (300g)</div>
+        <div class="cut-card-details">20.9kg section • ~65 steaks</div>
+        <div class="cut-card-price">$1,526</div>
+      </div>
+      
+      <div class="cut-card">
+        <div class="cut-card-section">Short Loin</div>
+        <div class="cut-card-name">T-Bone Steaks</div>
+        <div class="cut-card-details">17.6kg section • ~35 steaks</div>
+        <div class="cut-card-price">$1,232</div>
+      </div>
+      
+      <div class="cut-card">
+        <div class="cut-card-section">Sirloin</div>
+        <div class="cut-card-name">Sirloin Steaks (280g)</div>
+        <div class="cut-card-details">19.8kg section • ~66 steaks</div>
+        <div class="cut-card-price">$1,188</div>
+      </div>
+      
+      <div class="cut-card">
+        <div class="cut-card-section">Flank</div>
+        <div class="cut-card-name">Flank Steak</div>
+        <div class="cut-card-details">8.8kg section • ~8 pieces</div>
+        <div class="cut-card-price">$352</div>
+      </div>
+      
+      <div class="cut-card">
+        <div class="cut-card-section">Brisket</div>
+        <div class="cut-card-name">Whole Brisket</div>
+        <div class="cut-card-details">13.2kg section • ~5 pieces</div>
+        <div class="cut-card-price">$462</div>
+      </div>
+
+      <div class="cut-card pending">
+        <div class="cut-card-section">Chuck</div>
+        <div class="cut-card-name">Click to select cut</div>
+        <div class="cut-card-details">57.2kg estimated</div>
+        <div class="cut-card-price">Pending</div>
+      </div>
+      
+      <div class="cut-card pending">
+        <div class="cut-card-section">Round</div>
+        <div class="cut-card-name">Click to select cut</div>
+        <div class="cut-card-details">59.4kg estimated</div>
+        <div class="cut-card-price">Pending</div>
+      </div>
+      
+      <div class="cut-card pending">
+        <div class="cut-card-section">Short Plate</div>
+        <div class="cut-card-name">Click to select cut</div>
+        <div class="cut-card-details">12.1kg estimated</div>
+        <div class="cut-card-price">Pending</div>
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <div class="total-row">
+        <span class="total-label">Estimated Total</span>
+        <span class="total-amount">$4,848</span>
+      </div>
+      <button class="confirm-btn" disabled>
+        Allocate 3 remaining sections
+      </button>
+    </div>
+  </aside>
 </div>
 
 </body>
