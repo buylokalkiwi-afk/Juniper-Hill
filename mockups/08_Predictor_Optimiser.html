@@ -10,9 +10,9 @@
   --charcoal: #2C2C2C;
   --cream: #F5F1E6;
   --cream-dark: #EBE6D9;
-  --highlight: #C41E3A;
-  --highlight-light: #E8D4D8;
-  --selected: #1B4D3E;
+  --hover: #C41E3A;
+  --complete: #1B4D3E;
+  --complete-light: #E8F0ED;
   --gold: #B8860B;
   --white: #FFFFFF;
 }
@@ -28,17 +28,15 @@ body {
 /* Layout */
 .page-layout {
   display: grid;
-  grid-template-columns: 180px 1fr 320px;
+  grid-template-columns: 180px 1fr 340px;
   height: 100vh;
 }
 
-/* Sidebar */
+/* Sidebar Navigation */
 .sidebar {
   background: var(--charcoal);
   padding: 24px 0;
   color: #fff;
-  display: flex;
-  flex-direction: column;
 }
 .logo {
   padding: 0 20px 20px;
@@ -51,7 +49,7 @@ body {
   font-weight: 700;
   letter-spacing: 2px;
 }
-.logo-text span { color: var(--highlight); }
+.logo-text span { color: var(--hover); }
 .logo-sub {
   font-size: 9px;
   opacity: 0.5;
@@ -59,7 +57,7 @@ body {
   margin-top: 4px;
   text-transform: uppercase;
 }
-.nav { list-style: none; flex: 1; }
+.nav { list-style: none; }
 .nav a {
   display: flex;
   align-items: center;
@@ -76,17 +74,16 @@ body {
 .nav a.active {
   background: rgba(255,255,255,0.08);
   color: #fff;
-  border-left-color: var(--highlight);
+  border-left-color: var(--hover);
 }
-.nav-icon { font-size: 16px; }
 
-/* Main Content - Full Cream Background */
+/* Main Content */
 .main {
   background: var(--cream);
   display: flex;
   flex-direction: column;
   padding: 20px 30px;
-  overflow: hidden;
+  position: relative;
 }
 
 /* Header Bar */
@@ -114,13 +111,11 @@ body {
   display: flex;
   gap: 32px;
 }
-.weight {
-  text-align: center;
-}
+.weight { text-align: center; }
 .weight-value {
   font-size: 24px;
   font-weight: 700;
-  color: var(--highlight);
+  color: var(--hover);
 }
 .weight-label {
   font-size: 9px;
@@ -129,44 +124,38 @@ body {
   margin-top: 2px;
 }
 
-/* Cow Display Area */
+/* Cow Display */
 .cow-display {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--cream);
-  position: relative;
 }
-
 .title-area {
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .main-title {
   font-family: 'Playfair Display', serif;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 900;
   color: var(--charcoal);
   letter-spacing: 3px;
   text-transform: uppercase;
 }
 .subtitle {
-  font-size: 13px;
+  font-size: 12px;
   color: #777;
-  margin-top: 6px;
-  letter-spacing: 1px;
+  margin-top: 4px;
 }
-
-/* The Cow Image */
 .cow-container {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-height: calc(100vh - 280px);
+  max-height: calc(100vh - 300px);
 }
 .cow-image {
   max-width: 100%;
@@ -179,9 +168,9 @@ body {
   display: flex;
   justify-content: center;
   gap: 40px;
-  padding: 16px 0;
+  padding: 14px 0;
   border-top: 1px solid var(--cream-dark);
-  margin-top: 16px;
+  margin-top: 12px;
 }
 .key-item {
   display: flex;
@@ -198,19 +187,238 @@ body {
   border-radius: 4px;
 }
 .swatch.default { background: var(--charcoal); }
-.swatch.hover { background: var(--highlight); }
-.swatch.selected { background: var(--selected); }
+.swatch.hover { background: var(--hover); }
+.swatch.complete { background: var(--complete); }
 
-/* Right Panel */
+/* ============ POPUP ============ */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+}
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--white);
+  width: 500px;
+  max-height: 80vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+}
+.popup-header {
+  background: var(--charcoal);
+  color: #fff;
+  padding: 20px 24px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.popup-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.popup-subtitle {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+.popup-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  opacity: 0.6;
+  line-height: 1;
+}
+.popup-close:hover { opacity: 1; }
+
+.popup-body {
+  padding: 20px 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+.popup-instruction {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+/* Cut Options in Popup */
+.cut-option {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  background: var(--cream);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cut-option:hover {
+  border-color: var(--charcoal);
+}
+.cut-option.selected {
+  border-color: var(--complete);
+  background: var(--complete-light);
+}
+.cut-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin-right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cut-option.selected .cut-checkbox {
+  background: var(--complete);
+  border-color: var(--complete);
+  color: #fff;
+}
+.cut-checkbox::after {
+  content: '✓';
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0;
+}
+.cut-option.selected .cut-checkbox::after {
+  opacity: 1;
+}
+.cut-info { flex: 1; }
+.cut-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+.cut-details {
+  font-size: 12px;
+  color: #888;
+  margin-top: 3px;
+}
+.cut-price {
+  text-align: right;
+}
+.cut-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--complete);
+}
+.cut-rate {
+  font-size: 11px;
+  color: #888;
+}
+
+/* Weight Progress in Popup */
+.weight-progress {
+  background: var(--cream);
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.progress-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+.progress-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--complete);
+}
+.progress-bar {
+  height: 8px;
+  background: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--complete);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+/* Add Custom Cut */
+.add-custom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  background: transparent;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #888;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.add-custom:hover {
+  border-color: var(--charcoal);
+  color: var(--charcoal);
+}
+
+.popup-footer {
+  padding: 16px 24px;
+  background: var(--cream);
+  border-top: 2px solid var(--cream-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-total {
+  font-size: 14px;
+}
+.footer-total strong {
+  font-size: 20px;
+  color: var(--complete);
+  margin-left: 8px;
+}
+.confirm-btn {
+  padding: 14px 32px;
+  background: var(--complete);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.confirm-btn:hover {
+  background: #154436;
+}
+
+/* ============ RIGHT PANEL ============ */
 .panel {
   background: var(--white);
   display: flex;
   flex-direction: column;
   box-shadow: -4px 0 20px rgba(0,0,0,0.08);
 }
-
 .panel-header {
-  background: var(--selected);
+  background: var(--complete);
   color: #fff;
   padding: 20px;
 }
@@ -224,70 +432,115 @@ body {
   opacity: 0.8;
   margin-top: 6px;
 }
-.progress-bar {
+.panel-progress-bar {
   height: 4px;
   background: rgba(255,255,255,0.3);
   border-radius: 2px;
   margin-top: 12px;
-  overflow: hidden;
 }
-.progress-fill {
+.panel-progress-fill {
   height: 100%;
   background: #fff;
   border-radius: 2px;
 }
 
-.cuts-list {
+/* Collapsible Sections */
+.sections-list {
   flex: 1;
   overflow-y: auto;
   padding: 12px;
 }
 
-.cut-card {
-  padding: 12px 14px;
+.section-group {
   margin-bottom: 8px;
-  border-left: 4px solid var(--selected);
   background: var(--cream);
-  border-radius: 0 6px 6px 0;
-  transition: all 0.2s;
+  border-radius: 8px;
+  overflow: hidden;
 }
-.cut-card:hover {
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.section-header:hover {
   background: var(--cream-dark);
 }
-.cut-card.pending {
-  border-left-color: var(--gold);
-  background: #FDF8E8;
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.cut-card-section {
-  font-size: 10px;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
+.section-icon {
+  width: 10px;
+  height: 10px;
+  background: var(--complete);
+  border-radius: 50%;
 }
-.cut-card-name {
+.section-name {
   font-size: 14px;
   font-weight: 600;
   color: var(--charcoal);
-  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
-.cut-card-info {
-  font-size: 11px;
-  color: #888;
-  margin-top: 3px;
-}
-.cut-card-price {
+.section-total {
   font-size: 16px;
   font-weight: 700;
-  color: var(--selected);
-  margin-top: 6px;
+  color: var(--complete);
 }
-.cut-card.pending .cut-card-price {
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 500;
+.section-toggle {
+  font-size: 12px;
+  color: #888;
+  transition: transform 0.2s;
+}
+.section-group.expanded .section-toggle {
+  transform: rotate(180deg);
 }
 
+.section-cuts {
+  padding: 0 16px 12px;
+  display: none;
+}
+.section-group.expanded .section-cuts {
+  display: block;
+}
+.section-cut {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  font-size: 13px;
+}
+.section-cut:last-child {
+  border-bottom: none;
+}
+.section-cut-name {
+  color: #555;
+}
+.section-cut-price {
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+}
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+.empty-text {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Panel Footer */
 .panel-footer {
   padding: 20px;
   background: var(--cream);
@@ -311,7 +564,7 @@ body {
   font-weight: 700;
   color: var(--charcoal);
 }
-.confirm-btn {
+.final-btn {
   width: 100%;
   padding: 14px;
   background: var(--charcoal);
@@ -324,12 +577,8 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s;
 }
-.confirm-btn:hover {
-  background: var(--selected);
-}
-.confirm-btn:disabled {
+.final-btn:disabled {
   background: #999;
   cursor: not-allowed;
 }
@@ -338,17 +587,17 @@ body {
 <body>
 
 <div class="page-layout">
-  <!-- Sidebar -->
+  <!-- Sidebar Nav -->
   <aside class="sidebar">
     <div class="logo">
       <div class="logo-text">YIELD <span>IQ</span></div>
       <div class="logo-sub">Yield Optimization</div>
     </div>
     <ul class="nav">
-      <li><a href="07_Predictor_Intake.html"><span class="nav-icon">📋</span> Intake</a></li>
-      <li><a href="#" class="active"><span class="nav-icon">🥩</span> Cut Selector</a></li>
-      <li><a href="09_Predictor_Dashboard.html"><span class="nav-icon">📊</span> Actuals</a></li>
-      <li><a href="#"><span class="nav-icon">⚙️</span> Settings</a></li>
+      <li><a href="07_Predictor_Intake.html">📋 Intake</a></li>
+      <li><a href="#" class="active">🥩 Cut Selector</a></li>
+      <li><a href="09_Predictor_Dashboard.html">📊 Actuals</a></li>
+      <li><a href="#">⚙️ Settings</a></li>
     </ul>
   </aside>
 
@@ -376,13 +625,11 @@ body {
         <h1 class="main-title">Cuts of Beef</h1>
         <p class="subtitle">Click each section to select your cuts</p>
       </div>
-
       <div class="cow-container">
         <img src="https://customer-assets.emergentagent.com/job_tag-replacement-app/artifacts/zwxcadxv_Sectioned_cowNamed.png" 
              alt="Beef Primal Cuts" 
              class="cow-image">
       </div>
-
       <div class="color-key">
         <div class="key-item">
           <div class="swatch default"></div>
@@ -390,113 +637,238 @@ body {
         </div>
         <div class="key-item">
           <div class="swatch hover"></div>
-          <span>Hover</span>
+          <span>Hover / Active</span>
         </div>
         <div class="key-item">
-          <div class="swatch selected"></div>
-          <span>Cut Allocated</span>
+          <div class="swatch complete"></div>
+          <span>Complete</span>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- Right Panel -->
+  <!-- Right Panel - Completed Sections Only -->
   <aside class="panel">
     <div class="panel-header">
-      <div class="panel-title">Selected Cuts</div>
-      <div class="panel-progress">7 of 11 sections allocated</div>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 64%;"></div>
+      <div class="panel-title">Cut Plan</div>
+      <div class="panel-progress">4 of 11 sections complete</div>
+      <div class="panel-progress-bar">
+        <div class="panel-progress-fill" style="width: 36%;"></div>
       </div>
     </div>
 
-    <div class="cuts-list">
-      <div class="cut-card">
-        <div class="cut-card-section">Head</div>
-        <div class="cut-card-name">Cheeks, Tongue</div>
-        <div class="cut-card-info">Specialty cuts</div>
-        <div class="cut-card-price">$180</div>
+    <div class="sections-list">
+      <!-- Collapsible Section: RIBS -->
+      <div class="section-group expanded">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon"></div>
+            <span class="section-name">Ribs</span>
+          </div>
+          <span class="section-total">$1,440</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-cuts">
+          <div class="section-cut">
+            <span class="section-cut-name">Ribeye Steak (×24)</span>
+            <span class="section-cut-price">$840</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Scotch Fillet (×18)</span>
+            <span class="section-cut-price">$450</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Short Ribs (×8)</span>
+            <span class="section-cut-price">$150</span>
+          </div>
+        </div>
       </div>
 
-      <div class="cut-card">
-        <div class="cut-card-section">Chuck</div>
-        <div class="cut-card-name">Blade, Flat Iron, Chuck Roast</div>
-        <div class="cut-card-info">45kg • Casserole Beef</div>
-        <div class="cut-card-price">$1,620</div>
-      </div>
-      
-      <div class="cut-card">
-        <div class="cut-card-section">Ribs</div>
-        <div class="cut-card-name">Ribeye, Scotch Fillet, Short Ribs</div>
-        <div class="cut-card-info">18kg</div>
-        <div class="cut-card-price">$1,440</div>
-      </div>
-      
-      <div class="cut-card">
-        <div class="cut-card-section">Sirloin</div>
-        <div class="cut-card-name">Sirloin Steak, Porterhouse</div>
-        <div class="cut-card-info">16kg • Eye Fillet</div>
-        <div class="cut-card-price">$1,280</div>
-      </div>
-      
-      <div class="cut-card">
-        <div class="cut-card-section">Rump</div>
-        <div class="cut-card-name">Rump Steak, Tri-Tip</div>
-        <div class="cut-card-info">14kg</div>
-        <div class="cut-card-price">$840</div>
+      <!-- Collapsible Section: SIRLOIN -->
+      <div class="section-group">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon"></div>
+            <span class="section-name">Sirloin</span>
+          </div>
+          <span class="section-total">$1,280</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-cuts">
+          <div class="section-cut">
+            <span class="section-cut-name">Sirloin Steak (×32)</span>
+            <span class="section-cut-price">$640</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Eye Fillet (×12)</span>
+            <span class="section-cut-price">$480</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Chateaubriand (×4)</span>
+            <span class="section-cut-price">$160</span>
+          </div>
+        </div>
       </div>
 
-      <div class="cut-card">
-        <div class="cut-card-section">Flank</div>
-        <div class="cut-card-name">Bavette, Flank Steak</div>
-        <div class="cut-card-info">8kg</div>
-        <div class="cut-card-price">$320</div>
-      </div>
-      
-      <div class="cut-card">
-        <div class="cut-card-section">Brisket</div>
-        <div class="cut-card-name">Whole Brisket</div>
-        <div class="cut-card-info">12kg • Flat & Point</div>
-        <div class="cut-card-price">$420</div>
-      </div>
-
-      <div class="cut-card pending">
-        <div class="cut-card-section">Plate</div>
-        <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-info">10kg • Skirt, Short Ribs</div>
-        <div class="cut-card-price">Pending</div>
-      </div>
-
-      <div class="cut-card pending">
-        <div class="cut-card-section">Fore-shanks</div>
-        <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-info">5kg • Osso Buco</div>
-        <div class="cut-card-price">Pending</div>
-      </div>
-
-      <div class="cut-card pending">
-        <div class="cut-card-section">Hind-shanks</div>
-        <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-info">6kg • Osso Buco, Soup Bones</div>
-        <div class="cut-card-price">Pending</div>
+      <!-- Collapsible Section: CHUCK -->
+      <div class="section-group">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon"></div>
+            <span class="section-name">Chuck</span>
+          </div>
+          <span class="section-total">$1,620</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-cuts">
+          <div class="section-cut">
+            <span class="section-cut-name">Blade Steak (×28)</span>
+            <span class="section-cut-price">$560</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Chuck Roast (×10)</span>
+            <span class="section-cut-price">$400</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Casserole Beef (×32)</span>
+            <span class="section-cut-price">$480</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Flat Iron (×12)</span>
+            <span class="section-cut-price">$180</span>
+          </div>
+        </div>
       </div>
 
-      <div class="cut-card pending">
-        <div class="cut-card-section">Offal & Bones</div>
-        <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-info">Heart, Kidney, Liver, Marrow</div>
-        <div class="cut-card-price">Pending</div>
+      <!-- Collapsible Section: BRISKET -->
+      <div class="section-group">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon"></div>
+            <span class="section-name">Brisket</span>
+          </div>
+          <span class="section-total">$420</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-cuts">
+          <div class="section-cut">
+            <span class="section-cut-name">Whole Brisket (×4)</span>
+            <span class="section-cut-price">$420</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="panel-footer">
       <div class="total-row">
-        <span class="total-label">Estimated Total</span>
-        <span class="total-amount">$6,100</span>
+        <span class="total-label">Running Total</span>
+        <span class="total-amount">$4,760</span>
       </div>
-      <button class="confirm-btn" disabled>Allocate 4 Remaining Sections</button>
+      <button class="final-btn" disabled>Complete 7 More Sections</button>
     </div>
   </aside>
+</div>
+
+<!-- ============ POPUP OVERLAY ============ -->
+<div class="popup-overlay"></div>
+
+<!-- ============ POPUP: RIBS SECTION ============ -->
+<div class="popup">
+  <div class="popup-header">
+    <div>
+      <div class="popup-title">Ribs</div>
+      <div class="popup-subtitle">Estimated weight: 18kg</div>
+    </div>
+    <button class="popup-close">×</button>
+  </div>
+  
+  <div class="popup-body">
+    <p class="popup-instruction">Select the cuts you want from this section. You can select multiple cuts until the weight is fully allocated.</p>
+    
+    <div class="cut-option selected">
+      <div class="cut-checkbox"></div>
+      <div class="cut-info">
+        <div class="cut-name">Ribeye Steak</div>
+        <div class="cut-details">~24 steaks (300g avg) • 7.2kg</div>
+      </div>
+      <div class="cut-price">
+        <div class="cut-amount">$840</div>
+        <div class="cut-rate">$73/kg</div>
+      </div>
+    </div>
+
+    <div class="cut-option selected">
+      <div class="cut-checkbox"></div>
+      <div class="cut-info">
+        <div class="cut-name">Scotch Fillet</div>
+        <div class="cut-details">~18 steaks (350g avg) • 6.3kg</div>
+      </div>
+      <div class="cut-price">
+        <div class="cut-amount">$450</div>
+        <div class="cut-rate">$71/kg</div>
+      </div>
+    </div>
+
+    <div class="cut-option selected">
+      <div class="cut-checkbox"></div>
+      <div class="cut-info">
+        <div class="cut-name">Short Ribs</div>
+        <div class="cut-details">~8 portions (500g avg) • 4.0kg</div>
+      </div>
+      <div class="cut-price">
+        <div class="cut-amount">$150</div>
+        <div class="cut-rate">$38/kg</div>
+      </div>
+    </div>
+
+    <div class="cut-option">
+      <div class="cut-checkbox"></div>
+      <div class="cut-info">
+        <div class="cut-name">Standing Rib Roast</div>
+        <div class="cut-details">~3 roasts (2.5kg avg) • 7.5kg</div>
+      </div>
+      <div class="cut-price">
+        <div class="cut-amount">$525</div>
+        <div class="cut-rate">$70/kg</div>
+      </div>
+    </div>
+
+    <div class="cut-option">
+      <div class="cut-checkbox"></div>
+      <div class="cut-info">
+        <div class="cut-name">Back Ribs</div>
+        <div class="cut-details">~6 racks • 4.5kg</div>
+      </div>
+      <div class="cut-price">
+        <div class="cut-amount">$180</div>
+        <div class="cut-rate">$40/kg</div>
+      </div>
+    </div>
+
+    <!-- Add Custom Cut Button -->
+    <div class="add-custom">
+      <span>+</span>
+      <span>Add Custom Cut</span>
+    </div>
+
+    <!-- Weight Progress -->
+    <div class="weight-progress">
+      <div class="progress-header">
+        <span class="progress-label">Section Weight Allocated</span>
+        <span class="progress-value">17.5kg / 18kg (97%)</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 97%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-footer">
+    <div class="footer-total">
+      Selected cuts total: <strong>$1,440</strong>
+    </div>
+    <button class="confirm-btn">Confirm Ribs ✓</button>
+  </div>
 </div>
 
 </body>
