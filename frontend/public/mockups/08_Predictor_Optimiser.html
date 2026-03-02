@@ -7,20 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --charcoal: #1E1E1E;
-  --charcoal-light: #2D2D2D;
+  --charcoal: #1A1A1A;
   --cream: #F5F0E1;
   --parchment: #EDE8D9;
   --beef-red: #8B2635;
-  --beef-dark: #6B1D2A;
+  --selected: #6B3A3A;
   --stone: #7A7163;
-  --stone-light: #9A9487;
   --white: #FFFFFF;
-  --warning: #D4A04A;
-  --warning-light: #FDF6E3;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var(--charcoal); min-height: 100vh; }
+body { 
+  font-family: 'Jost', sans-serif; 
+  background: var(--cream); 
+  color: var(--charcoal); 
+  min-height: 100vh;
+}
 
 .mockup-badge {
   position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
@@ -28,9 +29,10 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   font-size: 10px; letter-spacing: 2px; padding: 8px; font-weight: 500; text-transform: uppercase;
 }
 
-.desktop-container {
+/* Layout */
+.page-container {
   display: grid;
-  grid-template-columns: 200px 1fr 360px;
+  grid-template-columns: 180px 1fr 320px;
   min-height: 100vh;
   margin-top: 32px;
 }
@@ -38,274 +40,341 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
 /* Sidebar */
 .sidebar {
   background: var(--charcoal);
-  padding: 28px 0;
+  padding: 24px 0;
   color: #fff;
 }
 .sidebar-logo {
-  padding: 0 18px 24px;
+  padding: 0 16px 20px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 .logo-text {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 2px;
 }
 .logo-text span { color: var(--beef-red); }
 .logo-subtitle {
-  font-size: 10px;
+  font-size: 9px;
   opacity: 0.5;
   letter-spacing: 1px;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 .sidebar-nav { list-style: none; }
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
+  gap: 10px;
+  padding: 12px 16px;
   color: rgba(255,255,255,0.5);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   border-left: 3px solid transparent;
-  transition: all 0.2s;
 }
-.nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
 .nav-item.active {
   background: rgba(255,255,255,0.08);
   color: #fff;
   border-left-color: var(--beef-red);
 }
-.nav-icon { font-size: 16px; width: 20px; text-align: center; }
+.nav-icon { font-size: 14px; }
 
 /* Main Content */
 .main-content {
-  background: var(--cream);
-  padding: 24px 32px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header */
-.page-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.page-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  font-weight: 900;
-  color: var(--beef-red);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-}
-.page-subtitle {
-  font-size: 14px;
-  color: var(--stone);
-  margin-top: 6px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-/* Carcass Info Bar */
-.carcass-info-bar {
-  background: var(--charcoal);
-  color: #fff;
-  padding: 14px 24px;
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.carcass-id {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.carcass-tag {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 700;
-}
-.carcass-meta { font-size: 12px; opacity: 0.6; }
-.carcass-weights {
-  display: flex;
-  gap: 32px;
-}
-.weight-item { text-align: center; }
-.weight-value { font-size: 24px; font-weight: 700; color: var(--beef-red); }
-.weight-label { font-size: 9px; opacity: 0.5; letter-spacing: 1px; margin-top: 2px; }
-
-/* Butcher Chart */
-.butcher-chart-container {
-  flex: 1;
   background: var(--parchment);
-  border: 4px solid var(--charcoal);
-  position: relative;
+  padding: 20px 30px;
   display: flex;
   flex-direction: column;
 }
 
-.chart-header {
+/* Header Bar */
+.header-bar {
   background: var(--charcoal);
   color: #fff;
   padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
 }
-.chart-title {
+.carcass-tag {
   font-family: 'Playfair Display', serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 700;
 }
-.chart-instruction {
-  font-size: 11px;
-  opacity: 0.6;
-}
+.carcass-meta { font-size: 11px; opacity: 0.6; margin-left: 12px; }
+.carcass-weights { display: flex; gap: 24px; }
+.weight-item { text-align: center; }
+.weight-value { font-size: 20px; font-weight: 700; color: var(--beef-red); }
+.weight-label { font-size: 8px; opacity: 0.5; letter-spacing: 1px; }
 
-.chart-body {
+/* Butcher Chart - Full Width Centered */
+.butcher-chart {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: var(--cream);
+  border: 3px solid var(--charcoal);
   padding: 20px;
-  position: relative;
 }
 
-/* Cow Diagram with Clickable Areas */
-.cow-diagram-wrapper {
-  position: relative;
+.chart-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--beef-red);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.chart-subtitle {
+  font-size: 12px;
+  color: var(--stone);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+/* SVG Cow Diagram */
+.cow-svg-container {
   width: 100%;
-  max-width: 650px;
+  max-width: 700px;
 }
 
-.cow-image {
+.cow-svg {
   width: 100%;
   height: auto;
-  display: block;
 }
 
-/* Clickable overlay areas - positioned over the diagram */
-.section-overlay {
-  position: absolute;
+/* Primal section styling */
+.primal {
+  fill: var(--charcoal);
+  stroke: var(--cream);
+  stroke-width: 2;
   cursor: pointer;
-  background: transparent;
-  border: 2px solid transparent;
-  transition: all 0.15s ease;
-}
-.section-overlay:hover {
-  background: rgba(255, 255, 255, 0.85);
-  border: 3px solid var(--charcoal);
-}
-.section-overlay.selected {
-  background: rgba(255, 255, 255, 0.7);
-  border: 3px solid var(--beef-red);
-}
-.section-overlay.selected::after {
-  content: '✓';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--beef-red);
-  color: #fff;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: bold;
+  transition: fill 0.15s ease;
 }
 
-/* Hover label */
-.section-overlay::before {
-  content: attr(data-label);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--charcoal);
+/* Hover: invert to white */
+.primal:hover {
+  fill: var(--white);
+  stroke: var(--charcoal);
+}
+
+/* Selected: terracotta/maroon */
+.primal.selected {
+  fill: var(--selected);
+}
+
+/* Text labels inside cow */
+.primal-text {
   font-family: 'Playfair Display', serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
+  fill: var(--cream);
+  text-anchor: middle;
+  pointer-events: none;
   text-transform: uppercase;
   letter-spacing: 1px;
-  opacity: 0;
-  transition: opacity 0.15s;
-  text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+}
+.primal:hover + .primal-text,
+.primal:hover ~ .primal-text-group .primal-text {
+  fill: var(--charcoal);
+}
+/* Text color change on hover - using CSS sibling selector workaround */
+.primal-group:hover .primal-text {
+  fill: var(--charcoal);
+}
+.primal-group .primal:hover ~ .primal-text {
+  fill: var(--charcoal);
+}
+
+.primal-percent {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px;
+  fill: rgba(245, 240, 225, 0.7);
+  text-anchor: middle;
   pointer-events: none;
 }
-.section-overlay:hover::before {
-  opacity: 1;
-}
-.section-overlay.selected::before {
-  opacity: 0;
-}
 
-/* Section positions - approximate based on typical beef diagram */
-.overlay-chuck { top: 15%; left: 8%; width: 22%; height: 45%; }
-.overlay-rib { top: 10%; left: 30%; width: 12%; height: 35%; }
-.overlay-shortloin { top: 8%; left: 42%; width: 10%; height: 32%; }
-.overlay-sirloin { top: 10%; left: 52%; width: 12%; height: 30%; }
-.overlay-round { top: 8%; left: 64%; width: 25%; height: 55%; }
-.overlay-flank { top: 50%; left: 42%; width: 25%; height: 25%; }
-.overlay-plate { top: 50%; left: 22%; width: 20%; height: 22%; }
-.overlay-brisket { top: 55%; left: 8%; width: 18%; height: 28%; }
-.overlay-shank { top: 75%; left: 64%; width: 12%; height: 18%; }
+/* Color Key */
+.color-key {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--stone);
+}
+.key-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--charcoal);
+}
+.key-swatch {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--charcoal);
+}
+.key-swatch.not-allocated { background: var(--charcoal); }
+.key-swatch.hover { background: var(--white); }
+.key-swatch.allocated { background: var(--selected); }
 
-/* Cut Selection Popup */
-.cut-popup {
-  position: absolute;
+/* Right Panel */
+.right-panel {
   background: #fff;
-  border: 3px solid var(--charcoal);
-  width: 300px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
-  z-index: 100;
-  display: none;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--parchment);
 }
-.cut-popup.visible { display: block; }
-
-.popup-header {
-  background: var(--charcoal);
+.panel-header {
+  background: var(--beef-red);
   color: #fff;
-  padding: 14px 18px;
+  padding: 16px;
+}
+.panel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+.panel-progress {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+.progress-bar {
+  height: 3px;
+  background: rgba(255,255,255,0.3);
+  margin-top: 10px;
+}
+.progress-fill {
+  height: 100%;
+  background: #fff;
+}
+
+.cuts-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+.cut-card {
+  padding: 12px;
+  margin-bottom: 8px;
+  border-left: 4px solid var(--selected);
+  background: var(--cream);
+}
+.cut-card.pending {
+  border-left-color: #D4A04A;
+  background: #FDF6E3;
+}
+.cut-card-section {
+  font-size: 9px;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+.cut-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-top: 3px;
+}
+.cut-card-details {
+  font-size: 10px;
+  color: var(--stone);
+  margin-top: 2px;
+}
+.cut-card-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--beef-red);
+  margin-top: 6px;
+}
+.cut-card.pending .cut-card-price {
+  color: #D4A04A;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.panel-footer {
+  padding: 16px;
+  background: var(--parchment);
+  border-top: 3px solid var(--charcoal);
+}
+.total-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 12px;
 }
-.popup-section-name {
+.total-label {
+  font-size: 10px;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.total-amount {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+.confirm-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--charcoal);
+  color: #fff;
+  border: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.confirm-btn:disabled {
+  background: #9A9487;
+  cursor: not-allowed;
+}
+
+/* Popup for cut selection */
+.cut-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 3px solid var(--charcoal);
+  width: 340px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  z-index: 200;
+  display: none;
+}
+.cut-popup.visible { display: block; }
+.popup-header {
+  background: var(--charcoal);
+  color: #fff;
+  padding: 16px 20px;
+}
+.popup-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 .popup-weight {
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.7;
+  margin-top: 4px;
 }
-.popup-close {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  opacity: 0.6;
-}
-.popup-close:hover { opacity: 1; }
-
-.popup-body {
-  padding: 16px;
-}
-.cut-option {
+.popup-body { padding: 16px; }
+.popup-option {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -316,201 +385,52 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   cursor: pointer;
   transition: all 0.15s;
 }
-.cut-option:hover {
+.popup-option:hover {
   border-color: var(--charcoal);
-  background: var(--parchment);
 }
-.cut-option.best {
+.popup-option.best {
   border-color: var(--beef-red);
 }
-.cut-option-info {}
-.cut-option-name {
+.option-name {
   font-size: 14px;
   font-weight: 600;
-  color: var(--charcoal);
 }
-.cut-option-name .best-tag {
+.option-name .best-tag {
   background: var(--beef-red);
   color: #fff;
   font-size: 9px;
-  font-weight: 600;
   padding: 2px 6px;
   margin-left: 8px;
-  letter-spacing: 0.5px;
 }
-.cut-option-details {
+.option-details {
   font-size: 11px;
   color: var(--stone);
   margin-top: 3px;
 }
-.cut-option-profit {
-  text-align: right;
-}
-.cut-profit-amount {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--beef-red);
-}
-.cut-profit-rate {
-  font-size: 10px;
-  color: var(--stone);
-}
-
-/* Legend */
-.chart-legend {
-  background: var(--charcoal);
-  color: #fff;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  opacity: 0.7;
-}
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border: 2px solid;
-}
-.legend-dot.unallocated { background: transparent; border-color: rgba(255,255,255,0.3); }
-.legend-dot.hover { background: #fff; border-color: var(--charcoal); }
-.legend-dot.selected { background: #fff; border-color: var(--beef-red); }
-
-/* Right Panel */
-.cut-plan-panel {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid var(--parchment);
-}
-
-.panel-header {
-  background: var(--beef-red);
-  color: #fff;
-  padding: 20px;
-}
-.panel-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-.panel-progress-text {
-  font-size: 12px;
-  opacity: 0.8;
-  margin-top: 6px;
-}
-.panel-progress-bar {
-  height: 4px;
-  background: rgba(255,255,255,0.3);
-  margin-top: 12px;
-  overflow: hidden;
-}
-.panel-progress-fill {
-  height: 100%;
-  background: #fff;
-}
-
-.cuts-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-}
-.cut-card {
-  padding: 14px;
-  margin-bottom: 10px;
-  border-left: 4px solid var(--beef-red);
-  background: var(--cream);
-}
-.cut-card.pending {
-  border-left-color: var(--warning);
-  background: var(--warning-light);
-}
-.cut-card-section {
-  font-size: 10px;
-  color: var(--stone);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-.cut-card-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--charcoal);
-  margin-top: 4px;
-}
-.cut-card-details {
-  font-size: 11px;
-  color: var(--stone);
-  margin-top: 3px;
-}
-.cut-card-price {
+.option-profit {
   font-size: 18px;
   font-weight: 700;
   color: var(--beef-red);
-  margin-top: 8px;
 }
-.cut-card.pending .cut-card-price {
-  color: var(--warning);
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.panel-footer {
-  padding: 20px;
-  background: var(--parchment);
-  border-top: 3px solid var(--charcoal);
-}
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-.total-label {
-  font-size: 11px;
+.option-rate {
+  font-size: 10px;
   color: var(--stone);
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
-.total-amount {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--charcoal);
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 199;
+  display: none;
 }
-.confirm-btn {
-  width: 100%;
-  padding: 16px;
-  background: var(--charcoal);
-  color: #fff;
-  border: none;
-  font-family: 'Jost', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.confirm-btn:disabled {
-  background: var(--stone-light);
-  cursor: not-allowed;
-}
-.confirm-btn.ready {
-  background: var(--beef-red);
-}
+.popup-overlay.visible { display: block; }
 </style>
 </head>
 <body>
 
 <div class="mockup-badge">MOCKUP — YIELD IQ — BUTCHER'S CUT SELECTOR</div>
 
-<div class="desktop-container">
+<div class="page-container">
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-logo">
@@ -519,41 +439,25 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
     </div>
     <nav>
       <ul class="sidebar-nav">
-        <li><a href="07_Predictor_Intake.html" class="nav-item">
-          <span class="nav-icon">🐂</span> Carcass Intake
-        </a></li>
-        <li><a href="#" class="nav-item active">
-          <span class="nav-icon">🔪</span> Cut Selector
-        </a></li>
-        <li><a href="09_Predictor_Dashboard.html" class="nav-item">
-          <span class="nav-icon">📊</span> Actuals
-        </a></li>
-        <li><a href="#" class="nav-item">
-          <span class="nav-icon">📋</span> Queue
-        </a></li>
-        <li><a href="#" class="nav-item">
-          <span class="nav-icon">⚙️</span> Settings
-        </a></li>
+        <li><a href="07_Predictor_Intake.html" class="nav-item"><span class="nav-icon">🐂</span> Intake</a></li>
+        <li><a href="#" class="nav-item active"><span class="nav-icon">🔪</span> Cut Selector</a></li>
+        <li><a href="09_Predictor_Dashboard.html" class="nav-item"><span class="nav-icon">📊</span> Actuals</a></li>
+        <li><a href="#" class="nav-item"><span class="nav-icon">⚙️</span> Settings</a></li>
       </ul>
     </nav>
   </aside>
 
   <!-- Main Content -->
   <main class="main-content">
-    <div class="page-header">
-      <h1 class="page-title">Cuts of Beef</h1>
-      <p class="page-subtitle">• Click each section to select your cuts •</p>
-    </div>
-
-    <div class="carcass-info-bar">
-      <div class="carcass-id">
+    <div class="header-bar">
+      <div>
         <span class="carcass-tag">JH-2024-A045</span>
-        <span class="carcass-meta">Angus • Steer • Fat Score 3 • 21 days aged</span>
+        <span class="carcass-meta">Angus • Fat Score 3 • 21 days aged</span>
       </div>
       <div class="carcass-weights">
         <div class="weight-item">
           <div class="weight-value">220kg</div>
-          <div class="weight-label">AGED WEIGHT</div>
+          <div class="weight-label">AGED</div>
         </div>
         <div class="weight-item">
           <div class="weight-value">176kg</div>
@@ -562,181 +466,230 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
       </div>
     </div>
 
-    <div class="butcher-chart-container">
-      <div class="chart-header">
-        <span class="chart-title">Primal Sections</span>
-        <span class="chart-instruction">Click a section to view cut options</span>
-      </div>
-      
-      <div class="chart-body">
-        <div class="cow-diagram-wrapper">
-          <img src="https://static.prod-images.emergentagent.com/jobs/da888e2e-b5f0-4d04-b52c-50903be3ddd1/images/0090c75228f7aa1a729104d5b0e9003dc5df04786edf8809ea216b1787d3a144.png" alt="Beef Cuts Diagram" class="cow-image">
+    <div class="butcher-chart">
+      <h1 class="chart-title">Cuts of Beef</h1>
+      <p class="chart-subtitle">Click each section to select your cuts</p>
+
+      <div class="cow-svg-container">
+        <svg viewBox="0 0 800 380" class="cow-svg">
+          <!-- Cow body outline for reference -->
+          <defs>
+            <style>
+              .primal { transition: fill 0.15s ease; }
+              .primal:hover { fill: #FFFFFF; }
+              .primal:hover + text { fill: #1A1A1A; }
+              .primal.selected { fill: #6B3A3A; }
+            </style>
+          </defs>
           
-          <!-- Clickable overlay areas with labels -->
-          <div class="section-overlay overlay-chuck selected" data-section="chuck" data-label="Chuck"></div>
-          <div class="section-overlay overlay-rib selected" data-section="rib" data-label="Rib"></div>
-          <div class="section-overlay overlay-shortloin selected" data-section="shortloin" data-label="Short Loin"></div>
-          <div class="section-overlay overlay-sirloin selected" data-section="sirloin" data-label="Sirloin"></div>
-          <div class="section-overlay overlay-round" data-section="round" data-label="Round"></div>
-          <div class="section-overlay overlay-flank selected" data-section="flank" data-label="Flank"></div>
-          <div class="section-overlay overlay-plate" data-section="plate" data-label="Plate"></div>
-          <div class="section-overlay overlay-brisket selected" data-section="brisket" data-label="Brisket"></div>
-          <div class="section-overlay overlay-shank" data-section="shank" data-label="Shank"></div>
-        </div>
-
-        <!-- Popup for Round section (example) -->
-        <div class="cut-popup visible" style="top: 50px; right: 20px;">
-          <div class="popup-header">
-            <div>
-              <div class="popup-section-name">Round</div>
-              <div class="popup-weight">Est. 59.4kg (27%)</div>
-            </div>
-            <button class="popup-close">×</button>
-          </div>
-          <div class="popup-body">
-            <div class="cut-option best">
-              <div class="cut-option-info">
-                <div class="cut-option-name">Topside Roasts<span class="best-tag">BEST</span></div>
-                <div class="cut-option-details">~24 roasts @ $32/kg</div>
-              </div>
-              <div class="cut-option-profit">
-                <div class="cut-profit-amount">$1,782</div>
-                <div class="cut-profit-rate">$32/kg</div>
-              </div>
-            </div>
-            <div class="cut-option">
-              <div class="cut-option-info">
-                <div class="cut-option-name">Boneless Shin</div>
-                <div class="cut-option-details">~40 packs @ $30/kg</div>
-              </div>
-              <div class="cut-option-profit">
-                <div class="cut-profit-amount">$1,680</div>
-                <div class="cut-profit-rate">$30/kg</div>
-              </div>
-            </div>
-            <div class="cut-option">
-              <div class="cut-option-info">
-                <div class="cut-option-name">Premium Mince</div>
-                <div class="cut-option-details">~118 packs (500g) @ $25/kg</div>
-              </div>
-              <div class="cut-option-profit">
-                <div class="cut-profit-amount">$1,426</div>
-                <div class="cut-profit-rate">$25/kg</div>
-              </div>
-            </div>
-          </div>
-        </div>
+          <!-- CHUCK - 26% -->
+          <path class="primal selected" d="M70 300 Q50 280 45 240 L50 180 Q55 140 70 110 L90 85 Q110 70 140 65 L160 63 L175 120 L165 200 L140 280 L100 295 Z"/>
+          <text x="115" y="175" class="primal-text" style="font-size:14px; fill:#F5F0E1;">CHUCK</text>
+          <text x="115" y="192" class="primal-percent" style="fill:rgba(245,240,225,0.7);">26%</text>
+          
+          <!-- RIB - 9.5% -->
+          <path class="primal selected" d="M160 63 Q190 58 220 55 L250 54 L260 110 L250 180 L220 250 L175 260 L175 120 Z"/>
+          <text x="215" y="145" class="primal-text" style="fill:#F5F0E1;">RIB</text>
+          <text x="215" y="162" class="primal-percent" style="fill:rgba(245,240,225,0.7);">9.5%</text>
+          
+          <!-- SHORT LOIN - 8% -->
+          <path class="primal selected" d="M250 54 Q290 52 330 52 L340 100 L325 170 L290 235 L260 245 L250 180 L260 110 Z"/>
+          <text x="295" y="125" class="primal-text" style="font-size:11px; fill:#F5F0E1;">SHORT</text>
+          <text x="295" y="142" class="primal-text" style="font-size:11px; fill:#F5F0E1;">LOIN</text>
+          <text x="295" y="159" class="primal-percent" style="fill:rgba(245,240,225,0.7);">8%</text>
+          
+          <!-- SIRLOIN - 9% -->
+          <path class="primal selected" d="M330 52 Q380 52 420 58 L460 68 L455 130 L430 195 L370 225 L325 170 L340 100 Z"/>
+          <text x="390" y="125" class="primal-text" style="fill:#F5F0E1;">SIRLOIN</text>
+          <text x="390" y="142" class="primal-percent" style="fill:rgba(245,240,225,0.7);">9%</text>
+          
+          <!-- ROUND - 27% -->
+          <path class="primal" d="M460 68 Q520 80 570 100 Q620 125 660 160 Q695 200 710 250 Q715 290 700 320 L650 330 L590 300 L520 250 L480 195 L455 130 Z"/>
+          <text x="580" y="200" class="primal-text" style="font-size:15px;">ROUND</text>
+          <text x="580" y="220" class="primal-percent">27%</text>
+          
+          <!-- FLANK - 4% -->
+          <path class="primal selected" d="M370 225 L430 195 L480 195 L520 250 L590 300 L650 330 Q620 340 580 345 L500 340 L440 330 L400 310 Z"/>
+          <text x="490" y="295" class="primal-text" style="fill:#F5F0E1;">FLANK</text>
+          <text x="490" y="312" class="primal-percent" style="fill:rgba(245,240,225,0.7);">4%</text>
+          
+          <!-- SHORT PLATE - 5.5% -->
+          <path class="primal" d="M220 250 L260 245 L290 235 L370 225 L400 310 L440 330 L380 340 L300 335 L230 320 L200 305 L165 295 L165 275 Z"/>
+          <text x="295" y="290" class="primal-text" style="font-size:10px;">PLATE</text>
+          <text x="295" y="305" class="primal-percent">5.5%</text>
+          
+          <!-- BRISKET - 6% -->
+          <path class="primal selected" d="M140 280 L165 275 L165 295 L200 305 L230 320 L220 345 L180 355 L130 355 L95 345 L80 325 L90 300 Z"/>
+          <text x="160" y="325" class="primal-text" style="font-size:11px; fill:#F5F0E1;">BRISKET</text>
+          <text x="160" y="342" class="primal-percent" style="fill:rgba(245,240,225,0.7);">6%</text>
+          
+          <!-- SHANK (Fore) - 2% -->
+          <path class="primal" d="M80 325 L95 345 L85 370 L60 375 L50 360 L55 335 L70 315 Z"/>
+          <text x="72" y="355" class="primal-text" style="font-size:8px;">SHANK</text>
+          
+          <!-- SHANK (Hind) - 2% -->
+          <path class="primal" d="M650 330 L700 320 L720 340 L715 370 L690 380 L660 375 L640 355 Z"/>
+          <text x="680" y="360" class="primal-text" style="font-size:8px;">SHANK</text>
+          
+          <!-- Head area hint -->
+          <ellipse cx="48" cy="130" rx="25" ry="35" class="primal" style="fill:#1A1A1A;"/>
+          <text x="48" y="135" class="primal-text" style="font-size:8px;">HEAD</text>
+          
+          <!-- Decorative elements - legs/hooves -->
+          <rect x="115" y="355" width="15" height="25" fill="#1A1A1A"/>
+          <rect x="185" y="355" width="15" height="25" fill="#1A1A1A"/>
+          <rect x="645" y="375" width="15" height="25" fill="#1A1A1A"/>
+          <rect x="700" y="370" width="15" height="25" fill="#1A1A1A"/>
+          
+          <!-- Tail -->
+          <path d="M710 250 Q740 240 755 260 Q760 280 745 295" fill="none" stroke="#1A1A1A" stroke-width="8" stroke-linecap="round"/>
+        </svg>
       </div>
 
-      <div class="chart-legend">
-        <div class="legend-item">
-          <div class="legend-dot unallocated"></div>
-          <span>Not allocated</span>
+      <!-- Color Key -->
+      <div class="color-key">
+        <div class="key-item">
+          <div class="key-swatch not-allocated"></div>
+          <span>Not yet allocated</span>
         </div>
-        <div class="legend-item">
-          <div class="legend-dot hover"></div>
-          <span>Hover</span>
+        <div class="key-item">
+          <div class="key-swatch hover"></div>
+          <span>Hover (click to select)</span>
         </div>
-        <div class="legend-item">
-          <div class="legend-dot selected"></div>
-          <span>Cut selected</span>
+        <div class="key-item">
+          <div class="key-swatch allocated"></div>
+          <span>Cut allocated</span>
         </div>
       </div>
     </div>
   </main>
 
   <!-- Right Panel -->
-  <aside class="cut-plan-panel">
+  <aside class="right-panel">
     <div class="panel-header">
-      <div class="panel-title">Selected Cut Plan</div>
-      <div class="panel-progress-text">7 of 10 sections allocated</div>
-      <div class="panel-progress-bar">
-        <div class="panel-progress-fill" style="width: 70%;"></div>
+      <div class="panel-title">Selected Cuts</div>
+      <div class="panel-progress">7 of 10 sections</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 70%;"></div>
       </div>
     </div>
 
     <div class="cuts-list">
       <div class="cut-card">
         <div class="cut-card-section">Chuck (26%)</div>
-        <div class="cut-card-name">Blade Steaks & Slow Cook</div>
-        <div class="cut-card-details">57.2kg • Blade, Chuck Roast, Casserole</div>
+        <div class="cut-card-name">Blade & Slow Cook</div>
+        <div class="cut-card-details">57kg • Casserole, Chuck Roast</div>
         <div class="cut-card-price">$1,944</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Rib (9.5%)</div>
-        <div class="cut-card-name">Ribeye & Scotch Fillet</div>
-        <div class="cut-card-details">20.9kg • Steaks + Short Ribs</div>
+        <div class="cut-card-name">Ribeye & Scotch</div>
+        <div class="cut-card-details">21kg • Short Ribs</div>
         <div class="cut-card-price">$1,526</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Short Loin (8%)</div>
-        <div class="cut-card-name">Eye Fillet & Chateaubriand</div>
-        <div class="cut-card-details">17.6kg • Premium steaks</div>
+        <div class="cut-card-name">Eye Fillet</div>
+        <div class="cut-card-details">18kg • Chateaubriand</div>
         <div class="cut-card-price">$1,408</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Sirloin (9%)</div>
-        <div class="cut-card-name">Sirloin & Rump Steaks</div>
-        <div class="cut-card-details">19.8kg • Boneless steaks</div>
+        <div class="cut-card-name">Sirloin & Rump</div>
+        <div class="cut-card-details">20kg • Steaks</div>
         <div class="cut-card-price">$1,188</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Flank (4%)</div>
         <div class="cut-card-name">Bavette & Onglet</div>
-        <div class="cut-card-details">8.8kg • Flat Iron, Flank Steak</div>
+        <div class="cut-card-details">9kg • Flat Iron</div>
         <div class="cut-card-price">$352</div>
       </div>
       
       <div class="cut-card">
         <div class="cut-card-section">Brisket (6%)</div>
         <div class="cut-card-name">Whole Brisket</div>
-        <div class="cut-card-details">13.2kg • Slow cook / smoke</div>
+        <div class="cut-card-details">13kg</div>
         <div class="cut-card-price">$462</div>
       </div>
 
       <div class="cut-card pending">
         <div class="cut-card-section">Round (27%)</div>
         <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-details">59.4kg • Topside, Silverside, Shin</div>
+        <div class="cut-card-details">59kg • Topside, Shin</div>
         <div class="cut-card-price">Pending</div>
       </div>
       
       <div class="cut-card pending">
-        <div class="cut-card-section">Short Plate (5.5%)</div>
+        <div class="cut-card-section">Plate (5.5%)</div>
         <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-details">12.1kg • Short Ribs, Mince trim</div>
+        <div class="cut-card-details">12kg</div>
         <div class="cut-card-price">Pending</div>
       </div>
 
       <div class="cut-card pending">
-        <div class="cut-card-section">Shank (3%)</div>
+        <div class="cut-card-section">Shank (4%)</div>
         <div class="cut-card-name">Click to select</div>
-        <div class="cut-card-details">6.6kg • Osso Buco, Boneless Shin</div>
+        <div class="cut-card-details">9kg • Osso Buco</div>
         <div class="cut-card-price">Pending</div>
-      </div>
-
-      <div class="cut-card" style="border-left-color: var(--warning); background: #FFF9E6;">
-        <div class="cut-card-section">Offal & Organs</div>
-        <div class="cut-card-name">Tongue, Cheeks, Heart, Kidney</div>
-        <div class="cut-card-details">~8kg • Specialty items</div>
-        <div class="cut-card-price">$280</div>
       </div>
     </div>
 
     <div class="panel-footer">
       <div class="total-row">
-        <span class="total-label">Estimated Total</span>
-        <span class="total-amount">$6,704</span>
+        <span class="total-label">Est. Total</span>
+        <span class="total-amount">$6,880</span>
       </div>
-      <button class="confirm-btn" disabled>
-        Allocate 3 remaining sections
-      </button>
+      <button class="confirm-btn" disabled>Allocate 3 remaining</button>
     </div>
   </aside>
+</div>
+
+<!-- Popup overlay -->
+<div class="popup-overlay visible"></div>
+
+<!-- Cut selection popup (shown when clicking a section) -->
+<div class="cut-popup visible">
+  <div class="popup-header">
+    <div class="popup-title">Round</div>
+    <div class="popup-weight">Est. 59kg (27% of carcass)</div>
+  </div>
+  <div class="popup-body">
+    <div class="popup-option best">
+      <div>
+        <div class="option-name">Topside Roasts <span class="best-tag">BEST</span></div>
+        <div class="option-details">~24 roasts @ $32/kg</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="option-profit">$1,782</div>
+        <div class="option-rate">$32/kg</div>
+      </div>
+    </div>
+    <div class="popup-option">
+      <div>
+        <div class="option-name">Boneless Shin</div>
+        <div class="option-details">~40 packs @ $30/kg</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="option-profit">$1,680</div>
+        <div class="option-rate">$30/kg</div>
+      </div>
+    </div>
+    <div class="popup-option">
+      <div>
+        <div class="option-name">Premium Mince</div>
+        <div class="option-details">~118 packs @ $25/kg</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="option-profit">$1,426</div>
+        <div class="option-rate">$25/kg</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
