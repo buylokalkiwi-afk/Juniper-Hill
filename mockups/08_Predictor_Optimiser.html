@@ -225,6 +225,31 @@ body { font-family: 'Jost', sans-serif; background: var(--parchment); color: var
   font-weight: bold;
 }
 
+/* Hover label */
+.section-overlay::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--charcoal);
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+  pointer-events: none;
+}
+.section-overlay:hover::before {
+  opacity: 1;
+}
+.section-overlay.selected::before {
+  opacity: 0;
+}
+
 /* Section positions - approximate based on typical beef diagram */
 .overlay-chuck { top: 15%; left: 8%; width: 22%; height: 45%; }
 .overlay-rib { top: 10%; left: 30%; width: 12%; height: 35%; }
