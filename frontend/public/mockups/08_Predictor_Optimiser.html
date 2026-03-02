@@ -304,13 +304,65 @@ body {
   font-weight: 600;
   color: var(--charcoal);
 }
+.cut-weight-each {
+  font-size: 12px;
+  font-weight: 400;
+  color: #888;
+  margin-left: 6px;
+}
 .cut-details {
   font-size: 12px;
   color: #888;
   margin-top: 3px;
 }
+
+/* Quantity Selector */
+.cut-qty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 16px;
+}
+.qty-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 4px;
+}
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--cream);
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--charcoal);
+  transition: background 0.15s;
+}
+.qty-btn:hover {
+  background: var(--cream-dark);
+}
+.qty-value {
+  min-width: 36px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+.qty-max {
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+}
+
 .cut-price {
   text-align: right;
+  min-width: 70px;
 }
 .cut-amount {
   font-size: 16px;
@@ -320,6 +372,14 @@ body {
 .cut-rate {
   font-size: 11px;
   color: #888;
+}
+
+/* Progress Remaining */
+.progress-remaining {
+  font-size: 11px;
+  color: #888;
+  margin-top: 8px;
+  text-align: center;
 }
 
 /* Weight Progress in Popup */
@@ -783,83 +843,114 @@ body {
   </div>
   
   <div class="popup-body">
-    <p class="popup-instruction">Select the cuts you want from this section. You can select multiple cuts until the weight is fully allocated.</p>
+    <p class="popup-instruction">Select quantities for each cut. The AI has estimated maximum possible from this section's weight. Mix and match until fully allocated.</p>
     
     <div class="cut-option selected">
-      <div class="cut-checkbox"></div>
       <div class="cut-info">
-        <div class="cut-name">Ribeye Steak</div>
-        <div class="cut-details">~24 steaks (300g avg) • 7.2kg</div>
+        <div class="cut-name">Ribeye Steak <span class="cut-weight-each">300g each</span></div>
+        <div class="cut-details">$73/kg • Using 7.2kg</div>
+      </div>
+      <div class="cut-qty">
+        <div class="qty-selector">
+          <button class="qty-btn">−</button>
+          <span class="qty-value">24</span>
+          <button class="qty-btn">+</button>
+        </div>
+        <div class="qty-max">Max: 60</div>
       </div>
       <div class="cut-price">
         <div class="cut-amount">$840</div>
-        <div class="cut-rate">$73/kg</div>
       </div>
     </div>
 
     <div class="cut-option selected">
-      <div class="cut-checkbox"></div>
       <div class="cut-info">
-        <div class="cut-name">Scotch Fillet</div>
-        <div class="cut-details">~18 steaks (350g avg) • 6.3kg</div>
+        <div class="cut-name">Scotch Fillet <span class="cut-weight-each">350g each</span></div>
+        <div class="cut-details">$71/kg • Using 6.3kg</div>
+      </div>
+      <div class="cut-qty">
+        <div class="qty-selector">
+          <button class="qty-btn">−</button>
+          <span class="qty-value">18</span>
+          <button class="qty-btn">+</button>
+        </div>
+        <div class="qty-max">Max: 51</div>
       </div>
       <div class="cut-price">
         <div class="cut-amount">$450</div>
-        <div class="cut-rate">$71/kg</div>
       </div>
     </div>
 
     <div class="cut-option selected">
-      <div class="cut-checkbox"></div>
       <div class="cut-info">
-        <div class="cut-name">Short Ribs</div>
-        <div class="cut-details">~8 portions (500g avg) • 4.0kg</div>
+        <div class="cut-name">Short Ribs <span class="cut-weight-each">500g portion</span></div>
+        <div class="cut-details">$38/kg • Using 4.0kg</div>
+      </div>
+      <div class="cut-qty">
+        <div class="qty-selector">
+          <button class="qty-btn">−</button>
+          <span class="qty-value">8</span>
+          <button class="qty-btn">+</button>
+        </div>
+        <div class="qty-max">Max: 36</div>
       </div>
       <div class="cut-price">
         <div class="cut-amount">$150</div>
-        <div class="cut-rate">$38/kg</div>
       </div>
     </div>
 
     <div class="cut-option">
-      <div class="cut-checkbox"></div>
       <div class="cut-info">
-        <div class="cut-name">Standing Rib Roast</div>
-        <div class="cut-details">~3 roasts (2.5kg avg) • 7.5kg</div>
+        <div class="cut-name">Standing Rib Roast <span class="cut-weight-each">2.5kg each</span></div>
+        <div class="cut-details">$70/kg</div>
+      </div>
+      <div class="cut-qty">
+        <div class="qty-selector">
+          <button class="qty-btn">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn">+</button>
+        </div>
+        <div class="qty-max">Max: 7</div>
       </div>
       <div class="cut-price">
-        <div class="cut-amount">$525</div>
-        <div class="cut-rate">$70/kg</div>
+        <div class="cut-amount">$0</div>
       </div>
     </div>
 
     <div class="cut-option">
-      <div class="cut-checkbox"></div>
       <div class="cut-info">
-        <div class="cut-name">Back Ribs</div>
-        <div class="cut-details">~6 racks • 4.5kg</div>
+        <div class="cut-name">Premium Mince <span class="cut-weight-each">500g pack</span></div>
+        <div class="cut-details">$25/kg • From rib trim</div>
+      </div>
+      <div class="cut-qty">
+        <div class="qty-selector">
+          <button class="qty-btn">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn">+</button>
+        </div>
+        <div class="qty-max">Max: 36</div>
       </div>
       <div class="cut-price">
-        <div class="cut-amount">$180</div>
-        <div class="cut-rate">$40/kg</div>
+        <div class="cut-amount">$0</div>
       </div>
     </div>
 
     <!-- Add Custom Cut Button -->
     <div class="add-custom">
       <span>+</span>
-      <span>Add Custom Cut</span>
+      <span>Add Custom Cut (Admin)</span>
     </div>
 
     <!-- Weight Progress -->
     <div class="weight-progress">
       <div class="progress-header">
         <span class="progress-label">Section Weight Allocated</span>
-        <span class="progress-value">17.5kg / 18kg (97%)</span>
+        <span class="progress-value">17.5kg / 18kg</span>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" style="width: 97%;"></div>
       </div>
+      <div class="progress-remaining">0.5kg remaining — add more cuts or leave as trim</div>
     </div>
   </div>
 
