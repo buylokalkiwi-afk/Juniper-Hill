@@ -304,13 +304,65 @@ body {
   font-weight: 600;
   color: var(--charcoal);
 }
+.cut-weight-each {
+  font-size: 12px;
+  font-weight: 400;
+  color: #888;
+  margin-left: 6px;
+}
 .cut-details {
   font-size: 12px;
   color: #888;
   margin-top: 3px;
 }
+
+/* Quantity Selector */
+.cut-qty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 16px;
+}
+.qty-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 4px;
+}
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--cream);
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--charcoal);
+  transition: background 0.15s;
+}
+.qty-btn:hover {
+  background: var(--cream-dark);
+}
+.qty-value {
+  min-width: 36px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+.qty-max {
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+}
+
 .cut-price {
   text-align: right;
+  min-width: 70px;
 }
 .cut-amount {
   font-size: 16px;
@@ -320,6 +372,14 @@ body {
 .cut-rate {
   font-size: 11px;
   color: #888;
+}
+
+/* Progress Remaining */
+.progress-remaining {
+  font-size: 11px;
+  color: #888;
+  margin-top: 8px;
+  text-align: center;
 }
 
 /* Weight Progress in Popup */
