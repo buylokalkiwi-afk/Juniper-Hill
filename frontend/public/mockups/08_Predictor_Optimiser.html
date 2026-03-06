@@ -149,6 +149,8 @@ body {
   color: #777;
   margin-top: 4px;
 }
+
+/* Interactive Cow Container */
 .cow-container {
   flex: 1;
   display: flex;
@@ -156,12 +158,56 @@ body {
   justify-content: center;
   width: 100%;
   max-height: calc(100vh - 300px);
+  position: relative;
 }
-.cow-image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+
+.cow-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1.42;
 }
+
+.cow-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Clickable Overlay Regions */
+.section-overlay {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.section-overlay:hover {
+  background: rgba(196, 30, 58, 0.35);
+  box-shadow: 0 0 0 3px var(--hover);
+}
+
+.section-overlay.complete {
+  background: rgba(27, 77, 62, 0.4);
+  box-shadow: 0 0 0 2px var(--complete);
+}
+
+.section-overlay.complete:hover {
+  background: rgba(27, 77, 62, 0.55);
+  box-shadow: 0 0 0 3px var(--complete);
+}
+
+/* Section positions - precisely tuned for the cow SVG */
+.section-head { top: 10%; left: 4%; width: 16%; height: 28%; border-radius: 8px; }
+.section-chuck { top: 12%; left: 20%; width: 15%; height: 28%; border-radius: 6px; }
+.section-rib { top: 14%; left: 35%; width: 12%; height: 22%; border-radius: 6px; }
+.section-loin { top: 14%; left: 47%; width: 8%; height: 20%; border-radius: 6px; }
+.section-sirloin { top: 14%; left: 55%; width: 10%; height: 22%; border-radius: 6px; }
+.section-round { top: 10%; left: 65%; width: 18%; height: 32%; border-radius: 6px; }
+.section-brisket { top: 38%; left: 18%; width: 16%; height: 20%; border-radius: 6px; }
+.section-plate { top: 34%; left: 34%; width: 22%; height: 24%; border-radius: 6px; }
+.section-flank { top: 34%; left: 56%; width: 10%; height: 24%; border-radius: 6px; }
+.section-shank-fore { top: 50%; left: 22%; width: 14%; height: 32%; border-radius: 6px; }
+.section-shank-hind { top: 48%; left: 66%; width: 16%; height: 34%; border-radius: 6px; }
 
 /* Color Key */
 .color-key {
@@ -189,286 +235,6 @@ body {
 .swatch.default { background: var(--charcoal); }
 .swatch.hover { background: var(--hover); }
 .swatch.complete { background: var(--complete); }
-
-/* ============ POPUP ============ */
-.popup-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 100;
-}
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--white);
-  width: 500px;
-  max-height: 80vh;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  z-index: 101;
-  display: flex;
-  flex-direction: column;
-}
-.popup-header {
-  background: var(--charcoal);
-  color: #fff;
-  padding: 20px 24px;
-  border-radius: 12px 12px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.popup-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  font-weight: 700;
-}
-.popup-subtitle {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-top: 4px;
-}
-.popup-close {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
-  opacity: 0.6;
-  line-height: 1;
-}
-.popup-close:hover { opacity: 1; }
-
-.popup-body {
-  padding: 20px 24px;
-  flex: 1;
-  overflow-y: auto;
-}
-.popup-instruction {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--cream-dark);
-}
-
-/* Cut Options in Popup */
-.cut-option {
-  display: flex;
-  align-items: center;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  background: var(--cream);
-  border: 2px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.cut-option:hover {
-  border-color: var(--charcoal);
-}
-.cut-option.selected {
-  border-color: var(--complete);
-  background: var(--complete-light);
-}
-.cut-checkbox {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #aaa;
-  border-radius: 4px;
-  margin-right: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.cut-option.selected .cut-checkbox {
-  background: var(--complete);
-  border-color: var(--complete);
-  color: #fff;
-}
-.cut-checkbox::after {
-  content: '✓';
-  font-size: 14px;
-  font-weight: bold;
-  opacity: 0;
-}
-.cut-option.selected .cut-checkbox::after {
-  opacity: 1;
-}
-.cut-info { flex: 1; }
-.cut-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--charcoal);
-}
-.cut-weight-each {
-  font-size: 12px;
-  font-weight: 400;
-  color: #888;
-  margin-left: 6px;
-}
-.cut-details {
-  font-size: 12px;
-  color: #888;
-  margin-top: 3px;
-}
-
-/* Quantity Selector */
-.cut-qty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 16px;
-}
-.qty-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--white);
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  padding: 4px;
-}
-.qty-btn {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: var(--cream);
-  border-radius: 4px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--charcoal);
-  transition: background 0.15s;
-}
-.qty-btn:hover {
-  background: var(--cream-dark);
-}
-.qty-value {
-  min-width: 36px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--charcoal);
-}
-.qty-max {
-  font-size: 10px;
-  color: #888;
-  margin-top: 4px;
-}
-
-.cut-price {
-  text-align: right;
-  min-width: 70px;
-}
-.cut-amount {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--complete);
-}
-.cut-rate {
-  font-size: 11px;
-  color: #888;
-}
-
-/* Progress Remaining */
-.progress-remaining {
-  font-size: 11px;
-  color: #888;
-  margin-top: 8px;
-  text-align: center;
-}
-
-/* Weight Progress in Popup */
-.weight-progress {
-  background: var(--cream);
-  padding: 14px 16px;
-  border-radius: 8px;
-  margin-top: 16px;
-}
-.progress-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-.progress-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--charcoal);
-}
-.progress-value {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--complete);
-}
-.progress-bar {
-  height: 8px;
-  background: #ddd;
-  border-radius: 4px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--complete);
-  border-radius: 4px;
-  transition: width 0.3s;
-}
-
-/* Add Custom Cut */
-.add-custom {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  margin-top: 12px;
-  background: transparent;
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #888;
-  font-size: 13px;
-  transition: all 0.2s;
-}
-.add-custom:hover {
-  border-color: var(--charcoal);
-  color: var(--charcoal);
-}
-
-.popup-footer {
-  padding: 16px 24px;
-  background: var(--cream);
-  border-top: 2px solid var(--cream-dark);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-total {
-  font-size: 14px;
-}
-.footer-total strong {
-  font-size: 20px;
-  color: var(--complete);
-  margin-left: 8px;
-}
-.confirm-btn {
-  padding: 14px 32px;
-  background: var(--complete);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-family: 'Jost', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.confirm-btn:hover {
-  background: #154436;
-}
 
 /* ============ RIGHT PANEL ============ */
 .panel {
@@ -585,21 +351,6 @@ body {
   color: var(--charcoal);
 }
 
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: #888;
-}
-.empty-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-}
-.empty-text {
-  font-size: 14px;
-  line-height: 1.6;
-}
-
 /* Panel Footer */
 .panel-footer {
   padding: 20px;
@@ -654,10 +405,10 @@ body {
       <div class="logo-sub">Yield Optimization</div>
     </div>
     <ul class="nav">
-      <li><a href="07_Predictor_Intake.html">📋 Intake</a></li>
-      <li><a href="#" class="active">🥩 Cut Selector</a></li>
-      <li><a href="09_Predictor_Dashboard.html">📊 Actuals</a></li>
-      <li><a href="#">⚙️ Settings</a></li>
+      <li><a href="07_Predictor_Intake.html">Intake</a></li>
+      <li><a href="#" class="active">Cut Selector</a></li>
+      <li><a href="09_Predictor_Dashboard.html">Actuals</a></li>
+      <li><a href="#">Settings</a></li>
     </ul>
   </aside>
 
@@ -666,7 +417,7 @@ body {
     <div class="header-bar">
       <div>
         <span class="carcass-tag">JH-2024-A045</span>
-        <span class="carcass-meta">Angus • Fat Score 3 • 21 days aged</span>
+        <span class="carcass-meta">Angus - Fat Score 3 - 21 days aged</span>
       </div>
       <div class="weights">
         <div class="weight">
@@ -686,9 +437,23 @@ body {
         <p class="subtitle">Click each section to select your cuts</p>
       </div>
       <div class="cow-container">
-        <img src="https://customer-assets.emergentagent.com/job_tag-replacement-app/artifacts/zwxcadxv_Sectioned_cowNamed.png" 
-             alt="Beef Primal Cuts" 
-             class="cow-image">
+        <div class="cow-wrapper">
+          <!-- Embed the SVG -->
+          <img src="https://customer-assets.emergentagent.com/job_tag-replacement-app/artifacts/q0g9r520_JuniperHill_CowPrimalCuts%20-%20Artboard%202.svg" alt="Beef Primal Cuts" class="cow-svg">
+          
+          <!-- Clickable overlay regions - 6 complete (green), 5 incomplete -->
+          <div class="section-overlay section-head complete" title="Head - Complete"></div>
+          <div class="section-overlay section-chuck complete" title="Chuck - Complete"></div>
+          <div class="section-overlay section-rib complete" title="Rib - Complete"></div>
+          <div class="section-overlay section-loin" title="Loin - Click to select"></div>
+          <div class="section-overlay section-sirloin complete" title="Sirloin - Complete"></div>
+          <div class="section-overlay section-round" title="Round - Click to select"></div>
+          <div class="section-overlay section-brisket complete" title="Brisket - Complete"></div>
+          <div class="section-overlay section-plate" title="Plate - Click to select"></div>
+          <div class="section-overlay section-flank" title="Flank - Click to select"></div>
+          <div class="section-overlay section-shank-fore" title="Fore Shank - Click to select"></div>
+          <div class="section-overlay section-shank-hind complete" title="Hind Shank - Complete"></div>
+        </div>
       </div>
       <div class="color-key">
         <div class="key-item">
@@ -730,15 +495,15 @@ body {
         </div>
         <div class="section-cuts">
           <div class="section-cut">
-            <span class="section-cut-name">Ribeye Steak (×24)</span>
+            <span class="section-cut-name">Ribeye Steak (x24)</span>
             <span class="section-cut-price">$840</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Scotch Fillet (×18)</span>
+            <span class="section-cut-name">Scotch Fillet (x18)</span>
             <span class="section-cut-price">$450</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Short Ribs (×8)</span>
+            <span class="section-cut-name">Short Ribs (x8)</span>
             <span class="section-cut-price">$150</span>
           </div>
         </div>
@@ -756,15 +521,15 @@ body {
         </div>
         <div class="section-cuts">
           <div class="section-cut">
-            <span class="section-cut-name">Sirloin Steak (×32)</span>
+            <span class="section-cut-name">Sirloin Steak (x32)</span>
             <span class="section-cut-price">$640</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Eye Fillet (×12)</span>
+            <span class="section-cut-name">Eye Fillet (x12)</span>
             <span class="section-cut-price">$480</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Chateaubriand (×4)</span>
+            <span class="section-cut-name">Chateaubriand (x4)</span>
             <span class="section-cut-price">$160</span>
           </div>
         </div>
@@ -782,42 +547,20 @@ body {
         </div>
         <div class="section-cuts">
           <div class="section-cut">
-            <span class="section-cut-name">Blade Steak (×28)</span>
+            <span class="section-cut-name">Blade Steak (x28)</span>
             <span class="section-cut-price">$560</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Chuck Roast (×10)</span>
+            <span class="section-cut-name">Chuck Roast (x10)</span>
             <span class="section-cut-price">$400</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Casserole Beef (×32)</span>
+            <span class="section-cut-name">Casserole Beef (x32)</span>
             <span class="section-cut-price">$480</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Flat Iron (×12)</span>
+            <span class="section-cut-name">Flat Iron (x12)</span>
             <span class="section-cut-price">$180</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Collapsible Section: RUMP -->
-      <div class="section-group">
-        <div class="section-header">
-          <div class="section-title">
-            <div class="section-icon"></div>
-            <span class="section-name">Rump</span>
-          </div>
-          <span class="section-total">$840</span>
-          <span class="section-toggle">▼</span>
-        </div>
-        <div class="section-cuts">
-          <div class="section-cut">
-            <span class="section-cut-name">Rump Steak (×24)</span>
-            <span class="section-cut-price">$576</span>
-          </div>
-          <div class="section-cut">
-            <span class="section-cut-name">Tri-Tip (×6)</span>
-            <span class="section-cut-price">$264</span>
           </div>
         </div>
       </div>
@@ -834,7 +577,7 @@ body {
         </div>
         <div class="section-cuts">
           <div class="section-cut">
-            <span class="section-cut-name">Whole Brisket (×4)</span>
+            <span class="section-cut-name">Whole Brisket (x4)</span>
             <span class="section-cut-price">$420</span>
           </div>
         </div>
@@ -852,12 +595,34 @@ body {
         </div>
         <div class="section-cuts">
           <div class="section-cut">
-            <span class="section-cut-name">Beef Cheeks (×4)</span>
+            <span class="section-cut-name">Beef Cheeks (x4)</span>
             <span class="section-cut-price">$120</span>
           </div>
           <div class="section-cut">
-            <span class="section-cut-name">Tongue (×1)</span>
+            <span class="section-cut-name">Tongue (x1)</span>
             <span class="section-cut-price">$60</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collapsible Section: HIND SHANK -->
+      <div class="section-group">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon"></div>
+            <span class="section-name">Hind Shank</span>
+          </div>
+          <span class="section-total">$240</span>
+          <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-cuts">
+          <div class="section-cut">
+            <span class="section-cut-name">Osso Buco (x8)</span>
+            <span class="section-cut-price">$160</span>
+          </div>
+          <div class="section-cut">
+            <span class="section-cut-name">Soup Bones (x4)</span>
+            <span class="section-cut-price">$80</span>
           </div>
         </div>
       </div>
@@ -866,146 +631,12 @@ body {
     <div class="panel-footer">
       <div class="total-row">
         <span class="total-label">Running Total</span>
-        <span class="total-amount">$5,780</span>
+        <span class="total-amount">$5,180</span>
       </div>
       <button class="final-btn" disabled>Complete 5 More Sections</button>
     </div>
   </aside>
 </div>
-
-<!-- Popup hidden for clean view -->
-<!--
-<div class="popup-overlay"></div>
-<div class="popup">
--->
-  <div class="popup-header">
-    <div>
-      <div class="popup-title">Ribs</div>
-      <div class="popup-subtitle">Estimated weight: 18kg</div>
-    </div>
-    <button class="popup-close">×</button>
-  </div>
-  
-  <div class="popup-body">
-    <p class="popup-instruction">Select quantities for each cut. The AI has estimated maximum possible from this section's weight. Mix and match until fully allocated.</p>
-    
-    <div class="cut-option selected">
-      <div class="cut-info">
-        <div class="cut-name">Ribeye Steak <span class="cut-weight-each">300g each</span></div>
-        <div class="cut-details">$73/kg • Using 7.2kg</div>
-      </div>
-      <div class="cut-qty">
-        <div class="qty-selector">
-          <button class="qty-btn">−</button>
-          <span class="qty-value">24</span>
-          <button class="qty-btn">+</button>
-        </div>
-        <div class="qty-max">Max: 60</div>
-      </div>
-      <div class="cut-price">
-        <div class="cut-amount">$840</div>
-      </div>
-    </div>
-
-    <div class="cut-option selected">
-      <div class="cut-info">
-        <div class="cut-name">Scotch Fillet <span class="cut-weight-each">350g each</span></div>
-        <div class="cut-details">$71/kg • Using 6.3kg</div>
-      </div>
-      <div class="cut-qty">
-        <div class="qty-selector">
-          <button class="qty-btn">−</button>
-          <span class="qty-value">18</span>
-          <button class="qty-btn">+</button>
-        </div>
-        <div class="qty-max">Max: 51</div>
-      </div>
-      <div class="cut-price">
-        <div class="cut-amount">$450</div>
-      </div>
-    </div>
-
-    <div class="cut-option selected">
-      <div class="cut-info">
-        <div class="cut-name">Short Ribs <span class="cut-weight-each">500g portion</span></div>
-        <div class="cut-details">$38/kg • Using 4.0kg</div>
-      </div>
-      <div class="cut-qty">
-        <div class="qty-selector">
-          <button class="qty-btn">−</button>
-          <span class="qty-value">8</span>
-          <button class="qty-btn">+</button>
-        </div>
-        <div class="qty-max">Max: 36</div>
-      </div>
-      <div class="cut-price">
-        <div class="cut-amount">$150</div>
-      </div>
-    </div>
-
-    <div class="cut-option">
-      <div class="cut-info">
-        <div class="cut-name">Standing Rib Roast <span class="cut-weight-each">2.5kg each</span></div>
-        <div class="cut-details">$70/kg</div>
-      </div>
-      <div class="cut-qty">
-        <div class="qty-selector">
-          <button class="qty-btn">−</button>
-          <span class="qty-value">0</span>
-          <button class="qty-btn">+</button>
-        </div>
-        <div class="qty-max">Max: 7</div>
-      </div>
-      <div class="cut-price">
-        <div class="cut-amount">$0</div>
-      </div>
-    </div>
-
-    <div class="cut-option">
-      <div class="cut-info">
-        <div class="cut-name">Premium Mince <span class="cut-weight-each">500g pack</span></div>
-        <div class="cut-details">$25/kg • From rib trim</div>
-      </div>
-      <div class="cut-qty">
-        <div class="qty-selector">
-          <button class="qty-btn">−</button>
-          <span class="qty-value">0</span>
-          <button class="qty-btn">+</button>
-        </div>
-        <div class="qty-max">Max: 36</div>
-      </div>
-      <div class="cut-price">
-        <div class="cut-amount">$0</div>
-      </div>
-    </div>
-
-    <!-- Add Custom Cut Button -->
-    <div class="add-custom">
-      <span>+</span>
-      <span>Add Custom Cut (Admin)</span>
-    </div>
-
-    <!-- Weight Progress -->
-    <div class="weight-progress">
-      <div class="progress-header">
-        <span class="progress-label">Section Weight Allocated</span>
-        <span class="progress-value">17.5kg / 18kg</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 97%;"></div>
-      </div>
-      <div class="progress-remaining">0.5kg remaining — add more cuts or leave as trim</div>
-    </div>
-  </div>
-
-  <div class="popup-footer">
-    <div class="footer-total">
-      Selected cuts total: <strong>$1,440</strong>
-    </div>
-    <button class="confirm-btn">Confirm Ribs ✓</button>
-  </div>
-</div>
--->
 
 </body>
 </html>
