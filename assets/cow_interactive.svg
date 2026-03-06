@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350">
+  <style>
+    .cut-section {
+      fill: #2C2C2C;
+      stroke: #F5F1E6;
+      stroke-width: 1.5;
+      cursor: pointer;
+      transition: fill 0.2s ease;
+    }
+    .cut-section:hover {
+      fill: #C41E3A;
+    }
+    .cut-section.complete {
+      fill: #1B4D3E;
+    }
+    .cut-section.complete:hover {
+      fill: #154436;
+    }
+    .cut-label {
+      fill: #F5F1E6;
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+    .cut-label-dark {
+      fill: #2C2C2C;
+    }
+  </style>
+  
+  <!-- HEAD -->
+  <path id="head" class="cut-section complete" d="
+    M 45 120
+    C 35 100, 40 70, 55 55
+    C 70 40, 90 35, 105 40
+    C 115 43, 120 50, 125 60
+    L 130 75
+    C 132 85, 130 95, 128 105
+    L 125 120
+    C 123 135, 118 150, 110 165
+    C 105 175, 95 180, 85 178
+    C 70 175, 55 165, 48 150
+    C 42 138, 43 128, 45 120
+    Z
+  "/>
+  <text class="cut-label" x="82" y="110">Head</text>
+
+  <!-- CHUCK -->
+  <path id="chuck" class="cut-section complete" d="
+    M 125 60
+    L 130 75
+    C 132 85, 130 95, 128 105
+    L 125 120
+    C 123 135, 118 150, 110 165
+    L 110 200
+    L 115 230
+    C 118 245, 122 258, 130 270
+    L 145 270
+    L 165 268
+    L 165 200
+    L 168 150
+    L 170 100
+    L 168 70
+    L 160 55
+    C 150 48, 138 50, 125 60
+    Z
+  "/>
+  <text class="cut-label" x="142" y="160">Chuck</text>
+
+  <!-- RIB -->
+  <path id="rib" class="cut-section complete" d="
+    M 168 70
+    L 170 100
+    L 168 150
+    L 165 200
+    L 165 268
+    L 210 265
+    L 215 200
+    L 218 150
+    L 220 100
+    L 218 70
+    L 200 60
+    L 180 58
+    L 168 70
+    Z
+  "/>
+  <text class="cut-label" x="192" y="140">Ribs</text>
+
+  <!-- SHORT LOIN -->
+  <path id="loin" class="cut-section" d="
+    M 218 70
+    L 220 100
+    L 218 150
+    L 215 200
+    L 210 265
+    L 255 262
+    L 260 200
+    L 262 150
+    L 260 100
+    L 255 70
+    L 240 62
+    L 218 70
+    Z
+  "/>
+  <text class="cut-label" x="236" y="130">Short</text>
+  <text class="cut-label" x="236" y="142">Loin</text>
+
+  <!-- SIRLOIN -->
+  <path id="sirloin" class="cut-section complete" d="
+    M 255 70
+    L 260 100
+    L 262 150
+    L 260 200
+    L 255 262
+    L 300 258
+    L 305 200
+    L 308 150
+    L 305 100
+    L 300 75
+    L 280 65
+    L 255 70
+    Z
+  "/>
+  <text class="cut-label" x="278" y="140">Sirloin</text>
+
+  <!-- ROUND (Rump) -->
+  <path id="round" class="cut-section" d="
+    M 300 75
+    L 305 100
+    L 308 150
+    L 305 200
+    L 300 258
+    L 320 255
+    L 350 250
+    C 380 245, 400 230, 410 200
+    C 420 170, 418 140, 405 115
+    C 392 90, 370 75, 345 70
+    C 325 67, 310 70, 300 75
+    Z
+  "/>
+  <text class="cut-label" x="350" y="150">Rump</text>
+
+  <!-- BRISKET -->
+  <path id="brisket" class="cut-section complete" d="
+    M 110 200
+    L 115 230
+    C 118 245, 122 258, 130 270
+    L 145 270
+    L 165 268
+    L 165 200
+    L 160 220
+    C 155 235, 145 245, 130 250
+    C 118 253, 112 240, 110 220
+    L 110 200
+    Z
+  "/>
+  <text class="cut-label cut-label-dark" x="138" y="245">Brisket</text>
+
+  <!-- PLATE -->
+  <path id="plate" class="cut-section" d="
+    M 165 200
+    L 165 268
+    L 210 265
+    L 215 200
+    L 210 230
+    C 200 250, 185 258, 170 255
+    L 165 200
+    Z
+  "/>
+  <text class="cut-label" x="188" y="245">Plate</text>
+
+  <!-- FLANK -->
+  <path id="flank" class="cut-section" d="
+    M 210 265
+    L 255 262
+    L 260 200
+    L 255 235
+    C 245 255, 228 262, 210 260
+    L 210 265
+    Z
+  "/>
+  <text class="cut-label" x="235" y="245">Flank</text>
+
+  <!-- FORE SHANK -->
+  <path id="fore-shank" class="cut-section" d="
+    M 130 270
+    L 145 270
+    L 165 268
+    L 170 290
+    C 172 305, 170 320, 165 335
+    C 158 345, 148 348, 140 345
+    C 130 340, 125 325, 128 305
+    L 130 270
+    Z
+  "/>
+  <text class="cut-label" x="148" y="305">Fore</text>
+  <text class="cut-label" x="148" y="317">Shank</text>
+
+  <!-- HIND SHANK -->
+  <path id="hind-shank" class="cut-section complete" d="
+    M 300 258
+    L 320 255
+    L 350 250
+    L 360 280
+    C 365 300, 362 320, 355 335
+    C 348 348, 335 352, 320 348
+    C 305 342, 298 325, 300 300
+    L 300 258
+    Z
+  "/>
+  <text class="cut-label" x="330" y="295">Hind</text>
+  <text class="cut-label" x="330" y="307">Shank</text>
+
+  <!-- Cow outline details - ears, tail, legs (non-interactive) -->
+  <g fill="#2C2C2C" stroke="none">
+    <!-- Ear -->
+    <path d="M 60 45 C 55 35, 65 25, 75 30 C 80 32, 78 40, 72 45 Z"/>
+    <!-- Tail -->
+    <path d="M 405 115 C 420 105, 435 110, 440 125 C 445 140, 438 150, 430 145 C 425 142, 420 130, 415 120 Z"/>
+    <!-- Front leg bottom -->
+    <path d="M 140 345 L 145 345 L 148 360 L 140 360 Z"/>
+    <!-- Back leg bottom -->
+    <path d="M 325 348 L 335 350 L 338 365 L 328 365 Z"/>
+  </g>
+</svg>

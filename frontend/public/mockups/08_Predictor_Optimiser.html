@@ -158,56 +158,48 @@ body {
   justify-content: center;
   width: 100%;
   max-height: calc(100vh - 300px);
-  position: relative;
 }
 
-.cow-wrapper {
-  position: relative;
+.cow-svg-wrapper {
   width: 100%;
-  max-width: 600px;
-  aspect-ratio: 1.42;
+  max-width: 650px;
+  aspect-ratio: 1.43;
 }
 
-.cow-svg {
+/* SVG Styles - These apply to the inline SVG */
+.cow-svg-wrapper svg {
   width: 100%;
   height: 100%;
 }
 
-/* Clickable Overlay Regions */
-.section-overlay {
-  position: absolute;
+.cut-section {
+  fill: var(--charcoal);
+  stroke: var(--cream);
+  stroke-width: 1.5;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border-radius: 4px;
+  transition: fill 0.2s ease;
 }
 
-.section-overlay:hover {
-  background: rgba(196, 30, 58, 0.35);
-  box-shadow: 0 0 0 3px var(--hover);
+.cut-section:hover {
+  fill: var(--hover);
 }
 
-.section-overlay.complete {
-  background: rgba(27, 77, 62, 0.4);
-  box-shadow: 0 0 0 2px var(--complete);
+.cut-section.complete {
+  fill: var(--complete);
 }
 
-.section-overlay.complete:hover {
-  background: rgba(27, 77, 62, 0.55);
-  box-shadow: 0 0 0 3px var(--complete);
+.cut-section.complete:hover {
+  fill: #154436;
 }
 
-/* Section positions - precisely tuned for the cow SVG */
-.section-head { top: 10%; left: 4%; width: 16%; height: 28%; border-radius: 8px; }
-.section-chuck { top: 12%; left: 20%; width: 15%; height: 28%; border-radius: 6px; }
-.section-rib { top: 14%; left: 35%; width: 12%; height: 22%; border-radius: 6px; }
-.section-loin { top: 14%; left: 47%; width: 8%; height: 20%; border-radius: 6px; }
-.section-sirloin { top: 14%; left: 55%; width: 10%; height: 22%; border-radius: 6px; }
-.section-round { top: 10%; left: 65%; width: 18%; height: 32%; border-radius: 6px; }
-.section-brisket { top: 38%; left: 18%; width: 16%; height: 20%; border-radius: 6px; }
-.section-plate { top: 34%; left: 34%; width: 22%; height: 24%; border-radius: 6px; }
-.section-flank { top: 34%; left: 56%; width: 10%; height: 24%; border-radius: 6px; }
-.section-shank-fore { top: 50%; left: 22%; width: 14%; height: 32%; border-radius: 6px; }
-.section-shank-hind { top: 48%; left: 66%; width: 16%; height: 34%; border-radius: 6px; }
+.cut-label {
+  fill: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  pointer-events: none;
+  text-anchor: middle;
+}
 
 /* Color Key */
 .color-key {
@@ -437,22 +429,201 @@ body {
         <p class="subtitle">Click each section to select your cuts</p>
       </div>
       <div class="cow-container">
-        <div class="cow-wrapper">
-          <!-- Embed the SVG -->
-          <img src="https://customer-assets.emergentagent.com/job_tag-replacement-app/artifacts/q0g9r520_JuniperHill_CowPrimalCuts%20-%20Artboard%202.svg" alt="Beef Primal Cuts" class="cow-svg">
-          
-          <!-- Clickable overlay regions - 6 complete (green), 5 incomplete -->
-          <div class="section-overlay section-head complete" title="Head - Complete"></div>
-          <div class="section-overlay section-chuck complete" title="Chuck - Complete"></div>
-          <div class="section-overlay section-rib complete" title="Rib - Complete"></div>
-          <div class="section-overlay section-loin" title="Loin - Click to select"></div>
-          <div class="section-overlay section-sirloin complete" title="Sirloin - Complete"></div>
-          <div class="section-overlay section-round" title="Round - Click to select"></div>
-          <div class="section-overlay section-brisket complete" title="Brisket - Complete"></div>
-          <div class="section-overlay section-plate" title="Plate - Click to select"></div>
-          <div class="section-overlay section-flank" title="Flank - Click to select"></div>
-          <div class="section-overlay section-shank-fore" title="Fore Shank - Click to select"></div>
-          <div class="section-overlay section-shank-hind complete" title="Hind Shank - Complete"></div>
+        <div class="cow-svg-wrapper">
+          <!-- Inline SVG with interactive sections -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350">
+            <!-- HEAD - Complete (green) -->
+            <path id="head" class="cut-section complete" d="
+              M 45 120
+              C 35 100, 40 70, 55 55
+              C 70 40, 90 35, 105 40
+              C 115 43, 120 50, 125 60
+              L 130 75
+              C 132 85, 130 95, 128 105
+              L 125 120
+              C 123 135, 118 150, 110 165
+              C 105 175, 95 180, 85 178
+              C 70 175, 55 165, 48 150
+              C 42 138, 43 128, 45 120
+              Z
+            "/>
+            <text class="cut-label" x="82" y="110">Head</text>
+
+            <!-- CHUCK - Complete (green) -->
+            <path id="chuck" class="cut-section complete" d="
+              M 125 60
+              L 130 75
+              C 132 85, 130 95, 128 105
+              L 125 120
+              C 123 135, 118 150, 110 165
+              L 110 200
+              L 115 230
+              C 118 245, 122 258, 130 270
+              L 145 270
+              L 165 268
+              L 165 200
+              L 168 150
+              L 170 100
+              L 168 70
+              L 160 55
+              C 150 48, 138 50, 125 60
+              Z
+            "/>
+            <text class="cut-label" x="142" y="160">Chuck</text>
+
+            <!-- RIB - Complete (green) -->
+            <path id="rib" class="cut-section complete" d="
+              M 168 70
+              L 170 100
+              L 168 150
+              L 165 200
+              L 165 268
+              L 210 265
+              L 215 200
+              L 218 150
+              L 220 100
+              L 218 70
+              L 200 60
+              L 180 58
+              L 168 70
+              Z
+            "/>
+            <text class="cut-label" x="192" y="140">Ribs</text>
+
+            <!-- SHORT LOIN - Not complete (charcoal) -->
+            <path id="loin" class="cut-section" d="
+              M 218 70
+              L 220 100
+              L 218 150
+              L 215 200
+              L 210 265
+              L 255 262
+              L 260 200
+              L 262 150
+              L 260 100
+              L 255 70
+              L 240 62
+              L 218 70
+              Z
+            "/>
+            <text class="cut-label" x="236" y="130">Short</text>
+            <text class="cut-label" x="236" y="143">Loin</text>
+
+            <!-- SIRLOIN - Complete (green) -->
+            <path id="sirloin" class="cut-section complete" d="
+              M 255 70
+              L 260 100
+              L 262 150
+              L 260 200
+              L 255 262
+              L 300 258
+              L 305 200
+              L 308 150
+              L 305 100
+              L 300 75
+              L 280 65
+              L 255 70
+              Z
+            "/>
+            <text class="cut-label" x="278" y="140">Sirloin</text>
+
+            <!-- ROUND (Rump) - Not complete (charcoal) -->
+            <path id="round" class="cut-section" d="
+              M 300 75
+              L 305 100
+              L 308 150
+              L 305 200
+              L 300 258
+              L 320 255
+              L 350 250
+              C 380 245, 400 230, 410 200
+              C 420 170, 418 140, 405 115
+              C 392 90, 370 75, 345 70
+              C 325 67, 310 70, 300 75
+              Z
+            "/>
+            <text class="cut-label" x="355" y="155">Rump</text>
+
+            <!-- BRISKET - Complete (green) -->
+            <path id="brisket" class="cut-section complete" d="
+              M 110 200
+              L 115 230
+              C 118 245, 122 258, 130 270
+              L 165 268
+              L 165 200
+              L 150 220
+              C 140 240, 125 248, 115 245
+              L 110 200
+              Z
+            "/>
+            <text class="cut-label" x="138" y="242">Brisket</text>
+
+            <!-- PLATE - Not complete (charcoal) -->
+            <path id="plate" class="cut-section" d="
+              M 165 200
+              L 165 268
+              L 210 265
+              L 215 200
+              L 200 230
+              C 188 252, 175 258, 165 250
+              L 165 200
+              Z
+            "/>
+            <text class="cut-label" x="188" y="242">Plate</text>
+
+            <!-- FLANK - Not complete (charcoal) -->
+            <path id="flank" class="cut-section" d="
+              M 215 200
+              L 210 265
+              L 255 262
+              L 260 200
+              L 245 235
+              C 232 255, 220 260, 215 250
+              L 215 200
+              Z
+            "/>
+            <text class="cut-label" x="235" y="242">Flank</text>
+
+            <!-- FORE SHANK - Not complete (charcoal) -->
+            <path id="fore-shank" class="cut-section" d="
+              M 130 270
+              L 165 268
+              L 168 295
+              C 170 315, 165 332, 155 342
+              C 145 350, 132 348, 125 335
+              C 120 322, 122 300, 128 280
+              L 130 270
+              Z
+            "/>
+            <text class="cut-label" x="148" y="310">Fore</text>
+            <text class="cut-label" x="148" y="323">Shank</text>
+
+            <!-- HIND SHANK - Complete (green) -->
+            <path id="hind-shank" class="cut-section complete" d="
+              M 300 258
+              L 350 250
+              L 358 280
+              C 365 305, 360 328, 348 342
+              C 335 352, 318 350, 308 335
+              C 300 320, 298 295, 300 270
+              L 300 258
+              Z
+            "/>
+            <text class="cut-label" x="330" y="300">Hind</text>
+            <text class="cut-label" x="330" y="313">Shank</text>
+
+            <!-- Non-interactive details -->
+            <g fill="#2C2C2C" stroke="none" style="pointer-events: none;">
+              <!-- Ear -->
+              <path d="M 58 48 C 50 35, 62 22, 75 28 C 82 32, 78 42, 70 48 Z"/>
+              <!-- Tail -->
+              <path d="M 405 115 C 422 102, 440 108, 445 128 C 448 145, 438 155, 428 148 C 420 142, 415 128, 410 118 Z"/>
+              <!-- Front hoof -->
+              <ellipse cx="148" cy="348" rx="8" ry="5"/>
+              <!-- Back hoof -->
+              <ellipse cx="332" cy="350" rx="8" ry="5"/>
+            </g>
+          </svg>
         </div>
       </div>
       <div class="color-key">
