@@ -25,14 +25,12 @@ body {
   overflow: hidden;
 }
 
-/* Layout */
 .page-layout {
   display: grid;
   grid-template-columns: 180px 1fr 340px;
   height: 100vh;
 }
 
-/* Sidebar Navigation */
 .sidebar {
   background: var(--charcoal);
   padding: 24px 0;
@@ -77,7 +75,6 @@ body {
   border-left-color: var(--hover);
 }
 
-/* Main Content */
 .main {
   background: var(--cream);
   display: flex;
@@ -86,7 +83,6 @@ body {
   position: relative;
 }
 
-/* Header Bar */
 .header-bar {
   background: var(--charcoal);
   color: #fff;
@@ -124,7 +120,6 @@ body {
   margin-top: 2px;
 }
 
-/* Cow Display */
 .cow-display {
   flex: 1;
   display: flex;
@@ -150,7 +145,6 @@ body {
   margin-top: 4px;
 }
 
-/* Interactive Cow Container */
 .cow-container {
   flex: 1;
   display: flex;
@@ -160,48 +154,12 @@ body {
   max-height: calc(100vh - 300px);
 }
 
-.cow-svg-wrapper {
-  width: 100%;
-  max-width: 650px;
-  aspect-ratio: 1.43;
+.cow-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-/* SVG Styles - These apply to the inline SVG */
-.cow-svg-wrapper svg {
-  width: 100%;
-  height: 100%;
-}
-
-.cut-section {
-  fill: var(--charcoal);
-  stroke: var(--cream);
-  stroke-width: 1.5;
-  cursor: pointer;
-  transition: fill 0.2s ease;
-}
-
-.cut-section:hover {
-  fill: var(--hover);
-}
-
-.cut-section.complete {
-  fill: var(--complete);
-}
-
-.cut-section.complete:hover {
-  fill: #154436;
-}
-
-.cut-label {
-  fill: var(--cream);
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  pointer-events: none;
-  text-anchor: middle;
-}
-
-/* Color Key */
 .color-key {
   display: flex;
   justify-content: center;
@@ -228,7 +186,6 @@ body {
 .swatch.hover { background: var(--hover); }
 .swatch.complete { background: var(--complete); }
 
-/* ============ RIGHT PANEL ============ */
 .panel {
   background: var(--white);
   display: flex;
@@ -262,7 +219,6 @@ body {
   border-radius: 2px;
 }
 
-/* Collapsible Sections */
 .sections-list {
   flex: 1;
   overflow-y: auto;
@@ -343,7 +299,6 @@ body {
   color: var(--charcoal);
 }
 
-/* Panel Footer */
 .panel-footer {
   padding: 20px;
   background: var(--cream);
@@ -385,12 +340,27 @@ body {
   background: #999;
   cursor: not-allowed;
 }
+
+/* Message for client */
+.mockup-note {
+  background: #fffbeb;
+  border: 2px solid #f59e0b;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #92400e;
+}
+.mockup-note strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #78350f;
+}
 </style>
 </head>
 <body>
 
 <div class="page-layout">
-  <!-- Sidebar Nav -->
   <aside class="sidebar">
     <div class="logo">
       <div class="logo-text">YIELD <span>IQ</span></div>
@@ -404,7 +374,6 @@ body {
     </ul>
   </aside>
 
-  <!-- Main Content -->
   <main class="main">
     <div class="header-bar">
       <div>
@@ -429,202 +398,10 @@ body {
         <p class="subtitle">Click each section to select your cuts</p>
       </div>
       <div class="cow-container">
-        <div class="cow-svg-wrapper">
-          <!-- Inline SVG with interactive sections -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350">
-            <!-- HEAD - Complete (green) -->
-            <path id="head" class="cut-section complete" d="
-              M 45 120
-              C 35 100, 40 70, 55 55
-              C 70 40, 90 35, 105 40
-              C 115 43, 120 50, 125 60
-              L 130 75
-              C 132 85, 130 95, 128 105
-              L 125 120
-              C 123 135, 118 150, 110 165
-              C 105 175, 95 180, 85 178
-              C 70 175, 55 165, 48 150
-              C 42 138, 43 128, 45 120
-              Z
-            "/>
-            <text class="cut-label" x="82" y="110">Head</text>
-
-            <!-- CHUCK - Complete (green) -->
-            <path id="chuck" class="cut-section complete" d="
-              M 125 60
-              L 130 75
-              C 132 85, 130 95, 128 105
-              L 125 120
-              C 123 135, 118 150, 110 165
-              L 110 200
-              L 115 230
-              C 118 245, 122 258, 130 270
-              L 145 270
-              L 165 268
-              L 165 200
-              L 168 150
-              L 170 100
-              L 168 70
-              L 160 55
-              C 150 48, 138 50, 125 60
-              Z
-            "/>
-            <text class="cut-label" x="142" y="160">Chuck</text>
-
-            <!-- RIB - Complete (green) -->
-            <path id="rib" class="cut-section complete" d="
-              M 168 70
-              L 170 100
-              L 168 150
-              L 165 200
-              L 165 268
-              L 210 265
-              L 215 200
-              L 218 150
-              L 220 100
-              L 218 70
-              L 200 60
-              L 180 58
-              L 168 70
-              Z
-            "/>
-            <text class="cut-label" x="192" y="140">Ribs</text>
-
-            <!-- SHORT LOIN - Not complete (charcoal) -->
-            <path id="loin" class="cut-section" d="
-              M 218 70
-              L 220 100
-              L 218 150
-              L 215 200
-              L 210 265
-              L 255 262
-              L 260 200
-              L 262 150
-              L 260 100
-              L 255 70
-              L 240 62
-              L 218 70
-              Z
-            "/>
-            <text class="cut-label" x="236" y="130">Short</text>
-            <text class="cut-label" x="236" y="143">Loin</text>
-
-            <!-- SIRLOIN - Complete (green) -->
-            <path id="sirloin" class="cut-section complete" d="
-              M 255 70
-              L 260 100
-              L 262 150
-              L 260 200
-              L 255 262
-              L 300 258
-              L 305 200
-              L 308 150
-              L 305 100
-              L 300 75
-              L 280 65
-              L 255 70
-              Z
-            "/>
-            <text class="cut-label" x="278" y="140">Sirloin</text>
-
-            <!-- ROUND (Rump) - Not complete (charcoal) -->
-            <path id="round" class="cut-section" d="
-              M 300 75
-              L 305 100
-              L 308 150
-              L 305 200
-              L 300 258
-              L 320 255
-              L 350 250
-              C 380 245, 400 230, 410 200
-              C 420 170, 418 140, 405 115
-              C 392 90, 370 75, 345 70
-              C 325 67, 310 70, 300 75
-              Z
-            "/>
-            <text class="cut-label" x="355" y="155">Rump</text>
-
-            <!-- BRISKET - Complete (green) -->
-            <path id="brisket" class="cut-section complete" d="
-              M 110 200
-              L 115 230
-              C 118 245, 122 258, 130 270
-              L 165 268
-              L 165 200
-              L 150 220
-              C 140 240, 125 248, 115 245
-              L 110 200
-              Z
-            "/>
-            <text class="cut-label" x="138" y="242">Brisket</text>
-
-            <!-- PLATE - Not complete (charcoal) -->
-            <path id="plate" class="cut-section" d="
-              M 165 200
-              L 165 268
-              L 210 265
-              L 215 200
-              L 200 230
-              C 188 252, 175 258, 165 250
-              L 165 200
-              Z
-            "/>
-            <text class="cut-label" x="188" y="242">Plate</text>
-
-            <!-- FLANK - Not complete (charcoal) -->
-            <path id="flank" class="cut-section" d="
-              M 215 200
-              L 210 265
-              L 255 262
-              L 260 200
-              L 245 235
-              C 232 255, 220 260, 215 250
-              L 215 200
-              Z
-            "/>
-            <text class="cut-label" x="235" y="242">Flank</text>
-
-            <!-- FORE SHANK - Not complete (charcoal) -->
-            <path id="fore-shank" class="cut-section" d="
-              M 130 270
-              L 165 268
-              L 168 295
-              C 170 315, 165 332, 155 342
-              C 145 350, 132 348, 125 335
-              C 120 322, 122 300, 128 280
-              L 130 270
-              Z
-            "/>
-            <text class="cut-label" x="148" y="310">Fore</text>
-            <text class="cut-label" x="148" y="323">Shank</text>
-
-            <!-- HIND SHANK - Complete (green) -->
-            <path id="hind-shank" class="cut-section complete" d="
-              M 300 258
-              L 350 250
-              L 358 280
-              C 365 305, 360 328, 348 342
-              C 335 352, 318 350, 308 335
-              C 300 320, 298 295, 300 270
-              L 300 258
-              Z
-            "/>
-            <text class="cut-label" x="330" y="300">Hind</text>
-            <text class="cut-label" x="330" y="313">Shank</text>
-
-            <!-- Non-interactive details -->
-            <g fill="#2C2C2C" stroke="none" style="pointer-events: none;">
-              <!-- Ear -->
-              <path d="M 58 48 C 50 35, 62 22, 75 28 C 82 32, 78 42, 70 48 Z"/>
-              <!-- Tail -->
-              <path d="M 405 115 C 422 102, 440 108, 445 128 C 448 145, 438 155, 428 148 C 420 142, 415 128, 410 118 Z"/>
-              <!-- Front hoof -->
-              <ellipse cx="148" cy="348" rx="8" ry="5"/>
-              <!-- Back hoof -->
-              <ellipse cx="332" cy="350" rx="8" ry="5"/>
-            </g>
-          </svg>
-        </div>
+        <!-- Using the original labeled cow image -->
+        <img src="https://customer-assets.emergentagent.com/job_tag-replacement-app/artifacts/q0g9r520_JuniperHill_CowPrimalCuts%20-%20Artboard%202.svg" 
+             alt="Beef Primal Cuts" 
+             class="cow-image">
       </div>
       <div class="color-key">
         <div class="key-item">
@@ -643,7 +420,6 @@ body {
     </div>
   </main>
 
-  <!-- Right Panel - Completed Sections Only -->
   <aside class="panel">
     <div class="panel-header">
       <div class="panel-title">Cut Plan</div>
@@ -654,7 +430,6 @@ body {
     </div>
 
     <div class="sections-list">
-      <!-- Collapsible Section: RIBS -->
       <div class="section-group expanded">
         <div class="section-header">
           <div class="section-title">
@@ -680,7 +455,6 @@ body {
         </div>
       </div>
 
-      <!-- Collapsible Section: SIRLOIN -->
       <div class="section-group">
         <div class="section-header">
           <div class="section-title">
@@ -706,7 +480,6 @@ body {
         </div>
       </div>
 
-      <!-- Collapsible Section: CHUCK -->
       <div class="section-group">
         <div class="section-header">
           <div class="section-title">
@@ -736,7 +509,6 @@ body {
         </div>
       </div>
 
-      <!-- Collapsible Section: BRISKET -->
       <div class="section-group">
         <div class="section-header">
           <div class="section-title">
@@ -754,7 +526,6 @@ body {
         </div>
       </div>
 
-      <!-- Collapsible Section: HEAD -->
       <div class="section-group">
         <div class="section-header">
           <div class="section-title">
@@ -776,7 +547,6 @@ body {
         </div>
       </div>
 
-      <!-- Collapsible Section: HIND SHANK -->
       <div class="section-group">
         <div class="section-header">
           <div class="section-title">
