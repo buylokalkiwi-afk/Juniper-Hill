@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROI & Value Analysis — Juniper Hill Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+  --border: #E2D9CC;
+  --success: #2D7A4D;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--feta);
+  color: var(--charcoal);
+  min-height: 100vh;
+}
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff;
+  text-align: center; font-size: 10px; letter-spacing: 2px; padding: 7px;
+  font-weight: 500; text-transform: uppercase;
+}
+
+/* Document Container */
+.document {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+/* Header */
+.doc-header {
+  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+  color: #fff;
+  padding: 60px;
+  border-radius: 16px 16px 0 0;
+  text-align: center;
+}
+
+.doc-header .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+
+.doc-header .logo span { color: var(--zest); }
+
+.doc-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+
+.doc-header p {
+  opacity: 0.8;
+  font-size: 16px;
+}
+
+/* Content */
+.doc-content {
+  background: #fff;
+  padding: 60px;
+  border-radius: 0 0 16px 16px;
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 48px;
+}
+
+.section:last-child { margin-bottom: 0; }
+
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--kale);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--parchment);
+}
+
+.section h3 {
+  font-size: 18px;
+  color: var(--kale);
+  margin-bottom: 16px;
+  margin-top: 32px;
+}
+
+.section p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  margin-bottom: 16px;
+}
+
+/* Executive Summary Box */
+.summary-box {
+  background: var(--parchment);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.summary-box h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.summary-stat {
+  text-align: center;
+}
+
+.summary-stat .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--kale);
+}
+
+.summary-stat .label {
+  font-size: 13px;
+  color: var(--stone);
+  margin-top: 4px;
+}
+
+/* ROI Table */
+.roi-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+
+.roi-table th {
+  text-align: left;
+  padding: 16px;
+  background: var(--kale);
+  color: #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.roi-table th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.roi-table th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.roi-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.roi-table tr:last-child td {
+  border-bottom: none;
+}
+
+.roi-table tr:nth-child(even) {
+  background: var(--parchment);
+}
+
+.roi-table .category {
+  font-weight: 600;
+  color: var(--kale);
+}
+
+.roi-table .value {
+  font-weight: 600;
+  color: var(--success);
+}
+
+.roi-table .negative {
+  color: var(--terracotta);
+}
+
+.roi-table tfoot td {
+  background: var(--kale);
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.roi-table tfoot td:first-child {
+  border-radius: 0 0 0 8px;
+}
+
+.roi-table tfoot td:last-child {
+  border-radius: 0 0 8px 0;
+}
+
+/* Benefit Cards */
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.benefit-card {
+  background: var(--parchment);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.benefit-card .icon {
+  width: 48px;
+  height: 48px;
+  background: var(--kale);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.benefit-card h4 {
+  font-size: 16px;
+  color: var(--kale);
+  margin-bottom: 8px;
+}
+
+.benefit-card p {
+  font-size: 14px;
+  color: var(--stone);
+  margin-bottom: 0;
+}
+
+/* Assumptions Box */
+.assumptions-box {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.assumptions-box h4 {
+  font-size: 14px;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.assumptions-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.assumptions-box li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--charcoal);
+}
+
+.assumptions-box li i {
+  color: var(--stone);
+  margin-top: 4px;
+}
+
+/* Highlight Box */
+.highlight-box {
+  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  margin: 32px 0;
+}
+
+.highlight-box h3 {
+  color: #fff;
+  margin-top: 0;
+}
+
+.highlight-box p {
+  color: rgba(255,255,255,0.9);
+}
+
+.highlight-box .stat-row {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 24px;
+  text-align: center;
+}
+
+.highlight-box .stat {
+  flex: 1;
+}
+
+.highlight-box .stat .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--zest);
+}
+
+.highlight-box .stat .label {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* Timeline Visual */
+.payback-visual {
+  background: var(--parchment);
+  border-radius: 12px;
+  padding: 32px;
+  margin: 24px 0;
+}
+
+.payback-bar {
+  height: 24px;
+  background: var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.payback-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--kale) 0%, var(--success) 100%);
+  width: 75%;
+  border-radius: 12px;
+  position: relative;
+}
+
+.payback-marker {
+  position: absolute;
+  right: 0;
+  top: -8px;
+  width: 4px;
+  height: 40px;
+  background: var(--terracotta);
+}
+
+.payback-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--stone);
+}
+
+/* Quote Box */
+.quote-box {
+  border-left: 4px solid var(--terracotta);
+  padding: 24px;
+  margin: 24px 0;
+  background: rgba(184, 92, 56, 0.05);
+  border-radius: 0 12px 12px 0;
+}
+
+.quote-box p {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.quote-box .author {
+  font-size: 13px;
+  color: var(--stone);
+  font-style: normal;
+}
+
+/* Footer */
+.doc-footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--stone);
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">DOCUMENT — ROI & Value Analysis</div>
+
+<div class="document">
+  <div class="doc-header">
+    <div class="logo">JUNIPER <span>HILL</span></div>
+    <h1>ROI & Value Analysis</h1>
+    <p>Financial Impact Assessment for Digital Transformation</p>
+  </div>
+
+  <div class="doc-content">
+
+    <!-- Executive Summary -->
+    <div class="section">
+      <h2>Executive Summary</h2>
+      
+      <div class="summary-box">
+        <h3>Investment Returns at a Glance</h3>
+        <p>The proposed system delivers measurable financial returns through increased revenue, operational efficiency, and customer retention. Based on conservative estimates, the investment pays for itself within 9 months.</p>
+        
+        <div class="summary-stats">
+          <div class="summary-stat">
+            <div class="value">$52K+</div>
+            <div class="label">Annual Revenue Recovered</div>
+          </div>
+          <div class="summary-stat">
+            <div class="value">240+ hrs</div>
+            <div class="label">Annual Time Saved</div>
+          </div>
+          <div class="summary-stat">
+            <div class="value">9 mo</div>
+            <div class="label">Estimated Payback</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue Impact -->
+    <div class="section">
+      <h2>Revenue Impact Analysis</h2>
+      
+      <h3>1. Reduced Cart Abandonment</h3>
+      <p>Current checkout friction (weight calculations, confusing minimums) drives customers away. Industry data shows that simplified checkout can reduce abandonment by 25-35%.</p>
+      
+      <table class="roi-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Current State</th>
+            <th>With System</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="category">Monthly Website Visitors</td>
+            <td>2,000</td>
+            <td>2,000</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td class="category">Current Conversion Rate</td>
+            <td>2.5%</td>
+            <td>3.5%</td>
+            <td class="value">+40%</td>
+          </tr>
+          <tr>
+            <td class="category">Monthly Orders</td>
+            <td>50</td>
+            <td>70</td>
+            <td class="value">+20 orders</td>
+          </tr>
+          <tr>
+            <td class="category">Average Order Value</td>
+            <td>$125</td>
+            <td>$125</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Additional Annual Revenue</td>
+            <td>$30,000</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <h3>2. Eliminated Overselling</h3>
+      <p>Manual inventory tracking leads to overselling, requiring refunds, apologies, and lost customer trust. Real-time stock sync eliminates this entirely.</p>
+      
+      <table class="roi-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Current</th>
+            <th>With System</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="category">Monthly Oversold Orders</td>
+            <td>8-12</td>
+            <td>0</td>
+            <td class="value">100% eliminated</td>
+          </tr>
+          <tr>
+            <td class="category">Avg. Refund Amount</td>
+            <td>$95</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td class="category">Customer Loss (per incident)</td>
+            <td>~30%</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Annual Recovered Revenue</td>
+            <td>$11,400</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <h3>3. Subscription Revenue</h3>
+      <p>Recurring subscription boxes provide predictable revenue and significantly higher customer lifetime value.</p>
+      
+      <table class="roi-table">
+        <thead>
+          <tr>
+            <th>Subscription Tier</th>
+            <th>Est. Subscribers (Y1)</th>
+            <th>Avg. Monthly Value</th>
+            <th>Annual Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="category">Couple Box</td>
+            <td>15</td>
+            <td>$85</td>
+            <td>$15,300</td>
+          </tr>
+          <tr>
+            <td class="category">Family Box</td>
+            <td>25</td>
+            <td>$140</td>
+            <td>$42,000</td>
+          </tr>
+          <tr>
+            <td class="category">Entertainer Box</td>
+            <td>8</td>
+            <td>$220</td>
+            <td>$21,120</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total Subscription Revenue (Year 1)</td>
+            <td>$78,420</td>
+          </tr>
+        </tfoot>
+      </table>
+      
+      <div class="assumptions-box">
+        <h4>Assumptions</h4>
+        <ul>
+          <li><i class="fas fa-info-circle"></i> Subscriber count assumes gradual acquisition over 12 months</li>
+          <li><i class="fas fa-info-circle"></i> 10% subscriber discount factored into values</li>
+          <li><i class="fas fa-info-circle"></i> Churn rate estimated at 5% monthly</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Operational Savings -->
+    <div class="section">
+      <h2>Operational Efficiency Savings</h2>
+      
+      <p>Beyond revenue, the system delivers significant time and cost savings by automating manual processes.</p>
+
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-clipboard-list"></i></div>
+          <h4>Inventory Management</h4>
+          <p>Manual stock tracking → QR scan automation<br><strong>Saves: 8 hours/week</strong></p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-envelope"></i></div>
+          <h4>Customer Communications</h4>
+          <p>Manual order updates → Automated emails<br><strong>Saves: 4 hours/week</strong></p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-search"></i></div>
+          <h4>Order Status Queries</h4>
+          <p>"Where's my order?" calls → Self-service tracking<br><strong>Saves: 3 hours/week</strong></p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-calculator"></i></div>
+          <h4>Label & Pricing</h4>
+          <p>Manual label creation → Auto-generated from scan<br><strong>Saves: 5 hours/week</strong></p>
+        </div>
+      </div>
+
+      <table class="roi-table">
+        <thead>
+          <tr>
+            <th>Time Savings</th>
+            <th>Hours/Week</th>
+            <th>Hours/Year</th>
+            <th>Value (@$35/hr)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="category">Inventory Management</td>
+            <td>8</td>
+            <td>416</td>
+            <td>$14,560</td>
+          </tr>
+          <tr>
+            <td class="category">Customer Communications</td>
+            <td>4</td>
+            <td>208</td>
+            <td>$7,280</td>
+          </tr>
+          <tr>
+            <td class="category">Order Status Queries</td>
+            <td>3</td>
+            <td>156</td>
+            <td>$5,460</td>
+          </tr>
+          <tr>
+            <td class="category">Label & Pricing</td>
+            <td>5</td>
+            <td>260</td>
+            <td>$9,100</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td>20 hrs/week</td>
+            <td>1,040 hrs/year</td>
+            <td>$36,400</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Customer Lifetime Value -->
+    <div class="section">
+      <h2>Customer Lifetime Value Impact</h2>
+      
+      <p>A better customer experience drives repeat purchases and referrals. Order tracking, professional communications, and easy reordering significantly increase customer retention.</p>
+
+      <div class="highlight-box">
+        <h3>Customer Retention Improvement</h3>
+        <p>Industry research shows that increasing customer retention by just 5% can increase profits by 25-95%. Our system targets improvements across multiple retention drivers.</p>
+        
+        <div class="stat-row">
+          <div class="stat">
+            <div class="value">+35%</div>
+            <div class="label">Repeat Purchase Rate</div>
+          </div>
+          <div class="stat">
+            <div class="value">2.4x</div>
+            <div class="label">Customer Lifetime Value</div>
+          </div>
+          <div class="stat">
+            <div class="value">+25%</div>
+            <div class="label">Referral Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="roi-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Current</th>
+            <th>Projected</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="category">Average Orders per Customer</td>
+            <td>2.1</td>
+            <td>3.2</td>
+            <td class="value">+52%</td>
+          </tr>
+          <tr>
+            <td class="category">Customer Lifetime Value</td>
+            <td>$262</td>
+            <td>$400</td>
+            <td class="value">+53%</td>
+          </tr>
+          <tr>
+            <td class="category">Referral Rate</td>
+            <td>12%</td>
+            <td>18%</td>
+            <td class="value">+50%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Total ROI Summary -->
+    <div class="section">
+      <h2>Total ROI Summary</h2>
+
+      <table class="roi-table">
+        <thead>
+          <tr>
+            <th>Value Category</th>
+            <th>Annual Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="category">Increased Conversion Revenue</td>
+            <td class="value">+$30,000</td>
+          </tr>
+          <tr>
+            <td class="category">Eliminated Overselling</td>
+            <td class="value">+$11,400</td>
+          </tr>
+          <tr>
+            <td class="category">New Subscription Revenue</td>
+            <td class="value">+$78,420</td>
+          </tr>
+          <tr>
+            <td class="category">Operational Time Savings</td>
+            <td class="value">+$36,400</td>
+          </tr>
+          <tr>
+            <td class="category">Improved CLV (Year 1 impact)</td>
+            <td class="value">+$15,000</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td><strong>Total Annual Value</strong></td>
+            <td><strong>$171,220</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="payback-visual">
+        <h4 style="margin-bottom: 8px; color: var(--kale);">Payback Period</h4>
+        <p style="font-size: 14px; color: var(--stone); margin-bottom: 16px;">Based on conservative revenue projections, the system investment pays for itself within 9 months.</p>
+        <div class="payback-bar">
+          <div class="payback-fill">
+            <div class="payback-marker"></div>
+          </div>
+        </div>
+        <div class="payback-labels">
+          <span>Investment Start</span>
+          <span style="color: var(--terracotta); font-weight: 600;">← Payback (~9 months)</span>
+          <span>12 months</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intangible Benefits -->
+    <div class="section">
+      <h2>Additional Strategic Benefits</h2>
+      
+      <p>Beyond the quantifiable ROI, the system delivers strategic advantages that strengthen Juniper Hill's market position:</p>
+
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-trophy"></i></div>
+          <h4>Competitive Differentiation</h4>
+          <p>Professional e-commerce experience sets you apart from other farm-direct suppliers</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-chart-line"></i></div>
+          <h4>Data-Driven Decisions</h4>
+          <p>Analytics on sales, inventory, and customer behaviour inform business strategy</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-expand-arrows-alt"></i></div>
+          <h4>Scalability</h4>
+          <p>System grows with your business without proportional increase in admin overhead</p>
+        </div>
+        <div class="benefit-card">
+          <div class="icon"><i class="fas fa-star"></i></div>
+          <h4>Brand Perception</h4>
+          <p>Premium digital experience reinforces premium product positioning</p>
+        </div>
+      </div>
+
+      <div class="quote-box">
+        <p>"In the premium food sector, the customer experience must match the product quality. A frictionless digital journey reinforces the care and craftsmanship that goes into every cut."</p>
+        <span class="author">— Industry insight</span>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="section">
+      <h2>Conclusion</h2>
+      
+      <p>The proposed digital transformation delivers clear, measurable returns:</p>
+      
+      <ul style="list-style: none; padding: 0; margin: 24px 0;">
+        <li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);">
+          <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+          <span><strong>$52K+ in recovered revenue</strong> through better conversion and eliminated overselling</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);">
+          <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+          <span><strong>$78K+ in new subscription revenue</strong> through recurring customer relationships</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);">
+          <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+          <span><strong>20+ hours saved weekly</strong> through automated inventory and communications</span>
+        </li>
+        <li style="display: flex; align-items: center; gap: 12px; padding: 12px 0;">
+          <i class="fas fa-check-circle" style="color: var(--success); font-size: 20px;"></i>
+          <span><strong>9-month payback period</strong> with ongoing returns year after year</span>
+        </li>
+      </ul>
+
+      <p>This is an investment in Juniper Hill's future — a system that honours the craft behind every cut while building a sustainable, scalable business for years to come.</p>
+    </div>
+
+  </div>
+
+  <div class="doc-footer">
+    <p>Juniper Hill Farm — ROI & Value Analysis — December 2024</p>
+    <p style="margin-top: 8px;">This analysis uses conservative estimates. Actual results may vary based on implementation and market conditions.</p>
+  </div>
+</div>
+
+</body>
+</html>

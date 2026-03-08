@@ -60,7 +60,7 @@ Three interconnected applications:
 
 ## Mockup Status
 
-### Customer-Facing (6 mockups)
+### Customer-Facing (7 mockups)
 | # | Mockup | Status |
 |---|--------|--------|
 | 01 | Storefront Homepage | ✅ Complete |
@@ -68,7 +68,8 @@ Three interconnected applications:
 | 03 | Storefront Cart | ✅ Complete |
 | 12 | Subscription Sign-up | ✅ Complete |
 | 17 | First Purchase Popup | ✅ Complete |
-| **24** | **Order Tracking (Customer)** | ✅ **NEW** |
+| **24** | **Order Tracking (Customer)** | ✅ Complete |
+| **22** | **My Subscription (Customer)** | ✅ **NEW** |
 
 ### Staff Scanner (3 mockups)
 | # | Mockup | Status |
@@ -77,17 +78,19 @@ Three interconnected applications:
 | 05 | Scanner Stock Overview | ✅ Complete |
 | 06 | Scanner Print Labels | ✅ Complete |
 
-### Admin Portal (8 mockups)
+### Admin Portal (10 mockups)
 | # | Mockup | Status |
 |---|--------|--------|
 | 14 | Admin Login | ✅ Complete |
 | 15 | Admin Dashboard | ✅ Complete |
 | 16 | Admin Orders | ✅ Complete |
-| **25** | **Order Fulfillment** | ✅ **NEW** |
+| **25** | **Order Fulfillment** | ✅ Complete |
 | 20 | Admin Inventory | ✅ Complete |
 | 19 | Admin Labels | ✅ Complete |
 | 11 | Admin Discounts | ✅ Complete |
 | 18 | Admin Staff | ✅ Complete |
+| **21** | **Customer Management** | ✅ **NEW** |
+| **23** | **Subscription Management (Admin)** | ✅ **NEW** |
 
 ### Yield IQ (3 mockups)
 | # | Mockup | Status |
@@ -96,16 +99,23 @@ Three interconnected applications:
 | 08 | Visual Cut Selector | ⏸️ Awaiting interactive SVG from user |
 | 09 | Accuracy Dashboard | ✅ Complete |
 
-### Email Templates (1 mockup)
+### Email Templates (2 mockups)
 | # | Mockup | Status |
 |---|--------|--------|
 | 13 | Email Subscription | ✅ Complete |
+| **26** | **Order Status Emails (5 Templates)** | ✅ **NEW** |
+
+### Pitch Documents (2 documents)
+| # | Document | Status |
+|---|----------|--------|
+| **27** | **Pitch Deck (12 Slides)** | ✅ **NEW** |
+| **28** | **ROI & Value Analysis** | ✅ **NEW** |
 
 ### Supporting Documents (TODO)
-- [ ] Updated Pitch Deck (10_Updated_Pitch_Deck.html)
+- [x] ~~Updated Pitch Deck~~ → Now `27_Pitch_Deck.html`
+- [x] ~~ROI & Value Analysis~~ → Now `28_ROI_Analysis.html`
 - [ ] Mockup Walkthrough Guide
 - [ ] System Architecture Diagram
-- [ ] ROI & Value Analysis
 - [ ] Implementation Proposal
 
 ---
