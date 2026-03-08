@@ -173,4 +173,39 @@ To make cow sections change color on hover/selection:
 
 ---
 
+## Pitch Package Documents (TODO)
+
+### Completed
+- [x] 22+ UI Mockups (Customer, Admin, Scanner, Yield IQ, Email)
+- [x] Order Tracking System mockups (customer + admin)
+- [x] Email templates for all 5 order stages
+
+### To Create
+- [ ] Updated Pitch Deck
+- [ ] Mockup Walkthrough Guide
+- [ ] System Architecture Diagram
+- [ ] ROI & Value Analysis
+
+### Separate Document (After Pitch Package)
+- [ ] **Pricing & Terms Proposal** - Flexible pricing models, payment terms, and personal introduction
+
+---
+
+## Notes for Pricing Document
+
+**Personal Story & Values Alignment:**
+- Genuine customer who loves Juniper Hill products
+- Shared values: animal welfare, health, nutrition, environmental respect
+- Coming out of retirement for this project - feels called to make a difference
+- Want to see them succeed as a long-term customer
+- Willingness to accommodate on payment terms and timelines
+- Goal: Help communicate their unique value proposition to more Kiwis
+
+**Pricing Approach:**
+- Flexible payment terms available
+- Timeline negotiable
+- Investment in long-term partnership, not just a transaction
+
+---
+
 *Last Updated: December 2024*
