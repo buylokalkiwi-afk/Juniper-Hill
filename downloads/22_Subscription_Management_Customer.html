@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Subscription — Juniper Hill Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --kale-mid: #3D6040;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --stone-light: #A39B8F;
+  --zest: #c8d9a0;
+  --border: #E2D9CC;
+  --success: #2D7A4D;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--feta);
+  color: var(--charcoal);
+  min-height: 100vh;
+}
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff;
+  text-align: center; font-size: 10px; letter-spacing: 2px; padding: 7px;
+  font-weight: 500; text-transform: uppercase;
+}
+
+/* Header */
+.header {
+  background: var(--kale);
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.logo span { color: var(--zest); }
+
+.header-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.header-nav a {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+.header-nav a:hover { color: #fff; }
+
+/* Main Container */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* Page Title */
+.page-title {
+  margin-bottom: 32px;
+}
+
+.page-title h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: var(--kale);
+  margin-bottom: 8px;
+}
+
+.page-title p {
+  color: var(--stone);
+  font-size: 14px;
+}
+
+/* Account Nav */
+.account-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.account-nav a {
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--stone);
+  transition: all 0.2s;
+}
+
+.account-nav a:hover {
+  background: var(--parchment);
+  color: var(--charcoal);
+}
+
+.account-nav a.active {
+  background: var(--kale);
+  color: #fff;
+}
+
+/* Subscription Card */
+.subscription-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.subscription-header {
+  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+  padding: 32px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subscription-plan h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.subscription-plan p {
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.subscription-status {
+  text-align: right;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(200, 217, 160, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.next-delivery {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.subscription-body {
+  padding: 32px;
+}
+
+/* Info Grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.info-item {
+  text-align: center;
+  padding: 20px;
+  background: var(--parchment);
+  border-radius: 12px;
+}
+
+.info-item .icon {
+  font-size: 24px;
+  color: var(--kale);
+  margin-bottom: 12px;
+}
+
+.info-item .label {
+  font-size: 12px;
+  color: var(--stone);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.info-item .value {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+/* Upcoming Delivery */
+.upcoming-section {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: var(--parchment);
+}
+
+.section-header h3 {
+  font-size: 16px;
+  color: var(--kale);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-header .date {
+  font-size: 14px;
+  color: var(--stone);
+}
+
+.delivery-items {
+  padding: 24px;
+}
+
+.delivery-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.delivery-item:last-child { border-bottom: none; }
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  background: var(--parchment);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--stone);
+  font-size: 24px;
+}
+
+.item-details .name {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.item-details .meta {
+  font-size: 13px;
+  color: var(--stone);
+}
+
+.item-price {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.delivery-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: var(--parchment);
+  font-weight: 600;
+}
+
+.delivery-actions {
+  padding: 20px 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--kale);
+  color: #fff;
+}
+
+.btn-primary:hover { background: var(--kale-mid); }
+
+.btn-secondary {
+  background: #fff;
+  color: var(--charcoal);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover { border-color: var(--stone); }
+
+/* Delivery History */
+.history-section {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.history-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-header h3 {
+  font-size: 16px;
+  color: var(--kale);
+}
+
+.history-list {
+  padding: 0;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.history-item:last-child { border-bottom: none; }
+
+.history-item:hover { background: var(--parchment); }
+
+.history-info .date {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.history-info .items {
+  font-size: 13px;
+  color: var(--stone);
+}
+
+.history-status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.delivered-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(45, 122, 77, 0.15);
+  color: var(--success);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.history-amount {
+  font-weight: 600;
+}
+
+/* Manage Subscription */
+.manage-section {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.manage-header {
+  margin-bottom: 20px;
+}
+
+.manage-header h3 {
+  font-size: 16px;
+  color: var(--kale);
+  margin-bottom: 4px;
+}
+
+.manage-header p {
+  font-size: 13px;
+  color: var(--stone);
+}
+
+.manage-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.manage-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--charcoal);
+  transition: all 0.2s;
+}
+
+.manage-option:hover {
+  border-color: var(--kale);
+  background: var(--parchment);
+}
+
+.manage-option .icon {
+  width: 48px;
+  height: 48px;
+  background: var(--parchment);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--kale);
+}
+
+.manage-option:hover .icon {
+  background: var(--kale);
+  color: #fff;
+}
+
+.manage-option .text h4 {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.manage-option .text p {
+  font-size: 12px;
+  color: var(--stone);
+}
+
+/* Savings Banner */
+.savings-banner {
+  background: linear-gradient(135deg, var(--zest) 0%, #a8c080 100%);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.savings-info h3 {
+  font-size: 18px;
+  color: var(--kale-dark);
+  margin-bottom: 4px;
+}
+
+.savings-info p {
+  font-size: 14px;
+  color: var(--kale);
+}
+
+.savings-amount {
+  text-align: right;
+}
+
+.savings-amount .label {
+  font-size: 12px;
+  color: var(--kale);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.savings-amount .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--kale-dark);
+}
+
+/* Footer */
+.footer {
+  background: var(--charcoal);
+  color: var(--parchment);
+  padding: 40px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.footer p {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .manage-options { grid-template-columns: 1fr; }
+  .subscription-header { flex-direction: column; text-align: center; gap: 16px; }
+  .subscription-status { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — Customer Subscription Dashboard</div>
+
+<header class="header">
+  <div class="logo">JUNIPER <span>HILL</span></div>
+  <nav class="header-nav">
+    <a href="02_Storefront_Shop.html">Shop</a>
+    <a href="#">My Account</a>
+    <a href="03_Storefront_Cart.html"><i class="fas fa-shopping-bag"></i></a>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="page-title">
+    <h1>My Account</h1>
+    <p>Manage your subscription and orders</p>
+  </div>
+
+  <!-- Account Navigation -->
+  <nav class="account-nav">
+    <a href="24_Order_Tracking_Customer.html">Orders</a>
+    <a href="#" class="active">Subscription</a>
+    <a href="#">Address Book</a>
+    <a href="#">Payment Methods</a>
+    <a href="#">Settings</a>
+  </nav>
+
+  <!-- Savings Banner -->
+  <div class="savings-banner">
+    <div class="savings-info">
+      <h3>You're saving with your subscription!</h3>
+      <p>10% off every delivery, plus free shipping on orders over $100</p>
+    </div>
+    <div class="savings-amount">
+      <div class="label">Total Saved</div>
+      <div class="value">$284.60</div>
+    </div>
+  </div>
+
+  <!-- Subscription Card -->
+  <div class="subscription-card">
+    <div class="subscription-header">
+      <div class="subscription-plan">
+        <h2>Family Box</h2>
+        <p>Premium selection for families — Fortnightly delivery</p>
+      </div>
+      <div class="subscription-status">
+        <div class="status-badge">
+          <i class="fas fa-check-circle"></i> Active
+        </div>
+        <div class="next-delivery">Next delivery: 22 Dec 2024</div>
+      </div>
+    </div>
+
+    <div class="subscription-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+          <div class="label">Frequency</div>
+          <div class="value">Every 2 Weeks</div>
+        </div>
+        <div class="info-item">
+          <div class="icon"><i class="fas fa-box"></i></div>
+          <div class="label">Box Value</div>
+          <div class="value">~$140/delivery</div>
+        </div>
+        <div class="info-item">
+          <div class="icon"><i class="fas fa-percent"></i></div>
+          <div class="label">Your Discount</div>
+          <div class="value">10% Off</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Delivery -->
+  <div class="upcoming-section">
+    <div class="section-header">
+      <h3><i class="fas fa-truck"></i> Upcoming Delivery</h3>
+      <div class="date">Sunday, 22 December 2024</div>
+    </div>
+
+    <div class="delivery-items">
+      <div class="delivery-item">
+        <div class="item-info">
+          <div class="item-image"><i class="fas fa-drumstick-bite"></i></div>
+          <div class="item-details">
+            <div class="name">Scotch Fillet Steak x2</div>
+            <div class="meta">~450g each</div>
+          </div>
+        </div>
+        <div class="item-price">~$72.00</div>
+      </div>
+      <div class="delivery-item">
+        <div class="item-info">
+          <div class="item-image"><i class="fas fa-drumstick-bite"></i></div>
+          <div class="item-details">
+            <div class="name">Premium Beef Mince</div>
+            <div class="meta">~500g</div>
+          </div>
+        </div>
+        <div class="item-price">~$12.50</div>
+      </div>
+      <div class="delivery-item">
+        <div class="item-info">
+          <div class="item-image"><i class="fas fa-drumstick-bite"></i></div>
+          <div class="item-details">
+            <div class="name">Beef Sausages</div>
+            <div class="meta">6 pack (~480g)</div>
+          </div>
+        </div>
+        <div class="item-price">~$18.00</div>
+      </div>
+      <div class="delivery-item">
+        <div class="item-info">
+          <div class="item-image"><i class="fas fa-drumstick-bite"></i></div>
+          <div class="item-details">
+            <div class="name">Rump Steak</div>
+            <div class="meta">~500g</div>
+          </div>
+        </div>
+        <div class="item-price">~$35.00</div>
+      </div>
+    </div>
+
+    <div class="delivery-total">
+      <span>Estimated Total</span>
+      <span>~$137.50 (incl. 10% discount)</span>
+    </div>
+
+    <div class="delivery-actions">
+      <button class="btn btn-secondary">
+        <i class="fas fa-edit"></i> Edit Items
+      </button>
+      <button class="btn btn-secondary">
+        <i class="fas fa-pause"></i> Skip This Delivery
+      </button>
+      <button class="btn btn-primary">
+        <i class="fas fa-plus"></i> Add Items
+      </button>
+    </div>
+  </div>
+
+  <!-- Manage Subscription -->
+  <div class="manage-section">
+    <div class="manage-header">
+      <h3>Manage Subscription</h3>
+      <p>Make changes to your delivery schedule, address, or plan</p>
+    </div>
+
+    <div class="manage-options">
+      <a href="#" class="manage-option">
+        <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+        <div class="text">
+          <h4>Change Frequency</h4>
+          <p>Weekly, fortnightly, or monthly</p>
+        </div>
+      </a>
+      <a href="#" class="manage-option">
+        <div class="icon"><i class="fas fa-box"></i></div>
+        <div class="text">
+          <h4>Change Plan</h4>
+          <p>Upgrade or downgrade your box</p>
+        </div>
+      </a>
+      <a href="#" class="manage-option">
+        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="text">
+          <h4>Update Address</h4>
+          <p>Change your delivery address</p>
+        </div>
+      </a>
+      <a href="#" class="manage-option">
+        <div class="icon"><i class="fas fa-credit-card"></i></div>
+        <div class="text">
+          <h4>Payment Method</h4>
+          <p>Update card or billing details</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Delivery History -->
+  <div class="history-section" style="margin-top: 24px;">
+    <div class="history-header">
+      <h3>Delivery History</h3>
+    </div>
+
+    <div class="history-list">
+      <div class="history-item">
+        <div class="history-info">
+          <div class="date">8 December 2024</div>
+          <div class="items">Scotch Fillet x2, Mince, Sausages, Eye Fillet</div>
+        </div>
+        <div class="history-status">
+          <span class="delivered-badge"><i class="fas fa-check"></i> Delivered</span>
+          <span class="history-amount">$142.80</span>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-info">
+          <div class="date">24 November 2024</div>
+          <div class="items">Ribeye x2, Rump Steak, Mince, Osso Buco</div>
+        </div>
+        <div class="history-status">
+          <span class="delivered-badge"><i class="fas fa-check"></i> Delivered</span>
+          <span class="history-amount">$156.40</span>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-info">
+          <div class="date">10 November 2024</div>
+          <div class="items">Scotch Fillet x2, T-Bone, Sausages, Patties</div>
+        </div>
+        <div class="history-status">
+          <span class="delivered-badge"><i class="fas fa-check"></i> Delivered</span>
+          <span class="history-amount">$138.20</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2024 Juniper Hill Farm — Premium Organic Beef, Raukawa Valley</p>
+</footer>
+
+</body>
+</html>

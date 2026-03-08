@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Hill Farm — Complete Mockup Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+  --border: #E2D9CC;
+  --success: #2D7A4D;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--feta);
+  color: var(--charcoal);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+  color: #fff;
+  padding: 60px 40px;
+  text-align: center;
+  margin-bottom: 40px;
+  border-radius: 16px;
+}
+
+.header .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+}
+
+.header .logo span { color: var(--zest); }
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.header p {
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* Section */
+.section {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--kale);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--parchment);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section h2 .count {
+  background: var(--terracotta);
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* Mockup Grid */
+.mockup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.mockup-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--parchment);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--charcoal);
+  transition: all 0.2s;
+}
+
+.mockup-card:hover {
+  background: var(--kale);
+  color: #fff;
+}
+
+.mockup-card:hover .badge { background: rgba(255,255,255,0.2); color: #fff; }
+
+.mockup-num {
+  width: 40px;
+  height: 40px;
+  background: var(--kale);
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.mockup-card:hover .mockup-num {
+  background: var(--terracotta);
+}
+
+.mockup-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.mockup-info p {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--border);
+  color: var(--stone);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.badge.new {
+  background: var(--success);
+  color: #fff;
+}
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.stat-card .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  color: var(--kale);
+  margin-bottom: 4px;
+}
+
+.stat-card .label {
+  font-size: 13px;
+  color: var(--stone);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--stone);
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .mockup-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">JUNIPER <span>HILL</span></div>
+    <h1>Site Redesign & Automation System</h1>
+    <p>Complete Mockup Package — December 2024</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="value">28</div>
+      <div class="label">Total Mockups</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">$52K+</div>
+      <div class="label">Projected Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">20+</div>
+      <div class="label">Hours Saved/Month</div>
+    </div>
+    <div class="stat-card">
+      <div class="value">9 mo</div>
+      <div class="label">Payback Period</div>
+    </div>
+  </div>
+
+  <!-- Customer-Facing -->
+  <div class="section">
+    <h2><i class="fas fa-store"></i> Customer-Facing Storefront <span class="count">7</span></h2>
+    <div class="mockup-grid">
+      <a href="01_Storefront_Homepage.html" class="mockup-card">
+        <div class="mockup-num">01</div>
+        <div class="mockup-info">
+          <h3>Homepage</h3>
+          <p>Hero, value proposition, featured products</p>
+        </div>
+      </a>
+      <a href="02_Storefront_Shop.html" class="mockup-card">
+        <div class="mockup-num">02</div>
+        <div class="mockup-info">
+          <h3>Shop Page</h3>
+          <p>Product grid, filters, live stock counts</p>
+        </div>
+      </a>
+      <a href="03_Storefront_Cart.html" class="mockup-card">
+        <div class="mockup-num">03</div>
+        <div class="mockup-info">
+          <h3>Cart & Checkout</h3>
+          <p>Stripe payments, delivery options</p>
+        </div>
+      </a>
+      <a href="12_Storefront_Subscribe.html" class="mockup-card">
+        <div class="mockup-num">12</div>
+        <div class="mockup-info">
+          <h3>Subscription Sign-up</h3>
+          <p>Recurring delivery plans</p>
+        </div>
+      </a>
+      <a href="17_First_Purchase_Popup.html" class="mockup-card">
+        <div class="mockup-num">17</div>
+        <div class="mockup-info">
+          <h3>First Purchase Offer</h3>
+          <p>Welcome discount popup</p>
+        </div>
+      </a>
+      <a href="24_Order_Tracking_Customer.html" class="mockup-card">
+        <div class="mockup-num">24</div>
+        <div class="mockup-info">
+          <h3>Order Tracking</h3>
+          <p>Real-time status, NZ Post integration</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+      <a href="22_Subscription_Management_Customer.html" class="mockup-card">
+        <div class="mockup-num">22</div>
+        <div class="mockup-info">
+          <h3>My Subscription</h3>
+          <p>Customer subscription dashboard</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Scanner -->
+  <div class="section">
+    <h2><i class="fas fa-qrcode"></i> Staff Inventory Scanner <span class="count">3</span></h2>
+    <div class="mockup-grid">
+      <a href="04_Scanner_QRScan.html" class="mockup-card">
+        <div class="mockup-num">04</div>
+        <div class="mockup-info">
+          <h3>QR Scanner</h3>
+          <p>Phone camera scanning, instant updates</p>
+        </div>
+      </a>
+      <a href="05_Scanner_StockOverview.html" class="mockup-card">
+        <div class="mockup-num">05</div>
+        <div class="mockup-info">
+          <h3>Stock Overview</h3>
+          <p>Real-time inventory, low stock alerts</p>
+        </div>
+      </a>
+      <a href="06_Scanner_PrintLabels.html" class="mockup-card">
+        <div class="mockup-num">06</div>
+        <div class="mockup-info">
+          <h3>Print Labels</h3>
+          <p>Thermal printer integration</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Admin Portal -->
+  <div class="section">
+    <h2><i class="fas fa-cog"></i> Admin Portal <span class="count">10</span></h2>
+    <div class="mockup-grid">
+      <a href="14_Admin_Login.html" class="mockup-card">
+        <div class="mockup-num">14</div>
+        <div class="mockup-info">
+          <h3>Admin Login</h3>
+          <p>Secure staff authentication</p>
+        </div>
+      </a>
+      <a href="15_Admin_Dashboard.html" class="mockup-card">
+        <div class="mockup-num">15</div>
+        <div class="mockup-info">
+          <h3>Dashboard</h3>
+          <p>Sales overview, quick actions</p>
+        </div>
+      </a>
+      <a href="16_Admin_Orders.html" class="mockup-card">
+        <div class="mockup-num">16</div>
+        <div class="mockup-info">
+          <h3>Orders Management</h3>
+          <p>View, filter, manage all orders</p>
+        </div>
+      </a>
+      <a href="25_Order_Fulfillment_Admin.html" class="mockup-card">
+        <div class="mockup-num">25</div>
+        <div class="mockup-info">
+          <h3>Order Fulfillment</h3>
+          <p>Pack, track, notify customers</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+      <a href="20_Admin_Inventory.html" class="mockup-card">
+        <div class="mockup-num">20</div>
+        <div class="mockup-info">
+          <h3>Inventory Management</h3>
+          <p>Full stock control, categories</p>
+        </div>
+      </a>
+      <a href="19_Admin_Labels.html" class="mockup-card">
+        <div class="mockup-num">19</div>
+        <div class="mockup-info">
+          <h3>Label Printing</h3>
+          <p>Generate product labels with QR</p>
+        </div>
+      </a>
+      <a href="11_Admin_Discounts.html" class="mockup-card">
+        <div class="mockup-num">11</div>
+        <div class="mockup-info">
+          <h3>Discounts & Promos</h3>
+          <p>Coupon codes, bulk discounts</p>
+        </div>
+      </a>
+      <a href="18_Admin_Staff.html" class="mockup-card">
+        <div class="mockup-num">18</div>
+        <div class="mockup-info">
+          <h3>Staff Management</h3>
+          <p>User accounts, roles, permissions</p>
+        </div>
+      </a>
+      <a href="21_Customer_Management.html" class="mockup-card">
+        <div class="mockup-num">21</div>
+        <div class="mockup-info">
+          <h3>Customer Management</h3>
+          <p>Profiles, order history, VIP status</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+      <a href="23_Subscription_Management_Admin.html" class="mockup-card">
+        <div class="mockup-num">23</div>
+        <div class="mockup-info">
+          <h3>Subscription Management</h3>
+          <p>Plans, MRR, upcoming deliveries</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Yield IQ -->
+  <div class="section">
+    <h2><i class="fas fa-brain"></i> Yield IQ — AI Butcher Tool <span class="count">3</span></h2>
+    <div class="mockup-grid">
+      <a href="07_Predictor_Intake.html" class="mockup-card">
+        <div class="mockup-num">07</div>
+        <div class="mockup-info">
+          <h3>Carcass Intake</h3>
+          <p>Tag scanning, AI yield prediction</p>
+        </div>
+      </a>
+      <a href="08_Predictor_Optimiser.html" class="mockup-card">
+        <div class="mockup-num">08</div>
+        <div class="mockup-info">
+          <h3>Visual Cut Selector</h3>
+          <p>Interactive cow diagram, optimization</p>
+        </div>
+      </a>
+      <a href="09_Predictor_Dashboard.html" class="mockup-card">
+        <div class="mockup-num">09</div>
+        <div class="mockup-info">
+          <h3>Accuracy Dashboard</h3>
+          <p>ML learning curve, predictions</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Email Templates -->
+  <div class="section">
+    <h2><i class="fas fa-envelope"></i> Email Templates <span class="count">2</span></h2>
+    <div class="mockup-grid">
+      <a href="26_Email_Order_Status.html" class="mockup-card">
+        <div class="mockup-num">26</div>
+        <div class="mockup-info">
+          <h3>Order Status Emails (5)</h3>
+          <p>Confirmed → Processing → Packed → Shipped → Delivered</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+      <a href="13_Email_Subscription.html" class="mockup-card">
+        <div class="mockup-num">13</div>
+        <div class="mockup-info">
+          <h3>Subscription Confirmation</h3>
+          <p>Welcome email for subscribers</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Pitch Documents -->
+  <div class="section">
+    <h2><i class="fas fa-file-alt"></i> Pitch Documents <span class="count">2</span></h2>
+    <div class="mockup-grid">
+      <a href="27_Pitch_Deck.html" class="mockup-card">
+        <div class="mockup-num">27</div>
+        <div class="mockup-info">
+          <h3>Pitch Deck (12 Slides)</h3>
+          <p>Problem, solution, features, ROI, timeline</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+      <a href="28_ROI_Analysis.html" class="mockup-card">
+        <div class="mockup-num">28</div>
+        <div class="mockup-info">
+          <h3>ROI & Value Analysis</h3>
+          <p>Financial projections, payback period</p>
+        </div>
+        <span class="badge new">NEW</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><strong>Juniper Hill Farm — Site Redesign & Automation System</strong></p>
+    <p>28 mockups • December 2024 • For Pitch Presentation</p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Hill Farm — Pitch Deck 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--charcoal); color: #fff; }
+
+/* Slide Navigation */
+.slide-nav {
+  position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+  z-index: 1000; display: flex; flex-direction: column; gap: 8px;
+}
+.slide-nav a {
+  width: 12px; height: 12px; background: rgba(255,255,255,0.3);
+  border-radius: 50%; transition: all 0.3s;
+}
+.slide-nav a:hover, .slide-nav a.active { background: var(--zest); }
+
+/* Slides */
+.slide {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 60px 80px; position: relative;
+}
+.slide-content { max-width: 1200px; width: 100%; }
+
+/* Slide 1: Title */
+.slide-title { background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%); }
+.title-content { text-align: center; }
+.title-logo { font-family: 'Playfair Display', serif; font-size: 72px; margin-bottom: 24px; }
+.title-logo span { color: var(--zest); }
+.title-tagline { font-size: 28px; font-weight: 300; margin-bottom: 48px; opacity: 0.9; }
+.title-subtitle { font-size: 16px; letter-spacing: 3px; color: var(--zest); }
+.title-badge {
+  display: inline-block; background: var(--terracotta); padding: 12px 32px;
+  margin-top: 48px; font-size: 14px; letter-spacing: 2px;
+}
+
+/* Slide 2: Problem */
+.slide-problem { background: var(--feta); color: var(--charcoal); }
+.section-label { font-size: 14px; letter-spacing: 4px; color: var(--terracotta); margin-bottom: 16px; }
+.slide h2 { font-family: 'Playfair Display', serif; font-size: 48px; color: var(--kale); margin-bottom: 48px; }
+.problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.problem-card {
+  background: #fff; padding: 32px; border-left: 4px solid var(--terracotta);
+}
+.problem-icon { font-size: 32px; margin-bottom: 16px; }
+.problem-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--kale); }
+.problem-desc { font-size: 14px; color: var(--stone); line-height: 1.6; }
+.cost-callout {
+  background: var(--terracotta); color: #fff; padding: 32px;
+  text-align: center; margin-top: 48px;
+}
+.cost-value { font-size: 64px; font-weight: 700; }
+.cost-label { font-size: 18px; margin-top: 8px; }
+
+/* Slide 3: Solution Overview */
+.slide-solution { background: var(--kale); }
+.solution-intro { text-align: center; margin-bottom: 60px; }
+.solution-intro h2 { color: #fff; }
+.apps-row { display: flex; gap: 24px; justify-content: center; }
+.app-card {
+  background: rgba(255,255,255,0.1); padding: 40px 32px;
+  text-align: center; flex: 1; max-width: 350px;
+}
+.app-icon { font-size: 56px; margin-bottom: 20px; }
+.app-name { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+.app-desc { font-size: 14px; opacity: 0.8; line-height: 1.6; }
+.app-badge { display: inline-block; background: var(--zest); color: var(--kale); padding: 6px 12px; margin-top: 16px; font-size: 11px; letter-spacing: 1px; }
+
+/* Slide 4: App 1 - Storefront */
+.slide-app1 { background: var(--feta); color: var(--charcoal); }
+.app-showcase { display: flex; gap: 60px; align-items: center; }
+.app-info { flex: 1; }
+.app-features { list-style: none; margin-top: 32px; }
+.app-features li { padding: 12px 0; padding-left: 32px; position: relative; font-size: 16px; border-bottom: 1px solid var(--parchment); }
+.app-features li::before { content: "✓"; position: absolute; left: 0; color: var(--kale); font-weight: 700; }
+.app-mockup {
+  width: 500px; height: 350px; background: var(--parchment);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: var(--stone); border: 2px solid var(--kale);
+}
+
+/* Slide 5: App 2 - Scanner */
+.slide-app2 { background: var(--charcoal); }
+.phone-mockups { display: flex; gap: 24px; justify-content: center; }
+.phone-frame {
+  width: 200px; height: 400px; background: #fff; border-radius: 24px;
+  padding: 12px; display: flex; flex-direction: column;
+}
+.phone-screen { flex: 1; background: var(--parchment); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.phone-label { text-align: center; margin-top: 16px; font-size: 13px; color: var(--stone); }
+
+/* Slide 6: App 3 - Predictor */
+.slide-app3 { background: linear-gradient(135deg, var(--terracotta) 0%, #8B3D2A 100%); }
+.predictor-content { display: flex; gap: 60px; align-items: center; }
+.predictor-chart {
+  flex: 1; background: rgba(255,255,255,0.1); padding: 40px;
+  border-radius: 12px;
+}
+.chart-title { font-size: 14px; letter-spacing: 2px; margin-bottom: 24px; opacity: 0.7; }
+.accuracy-visual { display: flex; align-items: flex-end; gap: 16px; height: 200px; }
+.accuracy-bar { width: 40px; background: var(--zest); border-radius: 4px 4px 0 0; }
+.accuracy-bar.actual { background: rgba(255,255,255,0.5); }
+
+/* Slide 7: ROI */
+.slide-roi { background: var(--feta); color: var(--charcoal); }
+.roi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 48px; }
+.roi-card { background: #fff; padding: 32px; text-align: center; border-bottom: 4px solid var(--kale); }
+.roi-value { font-size: 48px; font-weight: 700; color: var(--kale); }
+.roi-label { font-size: 14px; color: var(--stone); margin-top: 8px; }
+.roi-detail { font-size: 12px; color: var(--terracotta); margin-top: 4px; }
+.payback-callout {
+  background: var(--kale); color: #fff; padding: 40px;
+  text-align: center; border-radius: 8px;
+}
+.payback-value { font-size: 72px; font-weight: 700; color: var(--zest); }
+.payback-label { font-size: 24px; margin-top: 8px; }
+
+/* Slide 8: Tech Stack */
+.slide-tech { background: var(--charcoal); }
+.tech-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+.tech-item { background: rgba(255,255,255,0.05); padding: 32px; text-align: center; border-radius: 8px; }
+.tech-icon { font-size: 48px; margin-bottom: 16px; }
+.tech-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.tech-role { font-size: 12px; opacity: 0.6; }
+
+/* Slide 9: Timeline */
+.slide-timeline { background: var(--feta); color: var(--charcoal); }
+.timeline { display: flex; justify-content: space-between; position: relative; padding: 40px 0; }
+.timeline::before {
+  content: ''; position: absolute; top: 60px; left: 0; right: 0;
+  height: 4px; background: var(--parchment);
+}
+.timeline-item { text-align: center; position: relative; z-index: 1; flex: 1; }
+.timeline-dot {
+  width: 40px; height: 40px; background: var(--kale); border-radius: 50%;
+  margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700;
+}
+.timeline-phase { font-size: 14px; font-weight: 600; color: var(--kale); margin-bottom: 8px; }
+.timeline-desc { font-size: 13px; color: var(--stone); max-width: 150px; margin: 0 auto; }
+
+/* Slide 10: CTA */
+.slide-cta { background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%); text-align: center; }
+.cta-headline { font-family: 'Playfair Display', serif; font-size: 56px; margin-bottom: 24px; }
+.cta-subline { font-size: 22px; opacity: 0.8; margin-bottom: 48px; }
+.cta-buttons { display: flex; gap: 20px; justify-content: center; }
+.cta-btn {
+  padding: 20px 48px; font-size: 16px; font-weight: 600; letter-spacing: 2px;
+  text-decoration: none; transition: all 0.3s;
+}
+.cta-btn.primary { background: var(--terracotta); color: #fff; }
+.cta-btn.secondary { background: transparent; color: #fff; border: 2px solid #fff; }
+.contact-info { margin-top: 60px; font-size: 14px; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<!-- Slide Navigation -->
+<nav class="slide-nav">
+  <a href="#slide1"></a>
+  <a href="#slide2"></a>
+  <a href="#slide3"></a>
+  <a href="#slide4"></a>
+  <a href="#slide5"></a>
+  <a href="#slide6"></a>
+  <a href="#slide7"></a>
+  <a href="#slide8"></a>
+  <a href="#slide9"></a>
+  <a href="#slide10"></a>
+</nav>
+
+<!-- Slide 1: Title -->
+<section id="slide1" class="slide slide-title">
+  <div class="slide-content title-content">
+    <div class="title-logo">JUNIPER <span>HILL</span></div>
+    <div class="title-tagline">Inventory-to-Sale Automation System</div>
+    <div class="title-subtitle">A COMPLETE DIGITAL TRANSFORMATION FOR ORGANIC BEEF</div>
+    <div class="title-badge">PITCH DECK 2026</div>
+  </div>
+</section>
+
+<!-- Slide 2: Problem -->
+<section id="slide2" class="slide slide-problem">
+  <div class="slide-content">
+    <div class="section-label">THE PROBLEM</div>
+    <h2>The Current Website is Costing You Money</h2>
+    <div class="problems-grid">
+      <div class="problem-card">
+        <div class="problem-icon">💳</div>
+        <div class="problem-title">No Card Payments</div>
+        <div class="problem-desc">Bank transfer only with 75% deposits. Customers abandon checkout when they can't pay by card.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📦</div>
+        <div class="problem-title">No Live Stock</div>
+        <div class="problem-desc">Products show "in stock" but aren't. Manual updates cause overselling and disappointed customers.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⏱️</div>
+        <div class="problem-title">Manual Everything</div>
+        <div class="problem-desc">Staff spend hours updating stock, reconciling payments, and managing orders manually.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🖥️</div>
+        <div class="problem-title">Broken UX</div>
+        <div class="problem-desc">No hero image, no filters, no testimonials. 36 products with no way to search or filter.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📧</div>
+        <div class="problem-title">No Email Capture</div>
+        <div class="problem-desc">Visitors leave with no way to follow up. Missing out on repeat customers and marketing.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🔮</div>
+        <div class="problem-title">Guesswork Cutting</div>
+        <div class="problem-desc">Butcher decisions based on gut feel, not data. No yield tracking or demand insights.</div>
+      </div>
+    </div>
+    <div class="cost-callout">
+      <div class="cost-value">$52,000+</div>
+      <div class="cost-label">Estimated annual revenue lost to abandoned carts, manual inefficiency, and poor UX</div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 3: Solution Overview -->
+<section id="slide3" class="slide slide-solution">
+  <div class="slide-content">
+    <div class="solution-intro">
+      <div class="section-label" style="color: var(--zest);">THE SOLUTION</div>
+      <h2 style="color: #fff;">Three Integrated Apps, One Seamless System</h2>
+    </div>
+    <div class="apps-row">
+      <div class="app-card">
+        <div class="app-icon">🛒</div>
+        <div class="app-name">Ecommerce Storefront</div>
+        <div class="app-desc">Premium customer-facing shop with Stripe payments, live inventory, and modern UX.</div>
+        <div class="app-badge">CUSTOMER-FACING</div>
+      </div>
+      <div class="app-card">
+        <div class="app-icon">📱</div>
+        <div class="app-name">Inventory Scanner</div>
+        <div class="app-desc">Phone-based PWA for staff to scan QR codes, update stock in real-time, and print labels.</div>
+        <div class="app-badge">STAFF PWA</div>
+      </div>
+      <div class="app-card">
+        <div class="app-icon">🧠</div>
+        <div class="app-name">Abattoir Predictor</div>
+        <div class="app-desc">AI-powered yield prediction and cut optimization based on demand and margins.</div>
+        <div class="app-badge">ML-POWERED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 4: Storefront Details -->
+<section id="slide4" class="slide slide-app1">
+  <div class="slide-content">
+    <div class="app-showcase">
+      <div class="app-info">
+        <div class="section-label">APP 1</div>
+        <h2>Ecommerce Storefront</h2>
+        <p style="font-size: 18px; color: var(--stone); margin-top: -24px;">A premium shopping experience that converts</p>
+        <ul class="app-features">
+          <li><strong>Stripe NZD payments</strong> — Cards, Apple Pay, Google Pay</li>
+          <li><strong>Live inventory</strong> — Real-time stock that auto-updates</li>
+          <li><strong>Smart filters</strong> — By cut, cook method, weight, availability</li>
+          <li><strong>Postcode delivery checker</strong> — Instant shipping quotes</li>
+          <li><strong>Email capture popup</strong> — 10% discount incentive</li>
+          <li><strong>Subscription box</strong> — Recurring monthly deliveries</li>
+          <li><strong>Testimonials & trust badges</strong> — Social proof</li>
+          <li><strong>Mobile-first design</strong> — Perfect on all devices</li>
+        </ul>
+      </div>
+      <div class="app-mockup">
+        <a href="01_Storefront_Homepage.html" style="color: var(--kale);">View Homepage Mockup →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 5: Scanner Details -->
+<section id="slide5" class="slide slide-app2">
+  <div class="slide-content">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div class="section-label" style="color: var(--zest);">APP 2</div>
+      <h2 style="color: #fff;">Inventory Scanner PWA</h2>
+      <p style="font-size: 18px; opacity: 0.7; margin-top: 8px;">Staff manage stock with their phones — no expensive hardware</p>
+    </div>
+    <div class="phone-mockups">
+      <div>
+        <div class="phone-frame">
+          <div class="phone-screen">📷</div>
+        </div>
+        <div class="phone-label">QR Scan</div>
+      </div>
+      <div>
+        <div class="phone-frame">
+          <div class="phone-screen">📦</div>
+        </div>
+        <div class="phone-label">Stock Overview</div>
+      </div>
+      <div>
+        <div class="phone-frame">
+          <div class="phone-screen">🏷️</div>
+        </div>
+        <div class="phone-label">Print Labels</div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 48px; margin-top: 48px;">
+      <div style="text-align: center;">
+        <div style="font-size: 36px; font-weight: 700; color: var(--zest);">100%</div>
+        <div style="font-size: 14px; opacity: 0.7;">Stock Accuracy</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 36px; font-weight: 700; color: var(--zest);">Real-time</div>
+        <div style="font-size: 14px; opacity: 0.7;">Supabase Sync</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 36px; font-weight: 700; color: var(--zest);">Existing</div>
+        <div style="font-size: 14px; opacity: 0.7;">Thermal Printer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 6: Predictor Details -->
+<section id="slide6" class="slide slide-app3">
+  <div class="slide-content">
+    <div class="predictor-content">
+      <div style="flex: 1;">
+        <div class="section-label" style="color: rgba(255,255,255,0.7);">APP 3</div>
+        <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 24px;">Abattoir Yield Predictor</h2>
+        <p style="font-size: 18px; opacity: 0.9; line-height: 1.7; margin-bottom: 32px;">
+          AI that learns from each carcass. Staff scan the animal tag, enter live weight, and the system predicts saleable yield and optimal cut breakdown.
+        </p>
+        <ul style="list-style: none; font-size: 16px;">
+          <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ Learns from every carcass processed</li>
+          <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ Predicts saleable yield ±3% (after 100+ carcasses)</li>
+          <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ Recommends cuts based on current demand</li>
+          <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">✓ Maximizes revenue per head</li>
+          <li style="padding: 12px 0;">✓ Accuracy dashboard tracks improvement over time</li>
+        </ul>
+      </div>
+      <div class="predictor-chart">
+        <div class="chart-title">PREDICTION ACCURACY OVER TIME</div>
+        <div class="accuracy-visual">
+          <div class="accuracy-bar" style="height: 60px;"></div>
+          <div class="accuracy-bar actual" style="height: 55px;"></div>
+          <div class="accuracy-bar" style="height: 90px;"></div>
+          <div class="accuracy-bar actual" style="height: 85px;"></div>
+          <div class="accuracy-bar" style="height: 120px;"></div>
+          <div class="accuracy-bar actual" style="height: 115px;"></div>
+          <div class="accuracy-bar" style="height: 150px;"></div>
+          <div class="accuracy-bar actual" style="height: 148px;"></div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 24px; margin-top: 24px; font-size: 12px; opacity: 0.7;">
+          <span>● Predicted</span>
+          <span style="opacity: 0.5;">● Actual</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 7: ROI -->
+<section id="slide7" class="slide slide-roi">
+  <div class="slide-content">
+    <div class="section-label">RETURN ON INVESTMENT</div>
+    <h2>The Numbers Speak for Themselves</h2>
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="roi-value">$52K+</div>
+        <div class="roi-label">Recovered Revenue</div>
+        <div class="roi-detail">From abandoned carts & efficiency</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-value">20+</div>
+        <div class="roi-label">Hours Saved / Month</div>
+        <div class="roi-detail">Automated inventory & payments</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-value">8%+</div>
+        <div class="roi-label">Revenue / Head</div>
+        <div class="roi-detail">AI-optimized cut decisions</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-value">100%</div>
+        <div class="roi-label">Stock Accuracy</div>
+        <div class="roi-detail">No more overselling</div>
+      </div>
+    </div>
+    <div class="payback-callout">
+      <div class="payback-value">< 3 months</div>
+      <div class="payback-label">Expected payback period</div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 8: Tech Stack -->
+<section id="slide8" class="slide slide-tech">
+  <div class="slide-content">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div class="section-label" style="color: var(--zest);">TECHNOLOGY</div>
+      <h2 style="color: #fff;">Modern, Scalable, Maintainable</h2>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-icon">⚛️</div>
+        <div class="tech-name">React</div>
+        <div class="tech-role">Frontend</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🎨</div>
+        <div class="tech-name">Tailwind CSS</div>
+        <div class="tech-role">Styling</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🗄️</div>
+        <div class="tech-name">Supabase</div>
+        <div class="tech-role">Database + Auth</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">💳</div>
+        <div class="tech-name">Stripe</div>
+        <div class="tech-role">Payments</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🤖</div>
+        <div class="tech-name">ML Model</div>
+        <div class="tech-role">Yield Prediction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 9: Timeline -->
+<section id="slide9" class="slide slide-timeline">
+  <div class="slide-content">
+    <div class="section-label">IMPLEMENTATION</div>
+    <h2>Phased Rollout</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-phase">Discovery</div>
+        <div class="timeline-desc">Requirements, branding, content audit</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-phase">Storefront</div>
+        <div class="timeline-desc">Customer shop with Stripe payments</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-phase">Scanner PWA</div>
+        <div class="timeline-desc">Staff inventory management</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">4</div>
+        <div class="timeline-phase">Predictor</div>
+        <div class="timeline-desc">AI yield prediction</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">5</div>
+        <div class="timeline-phase">Launch</div>
+        <div class="timeline-desc">Go-live + training</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 10: CTA -->
+<section id="slide10" class="slide slide-cta">
+  <div class="slide-content">
+    <div class="cta-headline">Let's Rebuild It Right</div>
+    <div class="cta-subline">Faster, more trustworthy, more profitable</div>
+    <div class="cta-buttons">
+      <a href="00_INDEX.html" class="cta-btn primary">VIEW ALL MOCKUPS</a>
+      <a href="#" class="cta-btn secondary">SCHEDULE A CALL</a>
+    </div>
+    <div class="contact-info">
+      <p>Questions? Let's discuss the next steps.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
