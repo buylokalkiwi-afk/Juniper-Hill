@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory — Juniper Hill Farm Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --charcoal: #2C2C2C;
+  --cream: #F5F1E6;
+  --cream-dark: #EBE6D9;
+  --forest: #1B4D3E;
+  --forest-light: #2D6B5A;
+  --crimson: #C41E3A;
+  --white: #FFFFFF;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Jost', sans-serif; 
+  background: var(--cream);
+  color: var(--charcoal);
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--charcoal);
+  padding: 24px 0;
+  color: var(--white);
+  position: fixed;
+  width: 260px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 24px;
+}
+
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.logo-sub {
+  font-size: 10px;
+  opacity: 0.5;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.nav-section { margin-bottom: 24px; }
+.nav-section-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.4;
+  padding: 0 24px;
+  margin-bottom: 12px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 24px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+.nav-item.active {
+  background: rgba(255,255,255,0.08);
+  color: var(--white);
+  border-left-color: var(--forest-light);
+}
+
+.nav-item i { width: 20px; text-align: center; }
+
+.main-content {
+  margin-left: 260px;
+  padding: 32px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.page-title h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.page-title p { font-size: 14px; color: #666; margin-top: 4px; }
+
+.header-actions { display: flex; gap: 12px; }
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+}
+
+.btn-primary { background: var(--charcoal); color: var(--white); }
+.btn-secondary { background: var(--white); color: var(--charcoal); border: 2px solid var(--cream-dark); }
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mini-stat {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.mini-stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.mini-stat-label {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.mini-stat-value.warning { color: var(--crimson); }
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.filter-select {
+  padding: 12px 16px;
+  border: 2px solid var(--cream-dark);
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  background: var(--white);
+  min-width: 180px;
+}
+
+.search-box {
+  flex: 1;
+  max-width: 300px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 2px solid var(--cream-dark);
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  background: var(--white);
+}
+
+.search-box i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+/* Inventory Table */
+.inventory-card {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  padding: 16px 20px;
+  font-weight: 600;
+  background: var(--cream);
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.inventory-table td {
+  padding: 16px 20px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--cream);
+}
+
+.inventory-table tr:hover { background: rgba(245,241,230,0.5); }
+
+.packet-id {
+  font-family: monospace;
+  font-size: 13px;
+  background: var(--cream);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.cut-info { display: flex; align-items: center; gap: 12px; }
+
+.cut-image {
+  width: 50px;
+  height: 50px;
+  background: var(--cream);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.cut-name { font-weight: 600; }
+.cut-source { font-size: 12px; color: #888; }
+
+.weight { font-weight: 500; }
+
+.price {
+  font-weight: 600;
+  color: var(--forest);
+}
+
+.date { color: #666; font-size: 13px; }
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.status-dot.available { background: #10B981; }
+.status-dot.reserved { background: #F59E0B; }
+.status-dot.sold { background: #6B7280; }
+
+.qr-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--cream-dark);
+  background: var(--white);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-btn:hover { border-color: var(--forest); color: var(--forest); }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-top: 1px solid var(--cream);
+}
+
+.page-info { font-size: 14px; color: #666; }
+
+.page-buttons { display: flex; gap: 8px; }
+
+.page-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--cream-dark);
+  background: var(--white);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-btn.active { background: var(--charcoal); color: white; border-color: var(--charcoal); }
+</style>
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-text">JUNIPER HILL</div>
+      <div class="logo-sub">Admin Portal</div>
+    </div>
+    
+    <nav>
+      <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="15_Admin_Dashboard.html" class="nav-item">
+          <i class="fas fa-th-large"></i>
+          <span>Dashboard</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Sales</div>
+        <a href="16_Admin_Orders.html" class="nav-item">
+          <i class="fas fa-shopping-bag"></i>
+          <span>Orders</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="fas fa-users"></i>
+          <span>Customers</span>
+        </a>
+        <a href="#" class="nav-item">
+          <i class="fas fa-sync-alt"></i>
+          <span>Subscriptions</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Inventory</div>
+        <a href="#" class="nav-item active">
+          <i class="fas fa-boxes"></i>
+          <span>Stock</span>
+        </a>
+        <a href="19_Admin_Labels.html" class="nav-item">
+          <i class="fas fa-print"></i>
+          <span>Label Printing</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Production</div>
+        <a href="07_Predictor_Intake.html" class="nav-item">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Yield IQ</span>
+        </a>
+      </div>
+    </nav>
+  </aside>
+  
+  <main class="main-content">
+    <div class="page-header">
+      <div class="page-title">
+        <h1>Inventory</h1>
+        <p>147 packets in stock • Each packet is a unique item with exact weight & price</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary">
+          <i class="fas fa-qrcode"></i>
+          Scan Packet
+        </button>
+        <button class="btn btn-primary">
+          <i class="fas fa-plus"></i>
+          Add Packet
+        </button>
+      </div>
+    </div>
+    
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="mini-stat">
+        <div class="mini-stat-value">147</div>
+        <div class="mini-stat-label">Total Packets</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-value">$12,450</div>
+        <div class="mini-stat-label">Stock Value</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-value">68.4kg</div>
+        <div class="mini-stat-label">Total Weight</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-value warning">12</div>
+        <div class="mini-stat-label">Low Stock Items</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-value">JH-A045</div>
+        <div class="mini-stat-label">Latest Carcass</div>
+      </div>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <select class="filter-select">
+        <option>All Cuts</option>
+        <option>Ribeye</option>
+        <option>Scotch Fillet</option>
+        <option>Eye Fillet</option>
+        <option>Sirloin</option>
+        <option>Rump</option>
+        <option>Brisket</option>
+        <option>Mince</option>
+        <option>Sausages</option>
+      </select>
+      <select class="filter-select">
+        <option>All Carcasses</option>
+        <option>JH-A045 (Current)</option>
+        <option>JH-A044</option>
+        <option>JH-A043</option>
+      </select>
+      <select class="filter-select">
+        <option>All Status</option>
+        <option>Available</option>
+        <option>Reserved</option>
+        <option>Sold</option>
+      </select>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search by packet ID...">
+      </div>
+    </div>
+    
+    <!-- Inventory Table -->
+    <div class="inventory-card">
+      <table class="inventory-table">
+        <thead>
+          <tr>
+            <th>Packet ID</th>
+            <th>Cut</th>
+            <th>Weight</th>
+            <th>Price</th>
+            <th>Packed</th>
+            <th>Status</th>
+            <th>QR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="packet-id">PKT-A045-001</span></td>
+            <td>
+              <div class="cut-info">
+                <div class="cut-image">🥩</div>
+                <div>
+                  <div class="cut-name">Ribeye Steak</div>
+                  <div class="cut-source">Carcass JH-A045</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="weight">487g</span></td>
+            <td><span class="price">$48.70</span></td>
+            <td><span class="date">Today</span></td>
+            <td><span class="status-dot available"></span>Available</td>
+            <td><button class="qr-btn"><i class="fas fa-qrcode"></i></button></td>
+          </tr>
+          <tr>
+            <td><span class="packet-id">PKT-A045-002</span></td>
+            <td>
+              <div class="cut-info">
+                <div class="cut-image">🥩</div>
+                <div>
+                  <div class="cut-name">Ribeye Steak</div>
+                  <div class="cut-source">Carcass JH-A045</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="weight">512g</span></td>
+            <td><span class="price">$51.20</span></td>
+            <td><span class="date">Today</span></td>
+            <td><span class="status-dot available"></span>Available</td>
+            <td><button class="qr-btn"><i class="fas fa-qrcode"></i></button></td>
+          </tr>
+          <tr>
+            <td><span class="packet-id">PKT-A045-003</span></td>
+            <td>
+              <div class="cut-info">
+                <div class="cut-image">🥩</div>
+                <div>
+                  <div class="cut-name">Scotch Fillet</div>
+                  <div class="cut-source">Carcass JH-A045</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="weight">385g</span></td>
+            <td><span class="price">$46.20</span></td>
+            <td><span class="date">Today</span></td>
+            <td><span class="status-dot reserved"></span>Reserved</td>
+            <td><button class="qr-btn"><i class="fas fa-qrcode"></i></button></td>
+          </tr>
+          <tr>
+            <td><span class="packet-id">PKT-A045-004</span></td>
+            <td>
+              <div class="cut-info">
+                <div class="cut-image">🥩</div>
+                <div>
+                  <div class="cut-name">Eye Fillet</div>
+                  <div class="cut-source">Carcass JH-A045</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="weight">298g</span></td>
+            <td><span class="price">$59.60</span></td>
+            <td><span class="date">Today</span></td>
+            <td><span class="status-dot available"></span>Available</td>
+            <td><button class="qr-btn"><i class="fas fa-qrcode"></i></button></td>
+          </tr>
+          <tr>
+            <td><span class="packet-id">PKT-A044-089</span></td>
+            <td>
+              <div class="cut-info">
+                <div class="cut-image">🍖</div>
+                <div>
+                  <div class="cut-name">Premium Mince</div>
+                  <div class="cut-source">Carcass JH-A044</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="weight">503g</span></td>
+            <td><span class="price">$17.61</span></td>
+            <td><span class="date">3 days ago</span></td>
+            <td><span class="status-dot available"></span>Available</td>
+            <td><button class="qr-btn"><i class="fas fa-qrcode"></i></button></td>
+          </tr>
+          <tr>
+            <td><span class="packet-id">PKT-A044-090</span></td>
+            <td>
+              <div class="cut-info">
+                <div class="cut-image">🍖</div>
+                <div>
+                  <div class="cut-name">Brisket</div>
+                  <div class="cut-source">Carcass JH-A044</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="weight">2.4kg</span></td>
+            <td><span class="price">$72.00</span></td>
+            <td><span class="date">3 days ago</span></td>
+            <td><span class="status-dot sold"></span>Sold</td>
+            <td><button class="qr-btn"><i class="fas fa-qrcode"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="pagination">
+        <div class="page-info">Showing 1-6 of 147 packets</div>
+        <div class="page-buttons">
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">...</button>
+          <button class="page-btn">25</button>
+          <button class="page-btn">›</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

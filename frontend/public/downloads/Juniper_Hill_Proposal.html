@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Hill Farm — System Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+  --border: #E2D9CC;
+  --success: #2D7A4D;
+}
+
+@media print {
+  body { background: #fff; }
+  .page-break { page-break-after: always; }
+  .no-print { display: none; }
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--feta);
+  color: var(--charcoal);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.document {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Cover Page */
+.cover {
+  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+  color: #fff;
+  padding: 100px 60px;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cover .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  letter-spacing: 6px;
+  margin-bottom: 40px;
+}
+
+.cover .logo span { color: var(--zest); }
+
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.cover .subtitle {
+  font-size: 18px;
+  opacity: 0.8;
+  margin-bottom: 60px;
+}
+
+.cover .meta {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* Content Pages */
+.page {
+  padding: 60px;
+}
+
+.page h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--kale);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--parchment);
+}
+
+.page h3 {
+  font-size: 18px;
+  color: var(--kale);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.page p {
+  margin-bottom: 16px;
+}
+
+.page ul, .page ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.page li {
+  margin-bottom: 8px;
+}
+
+/* Highlight Box */
+.highlight {
+  background: var(--parchment);
+  border-left: 4px solid var(--kale);
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.highlight h4 {
+  font-size: 14px;
+  color: var(--kale);
+  margin-bottom: 8px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.stat-box {
+  background: var(--parchment);
+  padding: 24px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.stat-box .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: var(--kale);
+}
+
+.stat-box .label {
+  font-size: 12px;
+  color: var(--stone);
+  margin-top: 4px;
+}
+
+/* Feature Grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.feature-card {
+  background: var(--parchment);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.feature-card h4 {
+  font-size: 15px;
+  color: var(--kale);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-card h4 i {
+  color: var(--terracotta);
+}
+
+.feature-card p {
+  font-size: 13px;
+  color: var(--stone);
+  margin-bottom: 0;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+
+.data-table th {
+  background: var(--kale);
+  color: #fff;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.data-table tr:nth-child(even) {
+  background: var(--parchment);
+}
+
+/* Timeline */
+.timeline {
+  margin: 24px 0;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.timeline-marker {
+  width: 40px;
+  height: 40px;
+  background: var(--kale);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.timeline-content h4 {
+  font-size: 16px;
+  color: var(--kale);
+  margin-bottom: 4px;
+}
+
+.timeline-content p {
+  font-size: 14px;
+  color: var(--stone);
+  margin-bottom: 4px;
+}
+
+.timeline-content .duration {
+  display: inline-block;
+  background: var(--terracotta);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+/* Footer */
+.page-footer {
+  text-align: center;
+  padding: 40px;
+  background: var(--parchment);
+  font-size: 13px;
+  color: var(--stone);
+}
+</style>
+</head>
+<body>
+
+<div class="document">
+
+  <!-- Cover Page -->
+  <div class="cover page-break">
+    <div class="logo">JUNIPER <span>HILL</span></div>
+    <h1>Digital Transformation Proposal</h1>
+    <p class="subtitle">Inventory-to-Sale Automation System</p>
+    <p class="meta">Prepared December 2024</p>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="page page-break">
+    <h2>Executive Summary</h2>
+    
+    <p>This proposal outlines a comprehensive digital transformation for Juniper Hill Farm — a complete system that automates inventory management, streamlines the customer experience, and amplifies your unique value proposition as NZ's first BioGro certified on-farm micro-abattoir.</p>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="value">$52K+</div>
+        <div class="label">Annual Revenue Recovered</div>
+      </div>
+      <div class="stat-box">
+        <div class="value">20+ hrs</div>
+        <div class="label">Saved Per Month</div>
+      </div>
+      <div class="stat-box">
+        <div class="value">9 months</div>
+        <div class="label">Payback Period</div>
+      </div>
+    </div>
+
+    <h3>The System at a Glance</h3>
+    <p>A unified platform comprising four integrated components:</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4><i class="fas fa-store"></i> Modern Storefront</h4>
+        <p>Beautiful e-commerce site with packet-based inventory, Stripe payments, subscriptions, and real-time order tracking.</p>
+      </div>
+      <div class="feature-card">
+        <h4><i class="fas fa-qrcode"></i> Smart Inventory</h4>
+        <p>Mobile app for staff to scan QR codes, update stock instantly, and never oversell again.</p>
+      </div>
+      <div class="feature-card">
+        <h4><i class="fas fa-cog"></i> Admin Portal</h4>
+        <p>Complete control center for orders, customers, subscriptions, fulfillment, and analytics.</p>
+      </div>
+      <div class="feature-card">
+        <h4><i class="fas fa-brain"></i> Yield IQ</h4>
+        <p>AI-powered yield prediction that learns from every carcass to optimize cutting decisions.</p>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <h4>Why This Matters</h4>
+      <p>Your premium product deserves a premium experience. This system eliminates checkout friction, provides real-time order visibility, and showcases what makes Juniper Hill special: stress-free on-farm processing, 100% organic practices, and 21-day dry ageing.</p>
+    </div>
+  </div>
+
+  <!-- The Challenges -->
+  <div class="page page-break">
+    <h2>Current Challenges</h2>
+
+    <h3>1. Complex Checkout Experience</h3>
+    <p>Customers currently struggle with weight minimums and variable pricing. The mental math required leads to cart abandonment and lost sales. Our solution: pre-weighed, pre-priced packets with exact costs displayed upfront.</p>
+
+    <h3>2. Manual Inventory Management</h3>
+    <p>Spreadsheet-based stock tracking leads to overselling (requiring refunds and apologies), stockouts, and hours of admin work each week. Our solution: real-time QR-based inventory that syncs automatically with the website.</p>
+
+    <h3>3. No Order Visibility</h3>
+    <p>Customers have no idea when their order is processed, packed, or shipped. This generates support queries and erodes confidence. Our solution: real-time order tracking with NZ Post integration and automated email updates at every stage.</p>
+
+    <h3>4. Hidden Value Proposition</h3>
+    <p>Juniper Hill's unique advantages — on-farm abattoir, stress-free slaughter, superior meat quality — aren't prominently communicated. Our solution: marketing-first design that leads with your story.</p>
+
+    <div class="highlight">
+      <h4>The Juniper Hill Difference</h4>
+      <p><strong>On-Farm Micro-Abattoir:</strong> NZ's first BioGro certified facility means zero transport stress, lower cortisol levels, and no "dark cutting" — resulting in more tender, flavourful beef that competitors simply cannot match.</p>
+    </div>
+  </div>
+
+  <!-- Solution Overview -->
+  <div class="page page-break">
+    <h2>Solution Overview</h2>
+
+    <h3>Customer-Facing Features</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Description</th>
+          <th>Benefit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Packet-Based Shopping</strong></td>
+          <td>Each cut is a unique item with exact weight & price</td>
+          <td>No confusion, no calculator needed</td>
+        </tr>
+        <tr>
+          <td><strong>Subscription Boxes</strong></td>
+          <td>Recurring deliveries (weekly/fortnightly/monthly)</td>
+          <td>Predictable revenue, higher CLV</td>
+        </tr>
+        <tr>
+          <td><strong>Order Tracking</strong></td>
+          <td>Real-time status: Confirmed → Packed → Shipped → Delivered</td>
+          <td>Reduced support queries, increased trust</td>
+        </tr>
+        <tr>
+          <td><strong>NZ Post Integration</strong></td>
+          <td>Tracking numbers with delivery ETA</td>
+          <td>Professional experience matching big brands</td>
+        </tr>
+        <tr>
+          <td><strong>Email Notifications</strong></td>
+          <td>Automated updates at each order stage</td>
+          <td>Customers always informed</td>
+        </tr>
+        <tr>
+          <td><strong>First Purchase Discounts</strong></td>
+          <td>Welcome offers for new customers</td>
+          <td>Increased conversion rates</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Staff & Admin Features</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Description</th>
+          <th>Benefit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>QR Inventory Scanner</strong></td>
+          <td>Mobile app for real-time stock updates</td>
+          <td>100% stock accuracy</td>
+        </tr>
+        <tr>
+          <td><strong>Order Fulfillment Dashboard</strong></td>
+          <td>Workflow for packing, tracking, notifications</td>
+          <td>Streamlined operations</td>
+        </tr>
+        <tr>
+          <td><strong>Customer Management</strong></td>
+          <td>Profiles, order history, VIP status tracking</td>
+          <td>Better customer relationships</td>
+        </tr>
+        <tr>
+          <td><strong>Subscription Management</strong></td>
+          <td>Plans, MRR tracking, upcoming deliveries</td>
+          <td>Predictable revenue visibility</td>
+        </tr>
+        <tr>
+          <td><strong>Label Printing</strong></td>
+          <td>QR labels generated from inventory data</td>
+          <td>Eliminates manual label creation</td>
+        </tr>
+        <tr>
+          <td><strong>Yield IQ</strong></td>
+          <td>AI predicts carcass yield, optimizes cuts</td>
+          <td>Maximized returns per animal</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ROI -->
+  <div class="page page-break">
+    <h2>Return on Investment</h2>
+
+    <p>The system delivers measurable returns through increased revenue, operational efficiency, and customer retention.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Value Category</th>
+          <th>Annual Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Increased Conversion (reduced cart abandonment)</td>
+          <td><strong>+$30,000</strong></td>
+        </tr>
+        <tr>
+          <td>Eliminated Overselling (no more refunds)</td>
+          <td><strong>+$11,400</strong></td>
+        </tr>
+        <tr>
+          <td>New Subscription Revenue (Year 1)</td>
+          <td><strong>+$78,420</strong></td>
+        </tr>
+        <tr>
+          <td>Operational Time Savings (20+ hrs/month)</td>
+          <td><strong>+$36,400</strong></td>
+        </tr>
+        <tr>
+          <td>Improved Customer Lifetime Value</td>
+          <td><strong>+$15,000</strong></td>
+        </tr>
+        <tr style="background: var(--kale); color: #fff;">
+          <td><strong>Total Annual Value</strong></td>
+          <td><strong>$171,220</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight">
+      <h4>Payback Period: ~9 Months</h4>
+      <p>Based on conservative revenue projections, the investment pays for itself within the first year, with ongoing returns year after year.</p>
+    </div>
+
+    <h3>Additional Strategic Benefits</h3>
+    <ul>
+      <li><strong>Competitive Differentiation:</strong> Professional e-commerce sets you apart from other farm-direct suppliers</li>
+      <li><strong>Data-Driven Decisions:</strong> Analytics on sales, inventory, and customer behaviour inform strategy</li>
+      <li><strong>Scalability:</strong> System grows with your business without proportional admin overhead</li>
+      <li><strong>Brand Perception:</strong> Premium digital experience reinforces premium product positioning</li>
+    </ul>
+  </div>
+
+  <!-- Implementation -->
+  <div class="page page-break">
+    <h2>Implementation Timeline</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker">1</div>
+        <div class="timeline-content">
+          <h4>Storefront MVP</h4>
+          <p>Homepage, shop, cart, checkout, Stripe payments, basic order management</p>
+          <span class="duration">3-4 weeks</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">2</div>
+        <div class="timeline-content">
+          <h4>Inventory Scanner</h4>
+          <p>QR scanning mobile app, real-time stock sync, label printing</p>
+          <span class="duration">1-2 weeks</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">3</div>
+        <div class="timeline-content">
+          <h4>Admin Portal & Order Tracking</h4>
+          <p>Full admin dashboard, customer management, fulfillment workflow, NZ Post integration</p>
+          <span class="duration">2 weeks</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker">4</div>
+        <div class="timeline-content">
+          <h4>Yield IQ</h4>
+          <p>AI yield prediction, visual cut selector, accuracy dashboard, ML training</p>
+          <span class="duration">2-3 weeks</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Technology Stack</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Frontend</td>
+          <td>React</td>
+          <td>Fast, responsive interface</td>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>Supabase (PostgreSQL)</td>
+          <td>Secure, scalable data storage</td>
+        </tr>
+        <tr>
+          <td>Payments</td>
+          <td>Stripe</td>
+          <td>Industry-leading payment processing</td>
+        </tr>
+        <tr>
+          <td>Shipping</td>
+          <td>NZ Post API</td>
+          <td>Live tracking integration</td>
+        </tr>
+        <tr>
+          <td>Emails</td>
+          <td>Resend</td>
+          <td>Transactional email delivery</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- What's Included -->
+  <div class="page page-break">
+    <h2>Deliverables Included</h2>
+
+    <h3>28 Production-Ready Mockups</h3>
+    <p>High-fidelity designs for every screen in the system, ready for client approval before development begins:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Count</th>
+          <th>Includes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Customer Storefront</td>
+          <td>7</td>
+          <td>Homepage, Shop, Cart, Subscriptions, Order Tracking, My Subscription</td>
+        </tr>
+        <tr>
+          <td>Staff Scanner</td>
+          <td>3</td>
+          <td>QR Scan, Stock Overview, Label Printing</td>
+        </tr>
+        <tr>
+          <td>Admin Portal</td>
+          <td>10</td>
+          <td>Dashboard, Orders, Fulfillment, Inventory, Customers, Subscriptions, Staff, Labels, Discounts</td>
+        </tr>
+        <tr>
+          <td>Yield IQ</td>
+          <td>3</td>
+          <td>Carcass Intake, Visual Cut Selector, Accuracy Dashboard</td>
+        </tr>
+        <tr>
+          <td>Email Templates</td>
+          <td>2</td>
+          <td>Order Status (5 stages), Subscription Confirmation</td>
+        </tr>
+        <tr>
+          <td>Pitch Documents</td>
+          <td>2</td>
+          <td>12-Slide Pitch Deck, ROI Analysis</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>New Features Added</h3>
+    <ul>
+      <li><strong>Real-Time Order Tracking:</strong> Customers see status from confirmed to delivered</li>
+      <li><strong>NZ Post Integration:</strong> Tracking numbers with live ETA</li>
+      <li><strong>Order Fulfillment Dashboard:</strong> Staff workflow for packing and shipping</li>
+      <li><strong>Email Notifications:</strong> 5 automated emails at each order stage</li>
+      <li><strong>Customer Management:</strong> Full CRM with profiles, history, VIP status</li>
+      <li><strong>Subscription Management:</strong> Both customer and admin views</li>
+      <li><strong>Progressive Web App Support:</strong> "Add to Home Screen" for push notifications</li>
+    </ul>
+  </div>
+
+  <!-- Next Steps -->
+  <div class="page">
+    <h2>Next Steps</h2>
+
+    <ol>
+      <li><strong>Review Mockups:</strong> Browse all 28 screens to understand the full system</li>
+      <li><strong>Provide Feedback:</strong> Note any changes or additions you'd like to see</li>
+      <li><strong>Discuss Pricing:</strong> Separate pricing document with flexible terms available</li>
+      <li><strong>Approve & Begin:</strong> Phase 1 development starts immediately upon agreement</li>
+    </ol>
+
+    <div class="highlight">
+      <h4>Questions?</h4>
+      <p>This proposal represents a significant investment in Juniper Hill's future. We're happy to discuss any aspect in detail and adjust the scope to match your priorities and budget.</p>
+    </div>
+
+    <h3>View the Complete Mockup Package</h3>
+    <p>All mockups are available for review. Open <strong>Juniper_Hill_Mockup_Index.html</strong> to browse the complete system.</p>
+  </div>
+
+  <div class="page-footer">
+    <p><strong>Juniper Hill Farm — Digital Transformation Proposal</strong></p>
+    <p>December 2024</p>
+  </div>
+
+</div>
+
+</body>
+</html>

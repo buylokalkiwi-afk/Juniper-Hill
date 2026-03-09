@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Purchase Offer — Juniper Hill Farm</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --charcoal: #2C2C2C;
+  --cream: #F5F1E6;
+  --cream-dark: #EBE6D9;
+  --forest: #1B4D3E;
+  --forest-light: #2D6B5A;
+  --crimson: #C41E3A;
+  --gold: #B8860B;
+  --white: #FFFFFF;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Background - The shop page (blurred) */
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  min-height: 100vh;
+  position: relative;
+}
+
+.page-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23F5F1E6" width="100" height="100"/></svg>');
+  filter: blur(8px);
+  opacity: 0.7;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(44, 44, 44, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Main Modal */
+.discount-modal {
+  background: var(--white);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Left Side - Image & Branding */
+.modal-visual {
+  background: linear-gradient(180deg, var(--forest) 0%, #0D2920 100%);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-visual::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+}
+
+.visual-content {
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+  text-align: center;
+}
+
+.discount-badge {
+  display: inline-block;
+  background: var(--crimson);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.discount-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.discount-amount span {
+  font-size: 48px;
+  vertical-align: super;
+}
+
+.discount-off {
+  font-size: 24px;
+  font-weight: 300;
+  opacity: 0.9;
+  margin-bottom: 32px;
+}
+
+.discount-condition {
+  background: rgba(255,255,255,0.1);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0.9;
+  display: inline-block;
+}
+
+.farm-values {
+  margin-top: 48px;
+  text-align: left;
+}
+
+.value-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.value-item i {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* Right Side - Form */
+.modal-form {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--cream);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  background: var(--charcoal);
+  color: white;
+}
+
+.form-header {
+  margin-bottom: 32px;
+}
+
+.form-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 12px;
+}
+
+.form-header p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--cream-dark);
+  border-radius: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--forest);
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+/* Subscription Option */
+.subscription-option {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.subscription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.subscription-title {
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subscription-title i {
+  color: var(--forest);
+}
+
+.extra-badge {
+  background: var(--gold);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.subscription-desc {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.subscription-toggle {
+  display: flex;
+  gap: 12px;
+}
+
+.toggle-option {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid var(--cream-dark);
+  border-radius: 8px;
+  background: var(--white);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-option:hover {
+  border-color: var(--forest);
+}
+
+.toggle-option.active {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: white;
+}
+
+.toggle-option .label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.toggle-option .sublabel {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 18px;
+  background: var(--charcoal);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+}
+
+.submit-btn:hover {
+  background: var(--forest);
+}
+
+.privacy-note {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+}
+
+.privacy-note a {
+  color: var(--forest);
+  text-decoration: none;
+}
+
+/* Trust Badges */
+.trust-badges {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--cream);
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.trust-badge {
+  text-align: center;
+}
+
+.trust-badge i {
+  font-size: 24px;
+  color: var(--forest);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.trust-badge span {
+  font-size: 10px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+</style>
+</head>
+<body>
+
+<div class="page-background"></div>
+
+<div class="modal-overlay">
+  <div class="discount-modal">
+    <button class="close-btn"><i class="fas fa-times"></i></button>
+    
+    <!-- Left Side - Visual -->
+    <div class="modal-visual">
+      <div class="visual-content">
+        <div class="discount-badge">First Order Exclusive</div>
+        <div class="discount-amount"><span>$</span>10</div>
+        <div class="discount-off">OFF YOUR FIRST ORDER</div>
+        <div class="discount-condition">
+          <i class="fas fa-tag"></i> On orders over $200
+        </div>
+        
+        <div class="farm-values">
+          <div class="value-item">
+            <i class="fas fa-certificate"></i>
+            <span>BioGro Certified Organic</span>
+          </div>
+          <div class="value-item">
+            <i class="fas fa-heart"></i>
+            <span>Stress-Free On-Farm Processing</span>
+          </div>
+          <div class="value-item">
+            <i class="fas fa-clock"></i>
+            <span>21-Day Dry Aged for Tenderness</span>
+          </div>
+          <div class="value-item">
+            <i class="fas fa-leaf"></i>
+            <span>100% Grass-Fed, Chemical-Free</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Side - Form -->
+    <div class="modal-form">
+      <div class="form-header">
+        <h2>Claim Your Discount</h2>
+        <p>Join the Juniper Hill family and receive $10 off your first order, plus exclusive access to new cuts and seasonal offers.</p>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="Enter your full name">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="you@example.com">
+      </div>
+      
+      <!-- Subscription Option -->
+      <div class="subscription-option">
+        <div class="subscription-header">
+          <div class="subscription-title">
+            <i class="fas fa-sync-alt"></i>
+            Subscribe & Save Even More
+          </div>
+          <span class="extra-badge">+5% OFF</span>
+        </div>
+        <p class="subscription-desc">
+          Get regular deliveries of premium beef at a 5% discount. Pause or cancel anytime. Adjust your box contents each delivery.
+        </p>
+        <div class="subscription-toggle">
+          <div class="toggle-option">
+            <div class="label">One-Time</div>
+            <div class="sublabel">Just this order</div>
+          </div>
+          <div class="toggle-option active">
+            <div class="label">Subscribe</div>
+            <div class="sublabel">Save 5% always</div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="submit-btn">
+        Unlock My $10 Discount
+      </button>
+      
+      <p class="privacy-note">
+        We respect your privacy. Unsubscribe anytime.<br>
+        <a href="#">Privacy Policy</a> • <a href="#">Terms</a>
+      </p>
+      
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <i class="fas fa-lock"></i>
+          <span>Secure</span>
+        </div>
+        <div class="trust-badge">
+          <i class="fas fa-truck"></i>
+          <span>NZ Delivery</span>
+        </div>
+        <div class="trust-badge">
+          <i class="fas fa-undo"></i>
+          <span>Guarantee</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

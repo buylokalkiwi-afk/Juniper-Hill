@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Templates — Juniper Hill Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+  --border: #E2D9CC;
+  --success: #2D7A4D;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: #E8E4DF;
+  color: var(--charcoal);
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* Mockup Badge */
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff;
+  text-align: center; font-size: 10px; letter-spacing: 2px; padding: 7px;
+  font-weight: 500; text-transform: uppercase;
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin: 40px 0 50px;
+}
+
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  color: var(--kale);
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: var(--stone);
+  font-size: 16px;
+}
+
+/* Email Container */
+.emails-container {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Stage Label */
+.stage-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stage-number {
+  width: 36px;
+  height: 36px;
+  background: var(--kale);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.stage-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--kale);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Email Frame */
+.email-frame {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Email Browser Bar */
+.email-browser-bar {
+  background: #F5F5F5;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.browser-dot.red { background: #FF5F57; }
+.browser-dot.yellow { background: #FFBD2E; }
+.browser-dot.green { background: #28CA41; }
+
+.browser-subject {
+  flex: 1;
+  font-size: 13px;
+  color: var(--charcoal);
+}
+
+.browser-subject strong {
+  color: var(--kale);
+}
+
+/* Email Header */
+.email-header {
+  background: var(--kale);
+  padding: 32px 40px;
+  text-align: center;
+}
+
+.email-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: #fff;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.email-logo span { color: var(--zest); }
+
+.email-tagline {
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Email Body */
+.email-body {
+  padding: 40px;
+}
+
+.email-greeting {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.email-message {
+  font-size: 15px;
+  color: var(--charcoal);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* Status Banner */
+.status-banner {
+  background: var(--parchment);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.status-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--kale);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 16px;
+}
+
+.status-icon.shipped { background: var(--terracotta); }
+.status-icon.delivered { background: var(--success); }
+
+.status-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--kale);
+  margin-bottom: 8px;
+}
+
+.status-subtitle {
+  font-size: 14px;
+  color: var(--stone);
+}
+
+/* Order Details Box */
+.order-details {
+  background: #FAFAFA;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 24px 0;
+}
+
+.order-details h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--stone);
+  margin-bottom: 12px;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-row:last-child { border-bottom: none; }
+
+.order-row .label { color: var(--stone); }
+.order-row .value { font-weight: 500; }
+
+/* CTA Button */
+.cta-button {
+  display: inline-block;
+  background: var(--kale);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  margin: 16px 0;
+  transition: background 0.2s;
+}
+
+.cta-button:hover { background: var(--kale-dark); }
+
+.cta-button.secondary {
+  background: var(--terracotta);
+}
+
+/* Tracking Box */
+.tracking-box {
+  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+  border-radius: 12px;
+  padding: 24px;
+  color: #fff;
+  margin: 24px 0;
+}
+
+.tracking-box h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.tracking-number {
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.tracking-eta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.tracking-eta i { color: var(--zest); }
+
+/* Items List */
+.items-list {
+  margin: 24px 0;
+}
+
+.items-list h4 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--stone);
+  margin-bottom: 12px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.item:last-child { border-bottom: none; }
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.item-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--parchment);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--stone);
+}
+
+.item-name { font-weight: 500; font-size: 14px; }
+.item-meta { font-size: 12px; color: var(--stone); }
+.item-price { font-weight: 600; font-size: 14px; }
+
+/* Signature */
+.email-signature {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.signature-text {
+  font-size: 14px;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+.signature-name {
+  font-weight: 600;
+  color: var(--kale);
+  margin-top: 12px;
+}
+
+/* Email Footer */
+.email-footer {
+  background: var(--charcoal);
+  padding: 32px 40px;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.footer-links a:hover { color: #fff; }
+
+.footer-legal {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* Tip Box */
+.tip-box {
+  background: rgba(200, 217, 160, 0.3);
+  border-left: 4px solid var(--kale);
+  padding: 16px 20px;
+  margin: 24px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.tip-box h4 {
+  font-size: 13px;
+  color: var(--kale);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tip-box p {
+  font-size: 13px;
+  color: var(--charcoal);
+  line-height: 1.5;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.social-icons a {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.social-icons a:hover { background: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — Order Status Email Templates (5 Stages)</div>
+
+<div class="page-header">
+  <h1>Order Status Emails</h1>
+  <p>Automated email templates sent to customers at each stage of their order</p>
+</div>
+
+<div class="emails-container">
+
+  <!-- EMAIL 1: Order Confirmed -->
+  <div class="email-wrapper">
+    <div class="stage-label">
+      <div class="stage-number">1</div>
+      <div class="stage-name">Order Confirmed</div>
+    </div>
+    <div class="email-frame">
+      <div class="email-browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot red"></div>
+          <div class="browser-dot yellow"></div>
+          <div class="browser-dot green"></div>
+        </div>
+        <div class="browser-subject"><strong>Subject:</strong> Thanks for your order! #JH-2024-1847</div>
+      </div>
+      <div class="email-header">
+        <div class="email-logo">JUNIPER <span>HILL</span></div>
+        <div class="email-tagline">Premium Organic Beef — Raukawa Valley</div>
+      </div>
+      <div class="email-body">
+        <div class="status-banner">
+          <div class="status-icon"><i class="fas fa-check"></i></div>
+          <div class="status-title">Order Confirmed</div>
+          <div class="status-subtitle">We've received your order and payment</div>
+        </div>
+
+        <div class="email-greeting">Hi Sarah,</div>
+        <div class="email-message">
+          Thank you for choosing Juniper Hill Farm. Your order has been confirmed and we're preparing it with care at our farm in the Raukawa Valley.
+        </div>
+
+        <div class="order-details">
+          <h4>Order Summary</h4>
+          <div class="order-row">
+            <span class="label">Order Number</span>
+            <span class="value">#JH-2024-1847</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Order Date</span>
+            <span class="value">15 December 2024</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Delivery Address</span>
+            <span class="value">42 Richmond Rd, Grey Lynn, Auckland</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Estimated Delivery</span>
+            <span class="value">18-19 December 2024</span>
+          </div>
+        </div>
+
+        <div class="items-list">
+          <h4>What's in your order</h4>
+          <div class="item">
+            <div class="item-info">
+              <div class="item-icon"><i class="fas fa-drumstick-bite"></i></div>
+              <div>
+                <div class="item-name">Scotch Fillet Steak</div>
+                <div class="item-meta">Packet #A247 — 487g</div>
+              </div>
+            </div>
+            <div class="item-price">$38.96</div>
+          </div>
+          <div class="item">
+            <div class="item-info">
+              <div class="item-icon"><i class="fas fa-drumstick-bite"></i></div>
+              <div>
+                <div class="item-name">Eye Fillet</div>
+                <div class="item-meta">Packet #A251 — 312g</div>
+              </div>
+            </div>
+            <div class="item-price">$31.20</div>
+          </div>
+          <div class="item">
+            <div class="item-info">
+              <div class="item-icon"><i class="fas fa-drumstick-bite"></i></div>
+              <div>
+                <div class="item-name">Premium Beef Mince</div>
+                <div class="item-meta">Packet #B089 — 523g</div>
+              </div>
+            </div>
+            <div class="item-price">$13.08</div>
+          </div>
+        </div>
+
+        <div class="order-details">
+          <div class="order-row">
+            <span class="label">Subtotal</span>
+            <span class="value">$83.24</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Shipping</span>
+            <span class="value">$12.00</span>
+          </div>
+          <div class="order-row">
+            <span class="label"><strong>Total</strong></span>
+            <span class="value"><strong>$95.24</strong></span>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <a href="#" class="cta-button">View Order Status</a>
+        </div>
+
+        <div class="tip-box">
+          <h4><i class="fas fa-leaf"></i> The Juniper Hill Difference</h4>
+          <p>Your beef comes from our BioGro certified organic farm, where our cattle are raised stress-free and slaughtered on-farm in NZ's first certified micro-abattoir. This means no transport stress, resulting in more tender, flavourful meat.</p>
+        </div>
+
+        <div class="email-signature">
+          <div class="signature-text">
+            We'll send you another email when your order is packed and ready for courier pickup. If you have any questions, just reply to this email.
+          </div>
+          <div class="signature-name">The Juniper Hill Team</div>
+        </div>
+      </div>
+      <div class="email-footer">
+        <div class="footer-links">
+          <a href="#">Shop</a>
+          <a href="#">Our Story</a>
+          <a href="#">Contact Us</a>
+          <a href="#">Unsubscribe</a>
+        </div>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <div class="footer-legal">
+          Juniper Hill Farm, Raukawa Valley, New Zealand<br>
+          You're receiving this because you placed an order at juniperhill.co.nz
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL 2: Processing -->
+  <div class="email-wrapper">
+    <div class="stage-label">
+      <div class="stage-number">2</div>
+      <div class="stage-name">Processing</div>
+    </div>
+    <div class="email-frame">
+      <div class="email-browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot red"></div>
+          <div class="browser-dot yellow"></div>
+          <div class="browser-dot green"></div>
+        </div>
+        <div class="browser-subject"><strong>Subject:</strong> We're preparing your order #JH-2024-1847</div>
+      </div>
+      <div class="email-header">
+        <div class="email-logo">JUNIPER <span>HILL</span></div>
+        <div class="email-tagline">Premium Organic Beef — Raukawa Valley</div>
+      </div>
+      <div class="email-body">
+        <div class="status-banner">
+          <div class="status-icon"><i class="fas fa-box-open"></i></div>
+          <div class="status-title">We're Preparing Your Order</div>
+          <div class="status-subtitle">Your beef is being hand-selected from our chiller</div>
+        </div>
+
+        <div class="email-greeting">Hi Sarah,</div>
+        <div class="email-message">
+          Great news! We're now preparing your order at Juniper Hill Farm. Each cut is being carefully selected and will soon be packed in our insulated packaging to ensure it arrives in perfect condition.
+        </div>
+
+        <div class="order-details">
+          <h4>Order Details</h4>
+          <div class="order-row">
+            <span class="label">Order Number</span>
+            <span class="value">#JH-2024-1847</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Items</span>
+            <span class="value">3 items</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Estimated Delivery</span>
+            <span class="value">18-19 December 2024</span>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <h4><i class="fas fa-snowflake"></i> Keeping it Fresh</h4>
+          <p>Your order will be packed with ice packs in an insulated liner to keep everything perfectly chilled during transit. All our beef is dry-aged for 21 days for exceptional tenderness and depth of flavour.</p>
+        </div>
+
+        <div style="text-align: center;">
+          <a href="#" class="cta-button">Track Your Order</a>
+        </div>
+
+        <div class="email-signature">
+          <div class="signature-text">
+            We'll notify you as soon as your order is packed and ready for pickup by NZ Post.
+          </div>
+          <div class="signature-name">The Juniper Hill Team</div>
+        </div>
+      </div>
+      <div class="email-footer">
+        <div class="footer-links">
+          <a href="#">Shop</a>
+          <a href="#">Our Story</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-legal">
+          Juniper Hill Farm, Raukawa Valley, New Zealand
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL 3: Packed -->
+  <div class="email-wrapper">
+    <div class="stage-label">
+      <div class="stage-number">3</div>
+      <div class="stage-name">Packed & Ready</div>
+    </div>
+    <div class="email-frame">
+      <div class="email-browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot red"></div>
+          <div class="browser-dot yellow"></div>
+          <div class="browser-dot green"></div>
+        </div>
+        <div class="browser-subject"><strong>Subject:</strong> Your order is packed and ready! #JH-2024-1847</div>
+      </div>
+      <div class="email-header">
+        <div class="email-logo">JUNIPER <span>HILL</span></div>
+        <div class="email-tagline">Premium Organic Beef — Raukawa Valley</div>
+      </div>
+      <div class="email-body">
+        <div class="status-banner">
+          <div class="status-icon"><i class="fas fa-box"></i></div>
+          <div class="status-title">Packed & Ready for Courier</div>
+          <div class="status-subtitle">Your order is waiting for NZ Post pickup</div>
+        </div>
+
+        <div class="email-greeting">Hi Sarah,</div>
+        <div class="email-message">
+          Your order has been carefully packed in our insulated packaging with ice packs and is ready for collection by NZ Post. We'll send you tracking details as soon as it's picked up.
+        </div>
+
+        <div class="order-details">
+          <h4>What's Happening Next</h4>
+          <div class="order-row">
+            <span class="label">Courier</span>
+            <span class="value">NZ Post</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Expected Pickup</span>
+            <span class="value">Today by 3:00 PM</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Estimated Delivery</span>
+            <span class="value">Wednesday, 18 December</span>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <h4><i class="fas fa-home"></i> Delivery Day Tips</h4>
+          <p>When your order arrives, pop it straight in the fridge or freezer. Our insulated packaging keeps everything chilled for up to 24 hours, but the sooner it's refrigerated, the better!</p>
+        </div>
+
+        <div style="text-align: center;">
+          <a href="#" class="cta-button">View Order Status</a>
+        </div>
+
+        <div class="email-signature">
+          <div class="signature-name">The Juniper Hill Team</div>
+        </div>
+      </div>
+      <div class="email-footer">
+        <div class="footer-links">
+          <a href="#">Shop</a>
+          <a href="#">Our Story</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-legal">
+          Juniper Hill Farm, Raukawa Valley, New Zealand
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL 4: Shipped -->
+  <div class="email-wrapper">
+    <div class="stage-label">
+      <div class="stage-number">4</div>
+      <div class="stage-name">Shipped</div>
+    </div>
+    <div class="email-frame">
+      <div class="email-browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot red"></div>
+          <div class="browser-dot yellow"></div>
+          <div class="browser-dot green"></div>
+        </div>
+        <div class="browser-subject"><strong>Subject:</strong> Your order is on its way! #JH-2024-1847</div>
+      </div>
+      <div class="email-header">
+        <div class="email-logo">JUNIPER <span>HILL</span></div>
+        <div class="email-tagline">Premium Organic Beef — Raukawa Valley</div>
+      </div>
+      <div class="email-body">
+        <div class="status-banner">
+          <div class="status-icon shipped"><i class="fas fa-truck"></i></div>
+          <div class="status-title">Your Order Has Shipped!</div>
+          <div class="status-subtitle">It's on its way to you via NZ Post</div>
+        </div>
+
+        <div class="email-greeting">Hi Sarah,</div>
+        <div class="email-message">
+          Exciting news — your Juniper Hill order is now on its way! NZ Post has picked up your package and it's heading to Auckland.
+        </div>
+
+        <div class="tracking-box">
+          <h4>Tracking Number</h4>
+          <div class="tracking-number">NZ123456789</div>
+          <div class="tracking-eta">
+            <i class="fas fa-calendar-check"></i>
+            <span>Estimated delivery: <strong>Wednesday, 18 December</strong></span>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <a href="https://www.nzpost.co.nz/tools/tracking" class="cta-button secondary">
+            <i class="fas fa-external-link-alt"></i> Track on NZ Post
+          </a>
+        </div>
+
+        <div class="order-details">
+          <h4>Delivery Details</h4>
+          <div class="order-row">
+            <span class="label">Delivery Address</span>
+            <span class="value">42 Richmond Rd, Grey Lynn, Auckland 1021</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Courier</span>
+            <span class="value">NZ Post</span>
+          </div>
+        </div>
+
+        <div class="tip-box">
+          <h4><i class="fas fa-bell"></i> Almost There!</h4>
+          <p>Keep an eye out for NZ Post updates. They'll send you a text when your package is out for delivery. Remember to refrigerate your beef as soon as it arrives!</p>
+        </div>
+
+        <div class="email-signature">
+          <div class="signature-text">
+            We'll send you a final email once NZ Post confirms delivery. Enjoy your Juniper Hill beef!
+          </div>
+          <div class="signature-name">The Juniper Hill Team</div>
+        </div>
+      </div>
+      <div class="email-footer">
+        <div class="footer-links">
+          <a href="#">Shop</a>
+          <a href="#">Our Story</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-legal">
+          Juniper Hill Farm, Raukawa Valley, New Zealand
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL 5: Delivered -->
+  <div class="email-wrapper">
+    <div class="stage-label">
+      <div class="stage-number">5</div>
+      <div class="stage-name">Delivered</div>
+    </div>
+    <div class="email-frame">
+      <div class="email-browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot red"></div>
+          <div class="browser-dot yellow"></div>
+          <div class="browser-dot green"></div>
+        </div>
+        <div class="browser-subject"><strong>Subject:</strong> Your order has been delivered! Enjoy your Juniper Hill beef</div>
+      </div>
+      <div class="email-header">
+        <div class="email-logo">JUNIPER <span>HILL</span></div>
+        <div class="email-tagline">Premium Organic Beef — Raukawa Valley</div>
+      </div>
+      <div class="email-body">
+        <div class="status-banner">
+          <div class="status-icon delivered"><i class="fas fa-home"></i></div>
+          <div class="status-title">Order Delivered!</div>
+          <div class="status-subtitle">Enjoy your Juniper Hill beef</div>
+        </div>
+
+        <div class="email-greeting">Hi Sarah,</div>
+        <div class="email-message">
+          Your order has been delivered! We hope you enjoy every bite of your premium, organic, 21-day dry-aged beef from Juniper Hill Farm.
+        </div>
+
+        <div class="tip-box">
+          <h4><i class="fas fa-utensils"></i> Cooking Tips</h4>
+          <p><strong>For the perfect steak:</strong> Take your beef out of the fridge 30 minutes before cooking. Season simply with salt and pepper, and let the incredible natural flavour of grass-fed, dry-aged beef shine through.</p>
+        </div>
+
+        <div class="order-details">
+          <h4>Your Order</h4>
+          <div class="order-row">
+            <span class="label">Order Number</span>
+            <span class="value">#JH-2024-1847</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Delivered</span>
+            <span class="value">18 December 2024, 2:34 PM</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin: 32px 0;">
+          <p style="font-size: 14px; color: var(--stone); margin-bottom: 16px;">How was your experience?</p>
+          <a href="#" class="cta-button">Leave a Review</a>
+        </div>
+
+        <div style="background: var(--parchment); border-radius: 12px; padding: 24px; text-align: center; margin: 24px 0;">
+          <p style="font-size: 16px; color: var(--kale); margin-bottom: 16px;"><strong>Ready for your next order?</strong></p>
+          <p style="font-size: 14px; color: var(--stone); margin-bottom: 16px;">Save 10% when you set up a regular delivery subscription</p>
+          <a href="#" class="cta-button secondary">Set Up Subscription</a>
+        </div>
+
+        <div class="email-signature">
+          <div class="signature-text">
+            Thank you for supporting local, ethical farming. We can't wait to serve you again!
+          </div>
+          <div class="signature-name">The Juniper Hill Team</div>
+        </div>
+      </div>
+      <div class="email-footer">
+        <div class="footer-links">
+          <a href="#">Shop Again</a>
+          <a href="#">Our Story</a>
+          <a href="#">Recipes</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <div class="footer-legal">
+          Juniper Hill Farm, Raukawa Valley, New Zealand<br>
+          <a href="#" style="color: rgba(255,255,255,0.5);">Manage email preferences</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

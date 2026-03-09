@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JH Stock Scanner — Print Labels</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
+
+.mockup-badge {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: var(--terracotta); color: #fff; text-align: center;
+  font-size: 10px; letter-spacing: 2px; padding: 6px; font-weight: 500; text-transform: uppercase;
+}
+
+.app-container { max-width: 420px; margin: 40px auto 0; min-height: calc(100vh - 40px); background: var(--feta); padding-bottom: 80px; }
+
+.app-header {
+  background: var(--kale); padding: 16px 20px; color: #fff;
+}
+.app-logo { font-size: 18px; font-weight: 600; letter-spacing: 2px; }
+.app-logo span { color: var(--zest); }
+
+/* Section Header */
+.section-header {
+  padding: 20px; background: #fff; border-bottom: 1px solid var(--parchment);
+}
+.section-title { font-size: 16px; font-weight: 600; color: var(--kale); margin-bottom: 4px; }
+.section-subtitle { font-size: 12px; color: var(--stone); }
+
+/* Carcass Selector */
+.carcass-list { padding: 16px; }
+.carcass-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px; background: #fff; margin-bottom: 8px;
+  border: 2px solid var(--parchment); border-radius: 8px;
+  cursor: pointer; transition: all 0.2s;
+}
+.carcass-item:hover { border-color: var(--kale); }
+.carcass-item.selected { border-color: var(--kale); background: var(--parchment); }
+.carcass-icon { font-size: 32px; }
+.carcass-info { flex: 1; }
+.carcass-tag { font-weight: 600; font-size: 15px; }
+.carcass-details { font-size: 12px; color: var(--stone); margin-top: 2px; }
+.carcass-date { text-align: right; font-size: 11px; color: var(--stone); }
+
+/* Product Selection */
+.product-selection { padding: 16px; }
+.product-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px; background: #fff; margin-bottom: 8px;
+  border: 1px solid var(--parchment); border-radius: 8px;
+}
+.product-checkbox {
+  width: 24px; height: 24px; border: 2px solid var(--kale);
+  border-radius: 4px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+}
+.product-checkbox.checked { background: var(--kale); color: #fff; }
+.product-row-info { flex: 1; }
+.product-row-name { font-weight: 500; font-size: 14px; }
+.product-row-units { font-size: 12px; color: var(--stone); }
+.label-count {
+  display: flex; align-items: center; gap: 8px;
+}
+.count-btn {
+  width: 28px; height: 28px; border: 1px solid var(--parchment);
+  background: #fff; font-size: 16px; cursor: pointer;
+}
+.count-value { font-size: 16px; font-weight: 600; min-width: 24px; text-align: center; }
+
+/* Label Preview */
+.label-preview {
+  margin: 16px; padding: 24px; background: #fff;
+  border: 2px solid var(--kale); border-radius: 8px;
+}
+.label-preview-header { text-align: center; margin-bottom: 16px; }
+.preview-title { font-size: 14px; font-weight: 600; color: var(--kale); }
+.preview-subtitle { font-size: 11px; color: var(--stone); }
+
+/* Simulated Label */
+.label-mock {
+  background: #fff; border: 2px solid var(--charcoal);
+  padding: 16px; font-family: monospace; font-size: 12px;
+}
+.label-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.label-farm { font-weight: bold; font-size: 14px; }
+.label-certified { background: var(--charcoal); color: #fff; padding: 2px 8px; font-size: 10px; display: inline-block; margin: 8px 0; }
+.label-product { font-size: 18px; font-weight: bold; margin: 8px 0; }
+.label-weight-price {
+  display: flex; background: var(--charcoal); color: #fff;
+  padding: 8px; margin: 8px 0;
+}
+.label-weight-price div { flex: 1; text-align: center; }
+.label-qr { width: 60px; height: 60px; background: var(--charcoal); float: right; margin-left: 12px; }
+
+/* Print Button */
+.print-actions { padding: 16px; }
+.print-btn {
+  width: 100%; padding: 18px; background: var(--kale); color: #fff;
+  border: none; font-size: 14px; font-weight: 600; letter-spacing: 1px;
+  cursor: pointer; border-radius: 8px; margin-bottom: 12px;
+}
+.print-btn:hover { background: var(--kale-dark); }
+.print-btn.secondary { background: #fff; color: var(--kale); border: 2px solid var(--kale); }
+
+.print-summary {
+  text-align: center; font-size: 14px; color: var(--stone);
+  padding: 12px; background: var(--parchment); border-radius: 8px;
+}
+.print-summary strong { color: var(--kale); }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 420px;
+  background: var(--kale-dark); padding: 12px 20px;
+  display: flex; justify-content: space-around;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center;
+  color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1px;
+  text-decoration: none; padding: 8px 16px;
+}
+.nav-item.active { color: var(--zest); }
+.nav-icon { font-size: 24px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">MOCKUP — PRINT LABELS — THERMAL PRINTER INTEGRATION</div>
+
+<div class="app-container">
+  <header class="app-header">
+    <div class="app-logo">JH <span>LABELS</span></div>
+  </header>
+
+  <!-- Section: Select Carcass -->
+  <div class="section-header">
+    <div class="section-title">1. Select Carcass</div>
+    <div class="section-subtitle">Choose carcass to print labels for</div>
+  </div>
+
+  <div class="carcass-list">
+    <div class="carcass-item selected">
+      <span class="carcass-icon">🐂</span>
+      <div class="carcass-info">
+        <div class="carcass-tag">JH-2024-A047</div>
+        <div class="carcass-details">Angus | 260kg saleable | Fat Score 3</div>
+      </div>
+      <div class="carcass-date">Today<br>9:34 AM</div>
+    </div>
+    <div class="carcass-item">
+      <span class="carcass-icon">🐂</span>
+      <div class="carcass-info">
+        <div class="carcass-tag">JH-2024-A046</div>
+        <div class="carcass-details">Angus-cross | 245kg saleable | Fat Score 4</div>
+      </div>
+      <div class="carcass-date">Yesterday<br>2:15 PM</div>
+    </div>
+  </div>
+
+  <!-- Section: Select Products -->
+  <div class="section-header">
+    <div class="section-title">2. Select Products & Quantities</div>
+    <div class="section-subtitle">From carcass JH-2024-A047</div>
+  </div>
+
+  <div class="product-selection">
+    <div class="product-row">
+      <div class="product-checkbox checked">✓</div>
+      <div class="product-row-info">
+        <div class="product-row-name">Ribeye Steak 300g</div>
+        <div class="product-row-units">18 units from this carcass</div>
+      </div>
+      <div class="label-count">
+        <button class="count-btn">−</button>
+        <span class="count-value">18</span>
+        <button class="count-btn">+</button>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="product-checkbox checked">✓</div>
+      <div class="product-row-info">
+        <div class="product-row-name">Sirloin Steak 250g</div>
+        <div class="product-row-units">24 units from this carcass</div>
+      </div>
+      <div class="label-count">
+        <button class="count-btn">−</button>
+        <span class="count-value">24</span>
+        <button class="count-btn">+</button>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="product-checkbox checked">✓</div>
+      <div class="product-row-info">
+        <div class="product-row-name">Beef Sausages 400g</div>
+        <div class="product-row-units">32 units from this carcass</div>
+      </div>
+      <div class="label-count">
+        <button class="count-btn">−</button>
+        <span class="count-value">32</span>
+        <button class="count-btn">+</button>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="product-checkbox"></div>
+      <div class="product-row-info">
+        <div class="product-row-name">Premium Mince 500g</div>
+        <div class="product-row-units">40 units from this carcass</div>
+      </div>
+      <div class="label-count">
+        <button class="count-btn">−</button>
+        <span class="count-value">0</span>
+        <button class="count-btn">+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Label Preview -->
+  <div class="label-preview">
+    <div class="label-preview-header">
+      <div class="preview-title">LABEL PREVIEW</div>
+      <div class="preview-subtitle">Generated via Labelary API</div>
+    </div>
+    <div class="label-mock">
+      <div class="label-qr"></div>
+      <div class="label-farm">JUNIPER HILL ORGANIC ANGUS FARM</div>
+      <div class="label-certified">★ BIOGRO CERTIFIED</div>
+      <div class="label-product">Ribeye Steak</div>
+      <div style="font-size: 11px;">300g | Dry-cured</div>
+      <div class="label-weight-price">
+        <div><strong>WEIGHT</strong><br>300 g</div>
+        <div><strong>PRICE</strong><br>$22.00</div>
+      </div>
+      <div style="font-size: 10px;">$73.33 / kg | 100% Grass Fed</div>
+      <div style="font-size: 11px; margin-top: 8px;">USE BY: 15 Mar 2026</div>
+      <div style="font-size: 9px; color: var(--stone);">Lot: A047-20260301 | juniperhill.co.nz</div>
+    </div>
+  </div>
+
+  <!-- Print Actions -->
+  <div class="print-actions">
+    <div class="print-summary">
+      Ready to print <strong>74 labels</strong> for 3 products
+    </div>
+    <button class="print-btn">PREVIEW ALL LABELS</button>
+    <button class="print-btn">🖨️ PRINT TO 192.168.1.45</button>
+    <button class="print-btn secondary">DOWNLOAD .ZPL FILE</button>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="04_Scanner_QRScan.html" class="nav-item">
+      <span class="nav-icon">📷</span>
+      SCAN
+    </a>
+    <a href="05_Scanner_StockOverview.html" class="nav-item">
+      <span class="nav-icon">📦</span>
+      STOCK
+    </a>
+    <a href="#" class="nav-item active">
+      <span class="nav-icon">🏷️</span>
+      PRINT
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon">⚙️</span>
+      SETTINGS
+    </a>
+  </nav>
+</div>
+
+</body>
+</html>

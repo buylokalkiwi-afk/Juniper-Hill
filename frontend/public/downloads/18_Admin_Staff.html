@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Management — Juniper Hill Farm Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --charcoal: #2C2C2C;
+  --cream: #F5F1E6;
+  --cream-dark: #EBE6D9;
+  --forest: #1B4D3E;
+  --crimson: #C41E3A;
+  --white: #FFFFFF;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Jost', sans-serif; 
+  background: var(--cream);
+  color: var(--charcoal);
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--charcoal);
+  padding: 24px 0;
+  color: var(--white);
+  position: fixed;
+  width: 260px;
+  height: 100vh;
+}
+
+.sidebar-logo {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 24px;
+}
+
+.logo-text { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+.logo-sub { font-size: 10px; opacity: 0.5; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+.nav-section { margin-bottom: 24px; }
+.nav-section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.4; padding: 0 24px; margin-bottom: 12px; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 14px; padding: 14px 24px;
+  color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(255,255,255,0.05); color: var(--white); }
+.nav-item.active { background: rgba(255,255,255,0.08); color: var(--white); border-left-color: #2D6B5A; }
+.nav-item i { width: 20px; text-align: center; }
+
+.main-content { margin-left: 260px; padding: 32px; }
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.page-title h1 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; }
+.page-title p { font-size: 14px; color: #666; margin-top: 4px; }
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+}
+.btn-primary { background: var(--charcoal); color: var(--white); }
+
+/* Staff Grid */
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.staff-card {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.staff-header {
+  padding: 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--cream);
+}
+
+.staff-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.staff-avatar.owner { background: var(--forest); }
+.staff-avatar.butcher { background: var(--crimson); }
+.staff-avatar.staff { background: #6366F1; }
+
+.staff-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.staff-email {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.staff-role {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.staff-role.owner { background: #D1FAE5; color: #059669; }
+.staff-role.butcher { background: #FEE2E2; color: #DC2626; }
+.staff-role.staff { background: #E0E7FF; color: #4F46E5; }
+
+.staff-body {
+  padding: 24px;
+}
+
+.permission-section {
+  margin-bottom: 20px;
+}
+
+.permission-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.permission-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.permission-tag {
+  padding: 6px 12px;
+  background: var(--cream);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--charcoal);
+}
+
+.permission-tag.disabled {
+  background: #F3F4F6;
+  color: #9CA3AF;
+  text-decoration: line-through;
+}
+
+.staff-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--cream);
+  display: flex;
+  justify-content: space-between;
+}
+
+.staff-action {
+  padding: 8px 16px;
+  border: 1px solid var(--cream-dark);
+  border-radius: 6px;
+  background: var(--white);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.staff-action:hover { border-color: var(--forest); color: var(--forest); }
+
+.staff-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot.active { background: #10B981; }
+.status-dot.inactive { background: #9CA3AF; }
+
+/* Add Staff Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: 16px;
+  width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--cream);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.modal-close {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--cream);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--cream-dark);
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+}
+
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--forest);
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: var(--cream);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.checkbox-item input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--forest);
+}
+
+.checkbox-item span {
+  font-size: 14px;
+}
+
+.modal-footer {
+  padding: 24px;
+  border-top: 1px solid var(--cream);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--charcoal);
+  border: 2px solid var(--cream-dark);
+}
+</style>
+</head>
+<body>
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-text">JUNIPER HILL</div>
+      <div class="logo-sub">Admin Portal</div>
+    </div>
+    
+    <nav>
+      <div class="nav-section">
+        <div class="nav-section-title">Overview</div>
+        <a href="15_Admin_Dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Sales</div>
+        <a href="16_Admin_Orders.html" class="nav-item"><i class="fas fa-shopping-bag"></i><span>Orders</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-users"></i><span>Customers</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Inventory</div>
+        <a href="20_Admin_Inventory.html" class="nav-item"><i class="fas fa-boxes"></i><span>Stock</span></a>
+        <a href="19_Admin_Labels.html" class="nav-item"><i class="fas fa-print"></i><span>Label Printing</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Production</div>
+        <a href="07_Predictor_Intake.html" class="nav-item"><i class="fas fa-clipboard-list"></i><span>Yield IQ</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Settings</div>
+        <a href="#" class="nav-item active"><i class="fas fa-user-cog"></i><span>Staff</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+      </div>
+    </nav>
+  </aside>
+  
+  <main class="main-content">
+    <div class="page-header">
+      <div class="page-title">
+        <h1>Staff Management</h1>
+        <p>Manage team members and their access permissions</p>
+      </div>
+      <button class="btn btn-primary">
+        <i class="fas fa-plus"></i>
+        Add Staff Member
+      </button>
+    </div>
+    
+    <div class="staff-grid">
+      <!-- Owner -->
+      <div class="staff-card">
+        <div class="staff-header">
+          <div class="staff-avatar owner">SM</div>
+          <div class="staff-name">Sarah Mitchell</div>
+          <div class="staff-email">sarah@juniperhill.co.nz</div>
+          <span class="staff-role owner">Owner</span>
+        </div>
+        <div class="staff-body">
+          <div class="permission-section">
+            <div class="permission-title">Access</div>
+            <div class="permission-list">
+              <span class="permission-tag">Full Access</span>
+            </div>
+          </div>
+        </div>
+        <div class="staff-footer">
+          <div class="staff-status">
+            <span class="status-dot active"></span>
+            Active
+          </div>
+          <button class="staff-action">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </div>
+      </div>
+      
+      <!-- Butcher -->
+      <div class="staff-card">
+        <div class="staff-header">
+          <div class="staff-avatar butcher">JT</div>
+          <div class="staff-name">James Thompson</div>
+          <div class="staff-email">james@juniperhill.co.nz</div>
+          <span class="staff-role butcher">Butcher</span>
+        </div>
+        <div class="staff-body">
+          <div class="permission-section">
+            <div class="permission-title">Access</div>
+            <div class="permission-list">
+              <span class="permission-tag">Yield IQ</span>
+              <span class="permission-tag">Inventory</span>
+              <span class="permission-tag">Labels</span>
+              <span class="permission-tag disabled">Orders</span>
+              <span class="permission-tag disabled">Customers</span>
+              <span class="permission-tag disabled">Settings</span>
+            </div>
+          </div>
+        </div>
+        <div class="staff-footer">
+          <div class="staff-status">
+            <span class="status-dot active"></span>
+            Active
+          </div>
+          <button class="staff-action">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </div>
+      </div>
+      
+      <!-- Staff -->
+      <div class="staff-card">
+        <div class="staff-header">
+          <div class="staff-avatar staff">EW</div>
+          <div class="staff-name">Emma Wilson</div>
+          <div class="staff-email">emma@juniperhill.co.nz</div>
+          <span class="staff-role staff">Staff</span>
+        </div>
+        <div class="staff-body">
+          <div class="permission-section">
+            <div class="permission-title">Access</div>
+            <div class="permission-list">
+              <span class="permission-tag">Scanner App</span>
+              <span class="permission-tag">Inventory</span>
+              <span class="permission-tag">Orders</span>
+              <span class="permission-tag disabled">Yield IQ</span>
+              <span class="permission-tag disabled">Settings</span>
+            </div>
+          </div>
+        </div>
+        <div class="staff-footer">
+          <div class="staff-status">
+            <span class="status-dot active"></span>
+            Active
+          </div>
+          <button class="staff-action">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Add Staff Modal -->
+<div class="modal-overlay" style="display: none;">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Add Staff Member</h2>
+      <button class="modal-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" placeholder="Enter full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <select class="form-select">
+          <option>Staff</option>
+          <option>Butcher</option>
+          <option>Admin</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Permissions</label>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" checked>
+            <span>Scanner App</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" checked>
+            <span>Inventory</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox">
+            <span>Orders</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox">
+            <span>Customers</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox">
+            <span>Yield IQ</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox">
+            <span>Settings</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary">Cancel</button>
+      <button class="btn btn-primary">Add Staff Member</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
