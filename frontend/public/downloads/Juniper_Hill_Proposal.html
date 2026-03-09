@@ -190,6 +190,76 @@ body {
 .feature-card p {
   font-size: 13px;
   color: var(--stone);
+  margin-bottom: 12px;
+}
+
+/* Mockup Links */
+.mockup-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.mockup-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--kale);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.mockup-links a:hover {
+  background: var(--kale-dark);
+  transform: translateY(-1px);
+}
+
+/* Challenge Section */
+.challenge-section {
+  margin-bottom: 28px;
+}
+
+.challenge-section h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.challenge-section > p {
+  margin-bottom: 16px;
+  color: var(--stone);
+}
+
+.solution-box {
+  background: var(--parchment);
+  border-left: 4px solid var(--success);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+}
+
+.solution-box h4 {
+  font-size: 14px;
+  color: var(--kale);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.solution-box h4 i {
+  color: var(--terracotta);
+}
+
+.solution-box p {
+  font-size: 13px;
+  color: var(--charcoal);
   margin-bottom: 0;
 }
 
@@ -309,24 +379,48 @@ body {
     </div>
 
     <h3>The System at a Glance</h3>
-    <p>A unified platform comprising four integrated components:</p>
+    <p>A unified platform comprising four integrated components. <strong>Click any card to see the mockup:</strong></p>
 
     <div class="feature-grid">
       <div class="feature-card">
         <h4><i class="fas fa-store"></i> Modern Storefront</h4>
         <p>Beautiful e-commerce site with packet-based inventory, Stripe payments, subscriptions, and real-time order tracking.</p>
+        <div class="mockup-links">
+          <a href="01_Storefront_Homepage.html" target="_blank">Homepage</a>
+          <a href="02_Storefront_Shop.html" target="_blank">Shop</a>
+          <a href="03_Storefront_Cart.html" target="_blank">Cart</a>
+          <a href="12_Storefront_Subscribe.html" target="_blank">Subscriptions</a>
+          <a href="24_Order_Tracking_Customer.html" target="_blank">Order Tracking</a>
+        </div>
       </div>
       <div class="feature-card">
         <h4><i class="fas fa-qrcode"></i> Smart Inventory</h4>
         <p>Mobile app for staff to scan QR codes, update stock instantly, and never oversell again.</p>
+        <div class="mockup-links">
+          <a href="04_Scanner_QRScan.html" target="_blank">QR Scanner</a>
+          <a href="05_Scanner_StockOverview.html" target="_blank">Stock Overview</a>
+          <a href="06_Scanner_PrintLabels.html" target="_blank">Print Labels</a>
+        </div>
       </div>
       <div class="feature-card">
         <h4><i class="fas fa-cog"></i> Admin Portal</h4>
         <p>Complete control center for orders, customers, subscriptions, fulfillment, and analytics.</p>
+        <div class="mockup-links">
+          <a href="15_Admin_Dashboard.html" target="_blank">Dashboard</a>
+          <a href="16_Admin_Orders.html" target="_blank">Orders</a>
+          <a href="25_Order_Fulfillment_Admin.html" target="_blank">Fulfillment</a>
+          <a href="21_Customer_Management.html" target="_blank">Customers</a>
+          <a href="23_Subscription_Management_Admin.html" target="_blank">Subscriptions</a>
+        </div>
       </div>
       <div class="feature-card">
         <h4><i class="fas fa-brain"></i> Yield IQ</h4>
         <p>AI-powered yield prediction that learns from every carcass to optimize cutting decisions.</p>
+        <div class="mockup-links">
+          <a href="07_Predictor_Intake.html" target="_blank">Carcass Intake</a>
+          <a href="08_Predictor_Optimiser.html" target="_blank">Cut Selector</a>
+          <a href="09_Predictor_Dashboard.html" target="_blank">Accuracy Dashboard</a>
+        </div>
       </div>
     </div>
 
@@ -338,19 +432,60 @@ body {
 
   <!-- The Challenges -->
   <div class="page page-break">
-    <h2>Current Challenges</h2>
+    <h2>Current Challenges & Our Solutions</h2>
 
-    <h3>1. Complex Checkout Experience</h3>
-    <p>Customers currently struggle with weight minimums and variable pricing. The mental math required leads to cart abandonment and lost sales. Our solution: pre-weighed, pre-priced packets with exact costs displayed upfront.</p>
+    <div class="challenge-section">
+      <h3>1. Complex Checkout Experience</h3>
+      <p>Customers currently struggle with weight minimums and variable pricing. The mental math required leads to cart abandonment and lost sales.</p>
+      <div class="solution-box">
+        <h4><i class="fas fa-lightbulb"></i> Our Solution: Pre-weighed, pre-priced packets</h4>
+        <p>Exact costs displayed upfront — no calculator needed.</p>
+        <div class="mockup-links">
+          <a href="02_Storefront_Shop.html" target="_blank">View Shop Mockup</a>
+          <a href="03_Storefront_Cart.html" target="_blank">View Cart Mockup</a>
+        </div>
+      </div>
+    </div>
 
-    <h3>2. Manual Inventory Management</h3>
-    <p>Spreadsheet-based stock tracking leads to overselling (requiring refunds and apologies), stockouts, and hours of admin work each week. Our solution: real-time QR-based inventory that syncs automatically with the website.</p>
+    <div class="challenge-section">
+      <h3>2. Manual Inventory Management</h3>
+      <p>Spreadsheet-based stock tracking leads to overselling (requiring refunds and apologies), stockouts, and hours of admin work each week.</p>
+      <div class="solution-box">
+        <h4><i class="fas fa-lightbulb"></i> Our Solution: Real-time QR-based inventory</h4>
+        <p>Stock syncs automatically with the website. Scan once, sell online instantly.</p>
+        <div class="mockup-links">
+          <a href="04_Scanner_QRScan.html" target="_blank">View QR Scanner</a>
+          <a href="05_Scanner_StockOverview.html" target="_blank">View Stock Overview</a>
+          <a href="20_Admin_Inventory.html" target="_blank">View Inventory Admin</a>
+        </div>
+      </div>
+    </div>
 
-    <h3>3. No Order Visibility</h3>
-    <p>Customers have no idea when their order is processed, packed, or shipped. This generates support queries and erodes confidence. Our solution: real-time order tracking with NZ Post integration and automated email updates at every stage.</p>
+    <div class="challenge-section">
+      <h3>3. No Order Visibility</h3>
+      <p>Customers have no idea when their order is processed, packed, or shipped. This generates support queries and erodes confidence.</p>
+      <div class="solution-box">
+        <h4><i class="fas fa-lightbulb"></i> Our Solution: Real-time order tracking</h4>
+        <p>NZ Post integration, automated email updates at every stage. Customers always know where their order is.</p>
+        <div class="mockup-links">
+          <a href="24_Order_Tracking_Customer.html" target="_blank">View Customer Tracking</a>
+          <a href="25_Order_Fulfillment_Admin.html" target="_blank">View Fulfillment Dashboard</a>
+          <a href="26_Email_Order_Status.html" target="_blank">View Email Templates</a>
+        </div>
+      </div>
+    </div>
 
-    <h3>4. Hidden Value Proposition</h3>
-    <p>Juniper Hill's unique advantages — on-farm abattoir, stress-free slaughter, superior meat quality — aren't prominently communicated. Our solution: marketing-first design that leads with your story.</p>
+    <div class="challenge-section">
+      <h3>4. Hidden Value Proposition</h3>
+      <p>Juniper Hill's unique advantages — on-farm abattoir, stress-free slaughter, superior meat quality — aren't prominently communicated.</p>
+      <div class="solution-box">
+        <h4><i class="fas fa-lightbulb"></i> Our Solution: Marketing-first design</h4>
+        <p>Homepage and brand story that leads with what makes you special.</p>
+        <div class="mockup-links">
+          <a href="01_Storefront_Homepage.html" target="_blank">View Homepage</a>
+        </div>
+      </div>
+    </div>
 
     <div class="highlight">
       <h4>The Juniper Hill Difference</h4>
@@ -380,7 +515,7 @@ body {
         <tr>
           <td><strong>Subscription Boxes</strong></td>
           <td>Recurring deliveries (weekly/fortnightly/monthly)</td>
-          <td>Predictable revenue, higher CLV</td>
+          <td>Predictable revenue, loyal customers</td>
         </tr>
         <tr>
           <td><strong>Order Tracking</strong></td>
@@ -480,7 +615,7 @@ body {
           <td><strong>+$36,400</strong></td>
         </tr>
         <tr>
-          <td>Improved Customer Lifetime Value</td>
+          <td>Improved Customer Retention</td>
           <td><strong>+$15,000</strong></td>
         </tr>
         <tr style="background: var(--kale); color: #fff;">
