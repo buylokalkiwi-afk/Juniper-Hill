@@ -341,6 +341,118 @@ body {
   cursor: not-allowed;
 }
 
+/* Help/Explainer Popups */
+.help-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: rgba(196, 30, 58, 0.1);
+  color: var(--hover);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: all 0.2s;
+}
+.help-trigger:hover {
+  background: var(--hover);
+  color: #fff;
+}
+
+.help-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.help-popup.active {
+  display: flex;
+}
+
+.help-content {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  padding: 32px;
+  position: relative;
+  animation: popIn 0.2s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.help-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: var(--cream);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+}
+.help-close:hover {
+  background: var(--hover);
+  color: #fff;
+}
+
+.help-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 16px;
+}
+
+.help-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.help-body p {
+  margin-bottom: 12px;
+}
+
+.help-body ul {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+
+.help-body li {
+  margin-bottom: 8px;
+}
+
+.help-body strong {
+  color: var(--charcoal);
+}
+
+.help-badge {
+  display: inline-block;
+  background: var(--complete);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
 /* Message for client */
 .mockup-note {
   background: #fffbeb;
@@ -363,7 +475,7 @@ body {
 <div class="page-layout">
   <aside class="sidebar">
     <div class="logo">
-      <div class="logo-text">YIELD <span>IQ</span></div>
+      <div class="logo-text">YIELD <span>IQ</span> <span class="help-trigger" onclick="showHelp('yield')">?</span></div>
       <div class="logo-sub">Yield Optimization</div>
     </div>
     <ul class="nav">
@@ -394,7 +506,7 @@ body {
 
     <div class="cow-display">
       <div class="title-area">
-        <h1 class="main-title">Cuts of Beef</h1>
+        <h1 class="main-title">Cuts of Beef <span class="help-trigger" onclick="showHelp('cuts')">?</span></h1>
         <p class="subtitle">Click each section to select your cuts</p>
       </div>
       <div class="cow-container">
@@ -571,13 +683,93 @@ body {
 
     <div class="panel-footer">
       <div class="total-row">
-        <span class="total-label">Running Total</span>
+        <span class="total-label">Running Total <span class="help-trigger" onclick="showHelp('total')">?</span></span>
         <span class="total-amount">$5,180</span>
       </div>
       <button class="final-btn" disabled>Complete 5 More Sections</button>
     </div>
   </aside>
 </div>
+
+<!-- Help Popups -->
+<div class="help-popup" id="helpYield">
+  <div class="help-content">
+    <button class="help-close" onclick="closeHelp()">&times;</button>
+    <span class="help-badge">AI-POWERED</span>
+    <h3 class="help-title">How Yield IQ Works</h3>
+    <div class="help-body">
+      <p><strong>Yield IQ learns from every carcass you process.</strong></p>
+      <p>When you enter a new carcass with its live weight and fat score, the AI predicts:</p>
+      <ul>
+        <li><strong>Expected aged weight</strong> — accounting for moisture loss during dry ageing</li>
+        <li><strong>Saleable yield</strong> — how much meat you'll actually sell</li>
+        <li><strong>Optimal cuts</strong> — based on current inventory and demand</li>
+      </ul>
+      <p>The more carcasses you process, the smarter it gets. After 50+ animals, accuracy reaches <strong>95%+</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="help-popup" id="helpCuts">
+  <div class="help-content">
+    <button class="help-close" onclick="closeHelp()">&times;</button>
+    <span class="help-badge">INTERACTIVE</span>
+    <h3 class="help-title">Visual Cut Selector</h3>
+    <div class="help-body">
+      <p><strong>Click on each section of the cow to plan your cuts.</strong></p>
+      <p>The interactive diagram shows:</p>
+      <ul>
+        <li><strong>Dark sections</strong> — not yet planned</li>
+        <li><strong>Red sections</strong> — hover to see options</li>
+        <li><strong>Green sections</strong> — cuts selected and priced</li>
+      </ul>
+      <p>As you select cuts, the right panel updates with your running total. The AI suggests cuts based on what's selling well in your store.</p>
+    </div>
+  </div>
+</div>
+
+<div class="help-popup" id="helpTotal">
+  <div class="help-content">
+    <button class="help-close" onclick="closeHelp()">&times;</button>
+    <span class="help-badge">OPTIMISED</span>
+    <h3 class="help-title">Running Total & Optimization</h3>
+    <div class="help-body">
+      <p><strong>See the projected revenue as you plan.</strong></p>
+      <p>The running total shows:</p>
+      <ul>
+        <li><strong>Current planned revenue</strong> — from cuts you've selected</li>
+        <li><strong>Comparison to average</strong> — are you above or below typical yield?</li>
+        <li><strong>Suggestions</strong> — the AI highlights high-demand cuts you might be missing</li>
+      </ul>
+      <p>Complete all sections, then click "Finalize Cuts" to send the plan to your butcher and add packets to inventory automatically.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function showHelp(type) {
+  const popup = document.getElementById('help' + type.charAt(0).toUpperCase() + type.slice(1));
+  if (popup) popup.classList.add('active');
+}
+
+function closeHelp() {
+  document.querySelectorAll('.help-popup').forEach(p => p.classList.remove('active'));
+}
+
+// Close on background click
+document.querySelectorAll('.help-popup').forEach(popup => {
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) closeHelp();
+  });
+});
+
+// Toggle section expansion
+document.querySelectorAll('.section-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('expanded');
+  });
+});
+</script>
 
 </body>
 </html>

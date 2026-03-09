@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JH Stock Scanner — Print Labels</title>
+<title>FarmFlow — Print Labels</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -15,6 +15,7 @@
   --charcoal: #1E1E1E;
   --stone: #7A7163;
   --zest: #c8d9a0;
+  --success: #2D7A4D;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--charcoal); }
@@ -29,9 +30,11 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
 
 .app-header {
   background: var(--kale); padding: 16px 20px; color: #fff;
+  display: flex; justify-content: space-between; align-items: center;
 }
 .app-logo { font-size: 18px; font-weight: 600; letter-spacing: 2px; }
 .app-logo span { color: var(--zest); }
+.app-subtitle { font-size: 10px; opacity: 0.7; letter-spacing: 1px; }
 
 /* Section Header */
 .section-header {
@@ -56,30 +59,55 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
 .carcass-details { font-size: 12px; color: var(--stone); margin-top: 2px; }
 .carcass-date { text-align: right; font-size: 11px; color: var(--stone); }
 
-/* Product Selection */
-.product-selection { padding: 16px; }
-.product-row {
+/* Packet Selection - Individual unique packets */
+.packet-selection { padding: 16px; }
+.packet-info-banner {
+  background: linear-gradient(135deg, var(--kale) 0%, var(--kale-dark) 100%);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.packet-info-banner i { font-size: 18px; color: var(--zest); }
+
+.packet-row {
   display: flex; align-items: center; gap: 12px;
   padding: 14px; background: #fff; margin-bottom: 8px;
   border: 1px solid var(--parchment); border-radius: 8px;
+  transition: all 0.2s;
 }
-.product-checkbox {
-  width: 24px; height: 24px; border: 2px solid var(--kale);
+.packet-row:hover { border-color: var(--kale); }
+.packet-row.selected { border-color: var(--success); background: rgba(45, 122, 77, 0.05); }
+
+.packet-checkbox {
+  width: 24px; height: 24px; border: 2px solid var(--stone);
   border-radius: 4px; cursor: pointer; display: flex;
   align-items: center; justify-content: center;
+  transition: all 0.2s;
 }
-.product-checkbox.checked { background: var(--kale); color: #fff; }
-.product-row-info { flex: 1; }
-.product-row-name { font-weight: 500; font-size: 14px; }
-.product-row-units { font-size: 12px; color: var(--stone); }
-.label-count {
-  display: flex; align-items: center; gap: 8px;
+.packet-checkbox.checked { background: var(--success); border-color: var(--success); color: #fff; }
+
+.packet-details { flex: 1; }
+.packet-cut { font-weight: 500; font-size: 14px; color: var(--charcoal); }
+.packet-unique-id { font-size: 10px; color: var(--stone); font-family: monospace; margin-top: 2px; }
+
+.packet-weight-price {
+  text-align: right;
 }
-.count-btn {
-  width: 28px; height: 28px; border: 1px solid var(--parchment);
-  background: #fff; font-size: 16px; cursor: pointer;
+.packet-weight {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--kale);
 }
-.count-value { font-size: 16px; font-weight: 600; min-width: 24px; text-align: center; }
+.packet-price {
+  font-size: 12px;
+  color: var(--terracotta);
+  font-weight: 500;
+}
 
 /* Label Preview */
 .label-preview {
@@ -90,7 +118,7 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
 .preview-title { font-size: 14px; font-weight: 600; color: var(--kale); }
 .preview-subtitle { font-size: 11px; color: var(--stone); }
 
-/* Simulated Label */
+/* Simulated Label - shows unique packet data */
 .label-mock {
   background: #fff; border: 2px solid var(--charcoal);
   padding: 16px; font-family: monospace; font-size: 12px;
@@ -99,6 +127,15 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
 .label-farm { font-weight: bold; font-size: 14px; }
 .label-certified { background: var(--charcoal); color: #fff; padding: 2px 8px; font-size: 10px; display: inline-block; margin: 8px 0; }
 .label-product { font-size: 18px; font-weight: bold; margin: 8px 0; }
+.label-unique-badge {
+  background: var(--terracotta);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
 .label-weight-price {
   display: flex; background: var(--charcoal); color: #fff;
   padding: 8px; margin: 8px 0;
@@ -106,21 +143,28 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
 .label-weight-price div { flex: 1; text-align: center; }
 .label-qr { width: 60px; height: 60px; background: var(--charcoal); float: right; margin-left: 12px; }
 
-/* Print Button */
+/* Print Actions */
 .print-actions { padding: 16px; }
+.print-summary {
+  text-align: center; font-size: 14px; color: var(--stone);
+  padding: 12px; background: var(--parchment); border-radius: 8px;
+  margin-bottom: 12px;
+}
+.print-summary strong { color: var(--kale); }
+.print-summary .unique-note {
+  font-size: 11px;
+  color: var(--success);
+  margin-top: 4px;
+}
+
 .print-btn {
   width: 100%; padding: 18px; background: var(--kale); color: #fff;
   border: none; font-size: 14px; font-weight: 600; letter-spacing: 1px;
   cursor: pointer; border-radius: 8px; margin-bottom: 12px;
+  transition: all 0.2s;
 }
 .print-btn:hover { background: var(--kale-dark); }
 .print-btn.secondary { background: #fff; color: var(--kale); border: 2px solid var(--kale); }
-
-.print-summary {
-  text-align: center; font-size: 14px; color: var(--stone);
-  padding: 12px; background: var(--parchment); border-radius: 8px;
-}
-.print-summary strong { color: var(--kale); }
 
 /* Bottom Nav */
 .bottom-nav {
@@ -140,17 +184,20 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
 </head>
 <body>
 
-<div class="mockup-badge">MOCKUP — PRINT LABELS — THERMAL PRINTER INTEGRATION</div>
+<div class="mockup-badge">MOCKUP — FARMFLOW LABELS — UNIQUE PACKET PRINTING</div>
 
 <div class="app-container">
   <header class="app-header">
-    <div class="app-logo">JH <span>LABELS</span></div>
+    <div>
+      <div class="app-logo">FARM<span>FLOW</span></div>
+      <div class="app-subtitle">LABEL PRINTING</div>
+    </div>
   </header>
 
   <!-- Section: Select Carcass -->
   <div class="section-header">
     <div class="section-title">1. Select Carcass</div>
-    <div class="section-subtitle">Choose carcass to print labels for</div>
+    <div class="section-subtitle">View packets ready for labelling</div>
   </div>
 
   <div class="carcass-list">
@@ -158,73 +205,81 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
       <span class="carcass-icon">🐂</span>
       <div class="carcass-info">
         <div class="carcass-tag">JH-2024-A047</div>
-        <div class="carcass-details">Angus | 260kg saleable | Fat Score 3</div>
+        <div class="carcass-details">Angus | 18 packets pending | Weighed today</div>
       </div>
       <div class="carcass-date">Today<br>9:34 AM</div>
     </div>
-    <div class="carcass-item">
-      <span class="carcass-icon">🐂</span>
-      <div class="carcass-info">
-        <div class="carcass-tag">JH-2024-A046</div>
-        <div class="carcass-details">Angus-cross | 245kg saleable | Fat Score 4</div>
-      </div>
-      <div class="carcass-date">Yesterday<br>2:15 PM</div>
-    </div>
   </div>
 
-  <!-- Section: Select Products -->
+  <!-- Section: Select Individual Packets -->
   <div class="section-header">
-    <div class="section-title">2. Select Products & Quantities</div>
-    <div class="section-subtitle">From carcass JH-2024-A047</div>
+    <div class="section-title">2. Select Packets to Label</div>
+    <div class="section-subtitle">Each packet has unique weight & price</div>
   </div>
 
-  <div class="product-selection">
-    <div class="product-row">
-      <div class="product-checkbox checked">✓</div>
-      <div class="product-row-info">
-        <div class="product-row-name">Ribeye Steak 300g</div>
-        <div class="product-row-units">18 units from this carcass</div>
+  <div class="packet-selection">
+    <div class="packet-info-banner">
+      <span>ℹ️</span>
+      <span>Each label is unique — individual weight and price per packet. No duplicates.</span>
+    </div>
+
+    <div class="packet-row selected">
+      <div class="packet-checkbox checked">✓</div>
+      <div class="packet-details">
+        <div class="packet-cut">Ribeye Steak</div>
+        <div class="packet-unique-id">PKT-A047-001</div>
       </div>
-      <div class="label-count">
-        <button class="count-btn">−</button>
-        <span class="count-value">18</span>
-        <button class="count-btn">+</button>
+      <div class="packet-weight-price">
+        <div class="packet-weight">312g</div>
+        <div class="packet-price">$22.84</div>
       </div>
     </div>
-    <div class="product-row">
-      <div class="product-checkbox checked">✓</div>
-      <div class="product-row-info">
-        <div class="product-row-name">Sirloin Steak 250g</div>
-        <div class="product-row-units">24 units from this carcass</div>
+
+    <div class="packet-row selected">
+      <div class="packet-checkbox checked">✓</div>
+      <div class="packet-details">
+        <div class="packet-cut">Ribeye Steak</div>
+        <div class="packet-unique-id">PKT-A047-002</div>
       </div>
-      <div class="label-count">
-        <button class="count-btn">−</button>
-        <span class="count-value">24</span>
-        <button class="count-btn">+</button>
-      </div>
-    </div>
-    <div class="product-row">
-      <div class="product-checkbox checked">✓</div>
-      <div class="product-row-info">
-        <div class="product-row-name">Beef Sausages 400g</div>
-        <div class="product-row-units">32 units from this carcass</div>
-      </div>
-      <div class="label-count">
-        <button class="count-btn">−</button>
-        <span class="count-value">32</span>
-        <button class="count-btn">+</button>
+      <div class="packet-weight-price">
+        <div class="packet-weight">287g</div>
+        <div class="packet-price">$21.01</div>
       </div>
     </div>
-    <div class="product-row">
-      <div class="product-checkbox"></div>
-      <div class="product-row-info">
-        <div class="product-row-name">Premium Mince 500g</div>
-        <div class="product-row-units">40 units from this carcass</div>
+
+    <div class="packet-row selected">
+      <div class="packet-checkbox checked">✓</div>
+      <div class="packet-details">
+        <div class="packet-cut">Sirloin Steak</div>
+        <div class="packet-unique-id">PKT-A047-003</div>
       </div>
-      <div class="label-count">
-        <button class="count-btn">−</button>
-        <span class="count-value">0</span>
-        <button class="count-btn">+</button>
+      <div class="packet-weight-price">
+        <div class="packet-weight">245g</div>
+        <div class="packet-price">$17.15</div>
+      </div>
+    </div>
+
+    <div class="packet-row">
+      <div class="packet-checkbox"></div>
+      <div class="packet-details">
+        <div class="packet-cut">Sirloin Steak</div>
+        <div class="packet-unique-id">PKT-A047-004</div>
+      </div>
+      <div class="packet-weight-price">
+        <div class="packet-weight">268g</div>
+        <div class="packet-price">$18.76</div>
+      </div>
+    </div>
+
+    <div class="packet-row">
+      <div class="packet-checkbox"></div>
+      <div class="packet-details">
+        <div class="packet-cut">Premium Mince</div>
+        <div class="packet-unique-id">PKT-A047-005</div>
+      </div>
+      <div class="packet-weight-price">
+        <div class="packet-weight">503g</div>
+        <div class="packet-price">$15.09</div>
       </div>
     </div>
   </div>
@@ -233,32 +288,33 @@ body { font-family: 'Jost', sans-serif; background: var(--feta); color: var(--ch
   <div class="label-preview">
     <div class="label-preview-header">
       <div class="preview-title">LABEL PREVIEW</div>
-      <div class="preview-subtitle">Generated via Labelary API</div>
+      <div class="preview-subtitle">Showing: PKT-A047-001</div>
     </div>
     <div class="label-mock">
       <div class="label-qr"></div>
-      <div class="label-farm">JUNIPER HILL ORGANIC ANGUS FARM</div>
+      <div class="label-farm">JUNIPER HILL ORGANIC ANGUS</div>
       <div class="label-certified">★ BIOGRO CERTIFIED</div>
       <div class="label-product">Ribeye Steak</div>
-      <div style="font-size: 11px;">300g | Dry-cured</div>
+      <div class="label-unique-badge">UNIQUE PACKET: PKT-A047-001</div>
+      <div style="font-size: 11px;">Dry-aged 21 days | 100% Grass Fed</div>
       <div class="label-weight-price">
-        <div><strong>WEIGHT</strong><br>300 g</div>
-        <div><strong>PRICE</strong><br>$22.00</div>
+        <div><strong>EXACT WEIGHT</strong><br>312 g</div>
+        <div><strong>YOUR PRICE</strong><br>$22.84</div>
       </div>
-      <div style="font-size: 10px;">$73.33 / kg | 100% Grass Fed</div>
+      <div style="font-size: 10px;">$73.21 / kg | From carcass JH-2024-A047</div>
       <div style="font-size: 11px; margin-top: 8px;">USE BY: 15 Mar 2026</div>
-      <div style="font-size: 9px; color: var(--stone);">Lot: A047-20260301 | juniperhill.co.nz</div>
+      <div style="font-size: 9px; color: var(--stone);">Scan QR to view online | juniperhill.co.nz</div>
     </div>
   </div>
 
   <!-- Print Actions -->
   <div class="print-actions">
     <div class="print-summary">
-      Ready to print <strong>74 labels</strong> for 3 products
+      Ready to print <strong>3 unique labels</strong>
+      <div class="unique-note">✓ Each label has its own exact weight & price</div>
     </div>
-    <button class="print-btn">PREVIEW ALL LABELS</button>
-    <button class="print-btn">🖨️ PRINT TO 192.168.1.45</button>
-    <button class="print-btn secondary">DOWNLOAD .ZPL FILE</button>
+    <button class="print-btn">🖨️ PRINT 3 LABELS</button>
+    <button class="print-btn secondary">PREVIEW ALL LABELS</button>
   </div>
 
   <!-- Bottom Nav -->

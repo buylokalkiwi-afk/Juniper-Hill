@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Hill — Guided System Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --kale: #2D4A2D;
+  --kale-dark: #1A2E1A;
+  --terracotta: #B85C38;
+  --parchment: #F5EFE0;
+  --feta: #FAF7F2;
+  --charcoal: #1E1E1E;
+  --stone: #7A7163;
+  --zest: #c8d9a0;
+  --border: #E2D9CC;
+  --success: #2D7A4D;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--charcoal);
+  color: var(--charcoal);
+  min-height: 100vh;
+}
+
+/* Header */
+.tour-header {
+  background: var(--kale);
+  color: #fff;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.tour-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+.tour-logo span { color: var(--zest); }
+
+.tour-progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progress-text {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 6px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--zest);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Main Layout */
+.tour-container {
+  display: flex;
+  margin-top: 70px;
+  min-height: calc(100vh - 70px);
+}
+
+/* Sidebar */
+.tour-sidebar {
+  width: 320px;
+  background: var(--feta);
+  border-right: 1px solid var(--border);
+  padding: 24px;
+  overflow-y: auto;
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+}
+
+.sidebar-title {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--stone);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* Step List */
+.step-group {
+  margin-bottom: 24px;
+}
+
+.step-group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--kale);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.step-item:hover {
+  background: var(--parchment);
+}
+
+.step-item.active {
+  background: var(--kale);
+  color: #fff;
+}
+
+.step-item.completed .step-number {
+  background: var(--success);
+  color: #fff;
+}
+
+.step-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-item.active .step-number {
+  background: var(--zest);
+  color: var(--kale);
+}
+
+.step-info {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.step-subtitle {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.step-check {
+  color: var(--success);
+  font-size: 14px;
+}
+
+/* Main Content */
+.tour-content {
+  flex: 1;
+  margin-left: 320px;
+  padding: 40px;
+  background: var(--charcoal);
+}
+
+/* Preview Frame */
+.preview-frame {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.preview-header {
+  background: var(--parchment);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-title-area h3 {
+  font-size: 16px;
+  color: var(--kale);
+  margin-bottom: 4px;
+}
+
+.preview-title-area p {
+  font-size: 12px;
+  color: var(--stone);
+}
+
+.preview-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.preview-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.preview-btn.primary {
+  background: var(--kale);
+  color: #fff;
+}
+
+.preview-btn.primary:hover {
+  background: var(--kale-dark);
+}
+
+.preview-btn.secondary {
+  background: #fff;
+  color: var(--kale);
+  border: 1px solid var(--border);
+}
+
+.preview-btn.secondary:hover {
+  border-color: var(--kale);
+}
+
+/* iFrame Container */
+.preview-iframe-container {
+  height: calc(100vh - 220px);
+  min-height: 600px;
+}
+
+.preview-iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Navigation Footer */
+.tour-footer {
+  position: fixed;
+  bottom: 0;
+  left: 320px;
+  right: 0;
+  background: var(--kale-dark);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
+}
+
+.nav-btn.prev {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.nav-btn.prev:hover {
+  border-color: #fff;
+}
+
+.nav-btn.next {
+  background: var(--terracotta);
+  color: #fff;
+}
+
+.nav-btn.next:hover {
+  background: #a04a28;
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.tour-step-indicator {
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+}
+
+/* Completed Badge */
+.completed-badge {
+  background: var(--success);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+@media (max-width: 1024px) {
+  .tour-sidebar {
+    width: 260px;
+  }
+  .tour-content {
+    margin-left: 260px;
+  }
+  .tour-footer {
+    left: 260px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="tour-header">
+  <div class="tour-logo">JUNIPER <span>HILL</span></div>
+  <div class="tour-progress">
+    <span class="progress-text" id="progressText">Step 1 of 12</span>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 8.3%"></div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Container -->
+<div class="tour-container">
+  
+  <!-- Sidebar -->
+  <aside class="tour-sidebar">
+    <div class="sidebar-title">System Tour</div>
+    
+    <div class="step-group">
+      <div class="step-group-title">Introduction</div>
+      <a href="#" class="step-item active" data-step="1" data-url="27_Pitch_Deck.html">
+        <div class="step-number">1</div>
+        <div class="step-info">
+          <div class="step-title">Pitch Deck</div>
+          <div class="step-subtitle">Overview & value proposition</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="2" data-url="28_ROI_Analysis.html">
+        <div class="step-number">2</div>
+        <div class="step-info">
+          <div class="step-title">ROI Analysis</div>
+          <div class="step-subtitle">Financial impact & payback</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="step-group">
+      <div class="step-group-title">Customer Storefront</div>
+      <a href="#" class="step-item" data-step="3" data-url="01_Storefront_Homepage.html">
+        <div class="step-number">3</div>
+        <div class="step-info">
+          <div class="step-title">Homepage</div>
+          <div class="step-subtitle">Brand story & hero</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="4" data-url="02_Storefront_Shop.html">
+        <div class="step-number">4</div>
+        <div class="step-info">
+          <div class="step-title">Shop</div>
+          <div class="step-subtitle">Packet-based browsing</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="5" data-url="03_Storefront_Cart.html">
+        <div class="step-number">5</div>
+        <div class="step-info">
+          <div class="step-title">Cart & Checkout</div>
+          <div class="step-subtitle">Stripe integration</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="6" data-url="12_Storefront_Subscribe.html">
+        <div class="step-number">6</div>
+        <div class="step-info">
+          <div class="step-title">Subscriptions</div>
+          <div class="step-subtitle">Recurring box deliveries</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="7" data-url="24_Order_Tracking_Customer.html">
+        <div class="step-number">7</div>
+        <div class="step-info">
+          <div class="step-title">Order Tracking</div>
+          <div class="step-subtitle">NZ Post integration</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="step-group">
+      <div class="step-group-title">FarmFlow Staff App</div>
+      <a href="#" class="step-item" data-step="8" data-url="04_Scanner_QRScan.html">
+        <div class="step-number">8</div>
+        <div class="step-info">
+          <div class="step-title">QR Scanner</div>
+          <div class="step-subtitle">Instant inventory add</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="9" data-url="06_Scanner_PrintLabels.html">
+        <div class="step-number">9</div>
+        <div class="step-info">
+          <div class="step-title">Label Printing</div>
+          <div class="step-subtitle">Unique packet labels</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="step-group">
+      <div class="step-group-title">Admin Portal</div>
+      <a href="#" class="step-item" data-step="10" data-url="15_Admin_Dashboard.html">
+        <div class="step-number">10</div>
+        <div class="step-info">
+          <div class="step-title">Dashboard</div>
+          <div class="step-subtitle">Business overview</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="11" data-url="25_Order_Fulfillment_Admin.html">
+        <div class="step-number">11</div>
+        <div class="step-info">
+          <div class="step-title">Fulfillment</div>
+          <div class="step-subtitle">Order processing</div>
+        </div>
+      </a>
+      <a href="#" class="step-item" data-step="12" data-url="08_Predictor_Optimiser.html">
+        <div class="step-number">12</div>
+        <div class="step-info">
+          <div class="step-title">Yield IQ</div>
+          <div class="step-subtitle">AI yield prediction</div>
+        </div>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="tour-content">
+    <div class="preview-frame">
+      <div class="preview-header">
+        <div class="preview-title-area">
+          <h3 id="currentTitle">Pitch Deck</h3>
+          <p id="currentDescription">Overview of the complete system and value proposition</p>
+        </div>
+        <div class="preview-actions">
+          <button class="preview-btn secondary" onclick="openInNewTab()">
+            <i class="fas fa-external-link-alt"></i> Open Full Screen
+          </button>
+          <button class="preview-btn primary" onclick="markAsViewed()">
+            <i class="fas fa-check"></i> Mark as Viewed
+          </button>
+        </div>
+      </div>
+      <div class="preview-iframe-container">
+        <iframe id="previewFrame" src="27_Pitch_Deck.html"></iframe>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Footer Navigation -->
+<footer class="tour-footer">
+  <button class="nav-btn prev" id="prevBtn" disabled onclick="navigate(-1)">
+    <i class="fas fa-arrow-left"></i> Previous
+  </button>
+  <span class="tour-step-indicator" id="stepIndicator">Step 1 of 12</span>
+  <button class="nav-btn next" id="nextBtn" onclick="navigate(1)">
+    Next <i class="fas fa-arrow-right"></i>
+  </button>
+</footer>
+
+<script>
+const steps = [
+  { step: 1, url: '27_Pitch_Deck.html', title: 'Pitch Deck', desc: 'Overview of the complete system and value proposition' },
+  { step: 2, url: '28_ROI_Analysis.html', title: 'ROI Analysis', desc: 'Financial impact, revenue projections, and payback period' },
+  { step: 3, url: '01_Storefront_Homepage.html', title: 'Homepage', desc: 'Customer-facing homepage with brand story and value pillars' },
+  { step: 4, url: '02_Storefront_Shop.html', title: 'Shop', desc: 'Packet-based product browsing with unique weights and prices' },
+  { step: 5, url: '03_Storefront_Cart.html', title: 'Cart & Checkout', desc: 'Stripe-powered secure checkout with exact pricing' },
+  { step: 6, url: '12_Storefront_Subscribe.html', title: 'Subscriptions', desc: 'Recurring delivery boxes optimized for NZ Post shipping' },
+  { step: 7, url: '24_Order_Tracking_Customer.html', title: 'Order Tracking', desc: 'Real-time order status with NZ Post tracking integration' },
+  { step: 8, url: '04_Scanner_QRScan.html', title: 'QR Scanner', desc: 'Staff mobile app for instant inventory management' },
+  { step: 9, url: '06_Scanner_PrintLabels.html', title: 'Label Printing', desc: 'Print unique labels for each weighed packet' },
+  { step: 10, url: '15_Admin_Dashboard.html', title: 'Admin Dashboard', desc: 'Complete business overview and key metrics' },
+  { step: 11, url: '25_Order_Fulfillment_Admin.html', title: 'Fulfillment', desc: 'Order processing workflow with status management' },
+  { step: 12, url: '08_Predictor_Optimiser.html', title: 'Yield IQ', desc: 'AI-powered yield prediction and cut optimization' }
+];
+
+let currentStep = 1;
+let viewedSteps = new Set();
+
+// Load viewed steps from localStorage
+try {
+  const saved = localStorage.getItem('jhTourViewed');
+  if (saved) viewedSteps = new Set(JSON.parse(saved));
+} catch (e) {}
+
+function updateUI() {
+  const step = steps[currentStep - 1];
+  
+  // Update iframe
+  document.getElementById('previewFrame').src = step.url;
+  document.getElementById('currentTitle').textContent = step.title;
+  document.getElementById('currentDescription').textContent = step.desc;
+  
+  // Update progress
+  const progress = (currentStep / steps.length) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  document.getElementById('progressText').textContent = `Step ${currentStep} of ${steps.length}`;
+  document.getElementById('stepIndicator').textContent = `Step ${currentStep} of ${steps.length}`;
+  
+  // Update buttons
+  document.getElementById('prevBtn').disabled = currentStep === 1;
+  document.getElementById('nextBtn').innerHTML = currentStep === steps.length 
+    ? 'Complete Tour <i class="fas fa-check"></i>' 
+    : 'Next <i class="fas fa-arrow-right"></i>';
+  
+  // Update sidebar
+  document.querySelectorAll('.step-item').forEach(item => {
+    const itemStep = parseInt(item.dataset.step);
+    item.classList.remove('active');
+    
+    if (itemStep === currentStep) {
+      item.classList.add('active');
+    }
+    
+    // Show completed checkmark
+    let check = item.querySelector('.step-check');
+    if (viewedSteps.has(itemStep)) {
+      item.classList.add('completed');
+      if (!check) {
+        check = document.createElement('i');
+        check.className = 'fas fa-check step-check';
+        item.appendChild(check);
+      }
+    }
+  });
+}
+
+function navigate(direction) {
+  const newStep = currentStep + direction;
+  if (newStep >= 1 && newStep <= steps.length) {
+    currentStep = newStep;
+    updateUI();
+  }
+}
+
+function markAsViewed() {
+  viewedSteps.add(currentStep);
+  localStorage.setItem('jhTourViewed', JSON.stringify([...viewedSteps]));
+  updateUI();
+  
+  // Show feedback
+  const btn = event.target.closest('button');
+  btn.innerHTML = '<i class="fas fa-check"></i> Viewed!';
+  btn.style.background = '#2D7A4D';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fas fa-check"></i> Mark as Viewed';
+    btn.style.background = '';
+  }, 1500);
+}
+
+function openInNewTab() {
+  const step = steps[currentStep - 1];
+  window.open(step.url, '_blank');
+}
+
+// Sidebar click handlers
+document.querySelectorAll('.step-item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentStep = parseInt(item.dataset.step);
+    updateUI();
+  });
+});
+
+// Initialize
+updateUI();
+</script>
+
+</body>
+</html>
