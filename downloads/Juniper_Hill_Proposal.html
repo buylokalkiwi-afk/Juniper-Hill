@@ -436,10 +436,11 @@ body {
 
     <div class="challenge-section">
       <h3>1. Complex Checkout Experience</h3>
-      <p>Customers currently struggle with weight minimums and variable pricing. The mental math required leads to cart abandonment and lost sales.</p>
+      <p>Customers must meet a <strong>6kg minimum order</strong> — but the current system makes this frustrating. They're left pulling out a calculator, manually adding up packet weights, trying to figure out if they've hit the threshold. Variable pricing per cut adds another layer of confusion. The mental math leads to cart abandonment, support queries, and lost sales.</p>
+      <p style="margin-top: 12px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; font-size: 13px;"><strong>Current pain:</strong> "Have I ordered enough? Let me add 450g + 380g + 520g... is that over 6kg yet?" — then they give up.</p>
       <div class="solution-box">
         <h4><i class="fas fa-lightbulb"></i> Our Solution: Pre-weighed, pre-priced packets</h4>
-        <p>Exact costs displayed upfront — no calculator needed.</p>
+        <p>Every packet in the shop has an <strong>exact weight and exact price</strong> — no estimation, no calculator needed. Customers see "$23.40 for this 312g ribeye" and add to cart. The system tracks the running total and shows clearly when the 6kg minimum is met. Simple, transparent, done.</p>
         <div class="mockup-links">
           <a href="02_Storefront_Shop.html" target="_blank">View Shop Mockup</a>
           <a href="03_Storefront_Cart.html" target="_blank">View Cart Mockup</a>
@@ -448,14 +449,26 @@ body {
     </div>
 
     <div class="challenge-section">
-      <h3>2. Manual Inventory Management</h3>
+      <h3>2. Two-Payment Problem</h3>
+      <p>Currently, customers order a "type" of meat (e.g., 2kg of mince) but don't know the exact weight or price until it's packed. This forces Juniper Hill to take <strong>two payments</strong>: an initial estimate, then a follow-up charge or refund for the actual amount. It's awkward, creates admin overhead, and erodes customer trust.</p>
+      <div class="solution-box">
+        <h4><i class="fas fa-lightbulb"></i> Our Solution: FarmFlow inventory tracking</h4>
+        <p>With FarmFlow, staff weigh and price each packet <strong>before</strong> it goes online. Customers select from real, physical packets already in the chiller — not abstract quantities. They pay once, for exactly what they're getting. <strong>One payment. No surprises. No follow-ups.</strong></p>
+        <div class="mockup-links">
+          <a href="04_Scanner_QRScan.html" target="_blank">View FarmFlow Scanner</a>
+          <a href="06_Scanner_PrintLabels.html" target="_blank">View Label Printing</a>
+          <a href="05_Scanner_StockOverview.html" target="_blank">View Stock Overview</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="challenge-section">
+      <h3>3. Manual Inventory Management</h3>
       <p>Spreadsheet-based stock tracking leads to overselling (requiring refunds and apologies), stockouts, and hours of admin work each week.</p>
       <div class="solution-box">
-        <h4><i class="fas fa-lightbulb"></i> Our Solution: Real-time QR-based inventory</h4>
-        <p>Stock syncs automatically with the website. Scan once, sell online instantly.</p>
+        <h4><i class="fas fa-lightbulb"></i> Our Solution: Real-time sync</h4>
+        <p>When a packet is scanned into FarmFlow, it's instantly available on the website. When it sells, it's gone. No double-selling, no manual updates, no spreadsheets.</p>
         <div class="mockup-links">
-          <a href="04_Scanner_QRScan.html" target="_blank">View QR Scanner</a>
-          <a href="05_Scanner_StockOverview.html" target="_blank">View Stock Overview</a>
           <a href="20_Admin_Inventory.html" target="_blank">View Inventory Admin</a>
         </div>
       </div>
